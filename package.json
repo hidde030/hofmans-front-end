@@ -1,7 +1,7 @@
 {
-	"name": "simple-cms-nextjs",
+	"name": "hofmans-drukkerij",
 	"version": "1.0.0",
-	"website": "starters-simple-cms-nextjs.vercel.app",
+	"website": "",
 	"license": "MIT",
 	"scripts": {
 		"dev": "next dev --turbopack",
