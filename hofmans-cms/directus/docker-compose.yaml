@@ -39,7 +39,10 @@ services:
       start_period: 30s
 
   directus:
-    image: directus/directus:11.15.4
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hofmans/directus:11.15.4-sync
     ports:
       - ${DIRECTUS_PORT}:8055
     volumes:
@@ -84,6 +87,8 @@ services:
       EXTENSIONS_AUTO_RELOAD: ${EXTENSIONS_AUTO_RELOAD}
 
       CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC: ${CONTENT_SECURITY_POLICY_DIRECTIVES__FRAME_SRC}
+
+      MARKETPLACE_TRUST: ${MARKETPLACE_TRUST}
 
       EMAIL_TRANSPORT: ${EMAIL_TRANSPORT}
       EMAIL_FROM: ${EMAIL_FROM}
