@@ -206,7 +206,7 @@ directus instance or update existing one.
 
 ### 4. Push to local instance
 
-npx directus-sync push --directus-url http://localhost:8055 --directus-token [PASSWORD]
+npx directus-sync push --directus-url http://localhost:8055 --directus-token sHmKHeNB6iRMvOf2NQq8xNkZgONR9mYt
 
 This command will:
 
