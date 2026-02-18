@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Administrator",
+    "icon": "verified",
+    "description": "$t:admin_description",
+    "parent": null,
+    "_syncId": "_sync_default_admin_role"
+  },
+  {
+    "name": "Content Admin",
+    "icon": "admin_panel_settings",
+    "description": "Role with full rights to edit all content. Useful for simple sites or those without publishing approval workflows.",
+    "parent": null,
+    "_syncId": "1482e1af-1209-403a-b84a-517d1b2bef7a"
+  },
+  {
+    "name": "Editor",
+    "icon": "nest_wake_on_approach",
+    "description": "Role that has the ability to edit and publish all content.",
+    "parent": null,
+    "_syncId": "941867f3-c962-40c1-b92f-be1195955641"
+  },
+  {
+    "name": "content manager",
+    "icon": "supervised_user_circle",
+    "description": null,
+    "parent": null,
+    "_syncId": "ba9ea414-4273-4b56-8686-8a5b11cbedba"
+  },
+  {
+    "name": "Writer",
+    "icon": "docs_add_on",
+    "description": "Role that can create new posts and edit their own posts.",
+    "parent": null,
+    "_syncId": "f9e36f7b-f90f-4f24-b848-439f1b24b413"
+  }
+]

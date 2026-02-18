@@ -1,0 +1,31 @@
+{
+  "collection": "globals",
+  "field": "meta_notice_globals",
+  "type": "alias",
+  "meta": {
+    "collection": "globals",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_notice_globals",
+    "group": null,
+    "hidden": false,
+    "interface": "presentation-notice",
+    "note": null,
+    "options": {
+      "text": "Globals are settings that are applied across your entire site. Globals use what we call a `singleton` collection type. <a href=\"https://directus.io/features/global-settings\" target=\"_blank\">Learn more about globals and singletons.</a>"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 7,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

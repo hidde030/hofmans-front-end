@@ -1,0 +1,85 @@
+{
+  "collection": "navigation_items",
+  "field": "url",
+  "type": "string",
+  "meta": {
+    "collection": "navigation_items",
+    "conditions": [
+      {
+        "hidden": false,
+        "name": "IF url",
+        "options": {
+          "clear": false,
+          "font": "sans-serif",
+          "masked": false,
+          "slug": false,
+          "trim": false
+        },
+        "rule": {
+          "_and": [
+            {
+              "type": {
+                "_eq": "url"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "hidden": true,
+        "name": "Hide If Had Children",
+        "options": {
+          "clear": false,
+          "font": "sans-serif",
+          "masked": false,
+          "slug": false,
+          "trim": false
+        },
+        "rule": {
+          "_and": [
+            {
+              "has_children": {
+                "_eq": true
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "display": "raw",
+    "display_options": null,
+    "field": "url",
+    "group": null,
+    "hidden": true,
+    "interface": "input",
+    "note": "The URL to link to. Could be relative (ie `/my-page`) or a full external URL (ie `https://docs.directus.io`)",
+    "options": null,
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 12,
+    "special": null,
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  },
+  "schema": {
+    "name": "url",
+    "table": "navigation_items",
+    "data_type": "character varying",
+    "default_value": null,
+    "max_length": 255,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "collection": "forms",
+  "field": "is_active",
+  "type": "boolean",
+  "meta": {
+    "collection": "forms",
+    "conditions": null,
+    "display": "boolean",
+    "display_options": {
+      "labelOff": "Inactive",
+      "labelOn": "Active"
+    },
+    "field": "is_active",
+    "group": null,
+    "hidden": false,
+    "interface": "boolean",
+    "note": "Show or hide this form from the site.",
+    "options": {
+      "label": "Active"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 9,
+    "special": [
+      "cast-boolean"
+    ],
+    "translations": [
+      {
+        "language": "en-US",
+        "translation": "Active"
+      }
+    ],
+    "validation": null,
+    "validation_message": null,
+    "width": "half"
+  },
+  "schema": {
+    "name": "is_active",
+    "table": "forms",
+    "data_type": "boolean",
+    "default_value": true,
+    "max_length": null,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

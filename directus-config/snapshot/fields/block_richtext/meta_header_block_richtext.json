@@ -1,0 +1,33 @@
+{
+  "collection": "block_richtext",
+  "field": "meta_header_block_richtext",
+  "type": "alias",
+  "meta": {
+    "collection": "block_richtext",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_header_block_richtext",
+    "group": null,
+    "hidden": false,
+    "interface": "super-header",
+    "note": null,
+    "options": {
+      "help": "<p>Perfect for creating formatted text content with headings, paragraphs, and lists. Use this block when you need to:</p>\n<ul>\n<li>Write longer form content with multiple paragraphs</li>\n<li>Create structured content with headings and subheadings</li>\n<li>Include inline formatting like bold, italic, or links</li>\n<li>Add bulleted or numbered lists</li>\n</ul>",
+      "icon": "format_color_text",
+      "title": "Rich Text Block"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 6,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "collection": "form_submissions",
+  "field": "meta_notice_submissions",
+  "type": "alias",
+  "meta": {
+    "collection": "form_submissions",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_notice_submissions",
+    "group": null,
+    "hidden": false,
+    "interface": "presentation-notice",
+    "note": null,
+    "options": {
+      "text": "Form submissions are configured to be read-only for data integrity reasons. But they are a great candidate for use in [Flows](/admin/settings/flows). Directus Flows is a drag and drop, low-code automation builder to simplify tasks like automatic notifications or sending incoming requests to third party services. <a href=\"https://directus.io/docs/guides/automate/flows?ref=simple_website_cms\" target=\"_blank\">Learn more about Flows.</a>"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 6,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

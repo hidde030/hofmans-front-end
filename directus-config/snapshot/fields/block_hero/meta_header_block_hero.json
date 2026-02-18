@@ -1,0 +1,33 @@
+{
+  "collection": "block_hero",
+  "field": "meta_header_block_hero",
+  "type": "alias",
+  "meta": {
+    "collection": "block_hero",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_header_block_hero",
+    "group": null,
+    "hidden": false,
+    "interface": "super-header",
+    "note": null,
+    "options": {
+      "help": "<p>Creates a prominent section at the top of your page that immediately captures attention. Ideal for:</p>\n<ul>\n<li>Main page headers with impactful headlines</li>\n<li>Showcasing key messages with supporting text</li>\n<li>Featuring high-quality images that support your message</li>\n<li>Adding clear call-to-action buttons</li>\n</ul>\n<p>Tips for effective heroes:</p>\n<ul>\n<li>Keep headlines clear and concise (recommended 2-8 words)</li>\n<li>Use high-resolution images that work well with overlay text</li>\n<li>Consider image placement (left/center/right) based on your headline length</li>\n<li>Add a succinct tagline to provide additional context</li>\n</ul>",
+      "icon": "aspect_ratio",
+      "title": "Hero Block"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 6,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

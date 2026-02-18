@@ -1,0 +1,54 @@
+{
+  "collection": "redirects",
+  "field": "url_to",
+  "type": "string",
+  "meta": {
+    "collection": "redirects",
+    "conditions": null,
+    "display": "formatted-value",
+    "display_options": {
+      "font": "monospace"
+    },
+    "field": "url_to",
+    "group": null,
+    "hidden": false,
+    "interface": "input",
+    "note": "The URL you're redirecting to. This can be a relative url (/resources/matt-is-cool) or a full url (https://example.com/blog).",
+    "options": {
+      "font": "monospace",
+      "iconLeft": "add_link"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 8,
+    "special": null,
+    "translations": [
+      {
+        "language": "en-US",
+        "translation": "Redirect To"
+      }
+    ],
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  },
+  "schema": {
+    "name": "url_to",
+    "table": "redirects",
+    "data_type": "character varying",
+    "default_value": null,
+    "max_length": 255,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "collection": "forms",
+  "field": "emails",
+  "type": "json",
+  "meta": {
+    "collection": "forms",
+    "conditions": null,
+    "display": "formatted-json-value",
+    "display_options": {
+      "format": "To: {{ to }} • Subject: {{ subject }}"
+    },
+    "field": "emails",
+    "group": "meta_emails",
+    "hidden": false,
+    "interface": "list",
+    "note": "Setup email notifications when forms are submitted.",
+    "options": {
+      "addLabel": "Add New Email",
+      "fields": [
+        {
+          "field": "to",
+          "meta": {
+            "display": "labels",
+            "display_options": {
+              "format": false
+            },
+            "field": "to",
+            "interface": "tags",
+            "note": "Add an email address and press enter. To use a form field as the email address use merge tags `{# #}` (e.g. `{# email #}.",
+            "options": {
+              "choices": null
+            },
+            "required": true,
+            "type": "json",
+            "width": "full"
+          },
+          "name": "to",
+          "type": "json"
+        },
+        {
+          "field": "subject",
+          "meta": {
+            "display": "formatted-value",
+            "display_options": {},
+            "field": "subject",
+            "interface": "input",
+            "note": "Email subject line. You can use merge tags like this `Hi {# first-name #}`.",
+            "required": true,
+            "type": "string",
+            "width": "full"
+          },
+          "name": "subject",
+          "type": "string"
+        },
+        {
+          "field": "message",
+          "meta": {
+            "field": "message",
+            "interface": "input-rich-text-html",
+            "note": "Include a message for the email body. To merge form responses use merge tags with the field name like `{# first-name #}`.",
+            "options": {
+              "folder": "ece7bab9-5433-4a63-b9f7-bde8b517d6d9",
+              "toolbar": [
+                "undo",
+                "redo",
+                "bold",
+                "italic",
+                "underline",
+                "h1",
+                "h2",
+                "h3",
+                "numlist",
+                "bullist",
+                "removeformat",
+                "blockquote",
+                "customLink",
+                "customImage",
+                "table",
+                "hr",
+                "code",
+                "fullscreen"
+              ]
+            },
+            "required": true,
+            "type": "text",
+            "width": "full"
+          },
+          "name": "message",
+          "type": "text"
+        }
+      ],
+      "template": "To: {{ to }} • Subject: {{ subject }}"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 2,
+    "special": [
+      "cast-json"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  },
+  "schema": {
+    "name": "emails",
+    "table": "forms",
+    "data_type": "json",
+    "default_value": null,
+    "max_length": null,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

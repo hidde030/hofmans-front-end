@@ -1,0 +1,380 @@
+[
+  {
+    "name": "Request Review",
+    "icon": "approval_delegation",
+    "color": null,
+    "description": "Request a content review for publishing.",
+    "status": "active",
+    "trigger": "manual",
+    "accountability": "all",
+    "options": {
+      "collections": [
+        "posts"
+      ],
+      "requireConfirmation": true,
+      "confirmationDescription": "Request Review",
+      "fields": [
+        {
+          "field": "editor",
+          "type": "json",
+          "name": "Editor",
+          "meta": {
+            "interface": "collection-item-dropdown",
+            "note": "Who should review this for publishing?",
+            "width": "full",
+            "options": {
+              "selectedCollection": "directus_users",
+              "filter": {
+                "_and": [
+                  {
+                    "role": {
+                      "id": {
+                        "_in": [
+                          "ef049c8b-546b-4bbc-9cd7-b05d77e58b66",
+                          "d70780bd-f3ed-418b-98c2-f5354fd3fa68",
+                          "4516009c-8a04-49e4-b4ac-fd4883da6064"
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "required": true
+          }
+        },
+        {
+          "field": "comments",
+          "type": "text",
+          "name": "Comments",
+          "meta": {
+            "interface": "input-multiline",
+            "note": "Do you have any helpful notes or comments for the editor?",
+            "width": "full"
+          }
+        }
+      ]
+    },
+    "operation": "f2abdcf1-5911-4cb9-8086-654664d7e628",
+    "_syncId": "3172d021-0b0f-4d4d-bcca-c5c46eb8fadf"
+  },
+  {
+    "name": "Utils -> Render Template",
+    "icon": "picture_in_picture",
+    "color": null,
+    "description": "Utility flow to render a Liquid JS template",
+    "status": "active",
+    "trigger": "operation",
+    "accountability": "all",
+    "options": {
+      "return": "$last"
+    },
+    "operation": "fffc3d80-5740-4934-bef6-eb3c4b239227",
+    "_syncId": "5429ccb0-7e97-4ef5-9d65-2bbcf964f9a6"
+  },
+  {
+    "name": "AI Ghostwriter",
+    "icon": "magic_button",
+    "color": null,
+    "description": "Flow to automatically write blog posts and articles for you using AI.",
+    "status": "active",
+    "trigger": "manual",
+    "accountability": "all",
+    "options": {
+      "collections": [
+        "posts"
+      ],
+      "requireConfirmation": true,
+      "confirmationDescription": "AI Ghostwriter",
+      "fields": [
+        {
+          "field": "prompt",
+          "type": "text",
+          "name": "Prompt",
+          "meta": {
+            "interface": "input-multiline",
+            "note": "Describe the post you'd like AI to write for you.",
+            "width": "full"
+          }
+        },
+        {
+          "field": "voice",
+          "type": "json",
+          "name": "Tone Of Voice",
+          "meta": {
+            "interface": "tags",
+            "note": "What tone of voice would you like AI to write with?",
+            "options": {
+              "presets": [
+                "friendly",
+                "professional",
+                "casual",
+                "pirate"
+              ]
+            }
+          }
+        }
+      ],
+      "location": "item"
+    },
+    "operation": "f162af2e-edc6-45b6-8268-9faf4a30d1f4",
+    "_syncId": "5915dd55-fff8-4d47-b48c-a0e42e5033c1"
+  },
+  {
+    "name": "Form Submissions -> Email Notifications",
+    "icon": "attach_email",
+    "color": null,
+    "description": "Automatically sends any emails configured for a form whenever a new submission is created.",
+    "status": "active",
+    "trigger": "event",
+    "accountability": "all",
+    "options": {
+      "type": "action",
+      "scope": [
+        "items.create"
+      ],
+      "collections": [
+        "form_submissions"
+      ]
+    },
+    "operation": "74265a44-67ec-4b1d-b7e7-f5e7ab32166e",
+    "_syncId": "61757ab0-b139-4079-b5eb-4e05bb8142ac"
+  },
+  {
+    "name": "Utils -> Get Globals",
+    "icon": "globe_uk",
+    "color": null,
+    "description": "This is a utility flow to use in other flows when you need data from the Globals collection.",
+    "status": "active",
+    "trigger": "operation",
+    "accountability": "activity",
+    "options": {
+      "return": "$last"
+    },
+    "operation": "4e6653f6-d103-4498-a10b-06417fa2b60a",
+    "_syncId": "69e87d0b-df14-4779-bdc8-abc05f2f1e97"
+  },
+  {
+    "name": "Utils -> Send Email",
+    "icon": "send",
+    "color": null,
+    "description": "Utility flow to send a single email. Used in other flows.",
+    "status": "active",
+    "trigger": "operation",
+    "accountability": "all",
+    "options": {
+      "return": "$last"
+    },
+    "operation": "baf3d12c-b0e0-4e5e-b1bb-f54a8c312858",
+    "_syncId": "7c8732cd-9d9e-44be-a3f6-89c0d42c7687"
+  },
+  {
+    "name": "Utils -> Duplicate Page",
+    "icon": "copy_all",
+    "color": null,
+    "description": "Duplicate an entire page, creating a new copy of all the blocks within it.",
+    "status": "active",
+    "trigger": "manual",
+    "accountability": "all",
+    "options": {
+      "collections": [
+        "pages"
+      ],
+      "requireConfirmation": true,
+      "confirmationDescription": "Duplicate this Page",
+      "fields": [
+        {
+          "field": "title",
+          "type": "string",
+          "name": "New Page Title",
+          "meta": {
+            "interface": "input",
+            "note": "What would you like the title of the new page to be? If left blank, will just use the existing title and add \"Copy\" to the end.",
+            "width": "full"
+          }
+        },
+        {
+          "field": "permalink",
+          "type": "string",
+          "name": "New Permalink",
+          "meta": {
+            "interface": "input",
+            "note": "What would you like the permalink of the new page to be? If left blank, will just use the existing permalink and add \"-copy to the end.",
+            "width": "full",
+            "options": {
+              "trim": true
+            }
+          }
+        },
+        {
+          "field": "notice",
+          "type": "alias",
+          "name": "Notice",
+          "meta": {
+            "interface": "presentation-notice",
+            "options": {
+              "text": "Make sure all changes to this page are saved first because it only duplicates saved values. NOTE: This action will duplicate all blocks on this page.",
+              "color": "warning",
+              "icon": "warning"
+            }
+          }
+        }
+      ]
+    },
+    "operation": "c5b03e5a-4851-4863-a356-a58bef94f0fd",
+    "_syncId": "a23110e1-700b-41b8-9f9e-ca0998b84a76"
+  },
+  {
+    "name": "Redirects",
+    "icon": "turn_sharp_right",
+    "color": null,
+    "description": "Automatically creates redirects for changed permalinks or slugs from pages or posts.",
+    "status": "active",
+    "trigger": "event",
+    "accountability": "all",
+    "options": {
+      "type": "filter",
+      "scope": [
+        "items.update"
+      ],
+      "collections": [
+        "pages",
+        "posts"
+      ],
+      "return": null
+    },
+    "operation": "c7468ad6-b8b5-4550-af43-f4da5f0fe6bc",
+    "_syncId": "c62ceaa5-bd09-4158-8329-98792debc5d5"
+  },
+  {
+    "name": "AI Image Generator",
+    "icon": "image_search",
+    "color": null,
+    "description": "Generate AI images for your blog posts.",
+    "status": "active",
+    "trigger": "manual",
+    "accountability": "all",
+    "options": {
+      "collections": [
+        "posts"
+      ],
+      "requireConfirmation": true,
+      "confirmationDescription": "AI Image Generator",
+      "fields": [
+        {
+          "field": "prompt",
+          "type": "text",
+          "name": "Prompt",
+          "meta": {
+            "interface": "input-rich-text-md",
+            "note": "Describe the image you want to generate. The more descriptive - the better the results (usually 😉).",
+            "options": {
+              "placeholder": "Create a hand-drawn marker style illustration to be used as a featured image for blog posts targeting developers. The illustration should have a whimsical theme, using bold, uneven marker-style lines to create an engaging and eye-catching design. The background should always be white. ",
+              "toolbar": [
+                "heading",
+                "bold",
+                "italic",
+                "strikethrough",
+                "blockquote",
+                "bullist",
+                "numlist",
+                "table",
+                "code",
+                "empty"
+              ]
+            }
+          }
+        },
+        {
+          "field": "colors",
+          "type": "json",
+          "name": "Colors",
+          "meta": {
+            "interface": "list",
+            "options": {
+              "fields": [
+                {
+                  "field": "color",
+                  "name": "color",
+                  "type": "string",
+                  "meta": {
+                    "field": "color",
+                    "width": "half",
+                    "type": "string",
+                    "interface": "select-color"
+                  }
+                },
+                {
+                  "field": "name",
+                  "name": "name",
+                  "type": "string",
+                  "meta": {
+                    "field": "name",
+                    "width": "half",
+                    "type": "string",
+                    "note": "What is the name of the color? AI seems to do better when supplying color names along with the hex codes.",
+                    "interface": "input"
+                  }
+                },
+                {
+                  "field": "type",
+                  "name": "type",
+                  "type": "string",
+                  "meta": {
+                    "field": "type",
+                    "width": "full",
+                    "type": "string",
+                    "interface": "select-radio",
+                    "options": {
+                      "choices": [
+                        {
+                          "text": "Primary",
+                          "value": "primary"
+                        },
+                        {
+                          "text": "Secondary",
+                          "value": "secondary"
+                        },
+                        {
+                          "text": "Background",
+                          "value": "background"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "field": "aspect_ratio",
+          "type": "string",
+          "name": "Aspect Ratio",
+          "meta": {
+            "interface": "select-radio",
+            "options": {
+              "choices": [
+                {
+                  "text": "1:1",
+                  "value": "1:1"
+                },
+                {
+                  "text": "16:9",
+                  "value": "16:9"
+                },
+                {
+                  "text": "9:16",
+                  "value": "9:16"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "location": "item"
+    },
+    "operation": "86ee5b06-88c6-46b9-9f18-b1af852f8940",
+    "_syncId": "d4bbac48-a444-49e0-aedb-9af5273b88df"
+  }
+]

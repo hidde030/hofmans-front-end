@@ -1,0 +1,33 @@
+{
+  "collection": "block_hero",
+  "field": "meta_divider_block_image",
+  "type": "alias",
+  "meta": {
+    "collection": "block_hero",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_divider_block_image",
+    "group": null,
+    "hidden": false,
+    "interface": "presentation-divider",
+    "note": null,
+    "options": {
+      "color": "#A2B5CD",
+      "icon": "image",
+      "inlineTitle": true
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 11,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

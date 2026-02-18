@@ -1,0 +1,46 @@
+{
+  "collection": "block_hero",
+  "field": "description",
+  "type": "text",
+  "meta": {
+    "collection": "block_hero",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "description",
+    "group": null,
+    "hidden": false,
+    "interface": "input-multiline",
+    "note": "Supporting copy that shows below the headline.",
+    "options": {
+      "folder": "ece7bab9-5433-4a63-b9f7-bde8b517d6d9"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 9,
+    "special": null,
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  },
+  "schema": {
+    "name": "description",
+    "table": "block_hero",
+    "data_type": "text",
+    "default_value": null,
+    "max_length": null,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

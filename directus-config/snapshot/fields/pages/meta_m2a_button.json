@@ -1,0 +1,31 @@
+{
+  "collection": "pages",
+  "field": "meta_m2a_button",
+  "type": "alias",
+  "meta": {
+    "collection": "pages",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_m2a_button",
+    "group": "meta_content",
+    "hidden": false,
+    "interface": "directus-labs-experimental-m2a-interface",
+    "note": null,
+    "options": {
+      "target": "above"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 8,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

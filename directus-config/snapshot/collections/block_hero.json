@@ -1,0 +1,49 @@
+{
+  "collection": "block_hero",
+  "meta": {
+    "accountability": "all",
+    "archive_app_filter": true,
+    "archive_field": null,
+    "archive_value": null,
+    "collapse": "open",
+    "collection": "block_hero",
+    "color": null,
+    "display_template": "{{headline}}",
+    "group": "blocks",
+    "hidden": true,
+    "icon": "aspect_ratio",
+    "item_duplication_fields": [
+      "tagline",
+      "description",
+      "headline",
+      "image",
+      "layout",
+      "button_group.sort",
+      "button_group.buttons.sort",
+      "button_group.buttons.type",
+      "button_group.buttons.page",
+      "button_group.buttons.post",
+      "button_group.buttons.url",
+      "button_group.buttons.label",
+      "button_group.buttons.variant"
+    ],
+    "note": null,
+    "preview_url": null,
+    "singleton": false,
+    "sort": 1,
+    "sort_field": null,
+    "translations": [
+      {
+        "language": "en-US",
+        "plural": "Hero",
+        "singular": "Hero",
+        "translation": "Hero"
+      }
+    ],
+    "unarchive_value": null,
+    "versioning": false
+  },
+  "schema": {
+    "name": "block_hero"
+  }
+}

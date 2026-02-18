@@ -1,0 +1,35 @@
+{
+  "collection": "forms",
+  "field": "meta_fields",
+  "type": "alias",
+  "meta": {
+    "collection": "forms",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_fields",
+    "group": "meta_tabs",
+    "hidden": false,
+    "interface": "group-raw",
+    "note": null,
+    "options": null,
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 1,
+    "special": [
+      "alias",
+      "no-data",
+      "group"
+    ],
+    "translations": [
+      {
+        "language": "en-US",
+        "translation": "Form Fields"
+      }
+    ],
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

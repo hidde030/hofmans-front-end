@@ -1,0 +1,33 @@
+{
+  "collection": "block_button_group",
+  "field": "buttons",
+  "type": "alias",
+  "meta": {
+    "collection": "block_button_group",
+    "conditions": null,
+    "display": "related-values",
+    "display_options": {
+      "template": "{{label}} - {{type}}"
+    },
+    "field": "buttons",
+    "group": null,
+    "hidden": false,
+    "interface": "list-o2m",
+    "note": "Add individual buttons to the button group.",
+    "options": {
+      "enableLink": true,
+      "template": "{{label}} - {{type}}"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 7,
+    "special": [
+      "o2m"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

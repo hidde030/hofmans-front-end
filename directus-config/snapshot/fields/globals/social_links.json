@@ -1,0 +1,179 @@
+{
+  "collection": "globals",
+  "field": "social_links",
+  "type": "json",
+  "meta": {
+    "collection": "globals",
+    "conditions": null,
+    "display": "labels",
+    "display_options": {},
+    "field": "social_links",
+    "group": null,
+    "hidden": false,
+    "interface": "inline-repeater-interface",
+    "note": "Social media profile URLs",
+    "options": {
+      "addLabel": "Add New Link",
+      "fields": [
+        {
+          "field": "url",
+          "meta": {
+            "field": "url",
+            "interface": "input",
+            "note": "Full profile URL (not just username)",
+            "options": {
+              "placeholder": "https://www.linkedin.com/in/fullprofile",
+              "trim": true
+            },
+            "type": "string",
+            "width": "half"
+          },
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "field": "service",
+          "meta": {
+            "display": "labels",
+            "display_options": {
+              "choices": [
+                {
+                  "icon": "facebook",
+                  "text": "Facebook",
+                  "value": "facebook"
+                },
+                {
+                  "icon": "instagram",
+                  "text": "Instagram",
+                  "value": "instagram"
+                },
+                {
+                  "icon": "linkedin",
+                  "text": "LinkedIn",
+                  "value": "linkedin"
+                },
+                {
+                  "icon": "twitter",
+                  "text": "X",
+                  "value": "x"
+                },
+                {
+                  "icon": "vimeo",
+                  "text": "Vimeo",
+                  "value": "vimeo"
+                },
+                {
+                  "icon": "youtube",
+                  "text": "YouTube",
+                  "value": "youtube"
+                },
+                {
+                  "icon": "github",
+                  "text": "GitHub",
+                  "value": "github"
+                },
+                {
+                  "icon": "discord",
+                  "text": "Discord",
+                  "value": "discord"
+                },
+                {
+                  "icon": "docker",
+                  "text": "Docker",
+                  "value": "docker"
+                }
+              ]
+            },
+            "field": "service",
+            "interface": "select-dropdown",
+            "note": "Social media platform name",
+            "options": {
+              "choices": [
+                {
+                  "icon": "facebook",
+                  "text": "Facebook",
+                  "value": "facebook"
+                },
+                {
+                  "icon": "instagram",
+                  "text": "Instagram",
+                  "value": "instagram"
+                },
+                {
+                  "icon": "linkedin",
+                  "text": "LinkedIn",
+                  "value": "linkedin"
+                },
+                {
+                  "icon": "twitter",
+                  "text": "X",
+                  "value": "x"
+                },
+                {
+                  "icon": "vimeo",
+                  "text": "Vimeo",
+                  "value": "vimeo"
+                },
+                {
+                  "icon": "youtube",
+                  "text": "YouTube",
+                  "value": "youtube"
+                },
+                {
+                  "icon": "github",
+                  "text": "GitHub",
+                  "value": "github"
+                },
+                {
+                  "icon": "discord",
+                  "text": "Discord",
+                  "value": "discord"
+                },
+                {
+                  "icon": "docker",
+                  "text": "Docker",
+                  "value": "docker"
+                }
+              ]
+            },
+            "required": null,
+            "type": "string",
+            "width": "half"
+          },
+          "name": "service",
+          "type": "string"
+        }
+      ],
+      "template": "{{ service }}"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 18,
+    "special": [
+      "cast-json"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  },
+  "schema": {
+    "name": "social_links",
+    "table": "globals",
+    "data_type": "json",
+    "default_value": [],
+    "max_length": null,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

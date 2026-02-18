@@ -1,0 +1,68 @@
+{
+  "collection": "posts",
+  "field": "content",
+  "type": "text",
+  "meta": {
+    "collection": "posts",
+    "conditions": null,
+    "display": "formatted-value",
+    "display_options": {
+      "format": true
+    },
+    "field": "content",
+    "group": "meta_content",
+    "hidden": false,
+    "interface": "input-rich-text-html",
+    "note": "Rich text content of your blog post.",
+    "options": {
+      "folder": "ece7bab9-5433-4a63-b9f7-bde8b517d6d9",
+      "toolbar": [
+        "blockquote",
+        "bold",
+        "bullist",
+        "code",
+        "customImage",
+        "customLink",
+        "customMedia",
+        "fullscreen",
+        "h1",
+        "h2",
+        "h3",
+        "hr",
+        "italic",
+        "numlist",
+        "redo",
+        "removeformat",
+        "underline",
+        "undo"
+      ]
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 11,
+    "special": null,
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  },
+  "schema": {
+    "name": "content",
+    "table": "posts",
+    "data_type": "text",
+    "default_value": null,
+    "max_length": null,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

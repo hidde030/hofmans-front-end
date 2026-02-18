@@ -1,0 +1,25 @@
+{
+  "collection": "block_hero",
+  "field": "button_group",
+  "related_collection": "block_button_group",
+  "meta": {
+    "junction_field": null,
+    "many_collection": "block_hero",
+    "many_field": "button_group",
+    "one_allowed_collections": null,
+    "one_collection": "block_button_group",
+    "one_collection_field": null,
+    "one_deselect_action": "nullify",
+    "one_field": null,
+    "sort_field": null
+  },
+  "schema": {
+    "table": "block_hero",
+    "column": "button_group",
+    "foreign_key_table": "block_button_group",
+    "foreign_key_column": "id",
+    "constraint_name": "block_hero_button_group_foreign",
+    "on_update": "NO ACTION",
+    "on_delete": "SET NULL"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "collection": "block_form",
+  "field": "meta_header_block_form",
+  "type": "alias",
+  "meta": {
+    "collection": "block_form",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_header_block_form",
+    "group": null,
+    "hidden": false,
+    "interface": "super-header",
+    "note": null,
+    "options": {
+      "help": "<p>Embed interactive forms to collect information from your visitors. Great for:</p>\n<ul>\n<li>Contact forms</li>\n<li>Newsletter signups</li>\n<li>Event registrations</li>\n<li>Feedback collection</li>\n<li>Lead generation</li>\n</ul>\n<p>When adding a form:</p>\n<ul>\n<li>Choose from your pre-configured form templates</li>\n<li>Add a clear headline explaining the form's purpose</li>\n<li>Consider adding a tagline with extra context or instructions</li>\n<li>Ensure all required fields are clearly marked</li>\n</ul>\n<p>You can create or edit forms outside of this block in the <a href=\"/admin/content/forms\">Forms collection.</a></p>",
+      "icon": "format_shapes",
+      "title": "Form Block"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 6,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

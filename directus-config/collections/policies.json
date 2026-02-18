@@ -1,0 +1,150 @@
+[
+  {
+    "name": "Administrator",
+    "icon": "verified",
+    "description": "$t:admin_description",
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": true,
+    "app_access": true,
+    "roles": [
+      {
+        "role": "_sync_default_admin_role",
+        "sort": null
+      }
+    ],
+    "_syncId": "_sync_default_admin_policy"
+  },
+  {
+    "name": "$t:public_label",
+    "icon": "public",
+    "description": "$t:public_description",
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": false,
+    "app_access": true,
+    "roles": [
+      {
+        "role": null,
+        "sort": 1
+      },
+      {
+        "role": null,
+        "sort": 1
+      },
+      {
+        "role": "f9e36f7b-f90f-4f24-b848-439f1b24b413",
+        "sort": 2
+      }
+    ],
+    "_syncId": "_sync_default_public_policy"
+  },
+  {
+    "name": "Content - Self",
+    "icon": "self_improvement",
+    "description": "Grants user ability to ONLY edit their own content. Cannot publish content.",
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": false,
+    "app_access": false,
+    "roles": [
+      {
+        "role": "f9e36f7b-f90f-4f24-b848-439f1b24b413",
+        "sort": 1
+      }
+    ],
+    "_syncId": "06bc54f8-057c-4006-a351-c0962f589147"
+  },
+  {
+    "name": "Content - Manage",
+    "icon": "edit",
+    "description": "Grants ability to read and edit ALL content.",
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": false,
+    "app_access": false,
+    "roles": [
+      {
+        "role": "1482e1af-1209-403a-b84a-517d1b2bef7a",
+        "sort": 1
+      },
+      {
+        "role": "941867f3-c962-40c1-b92f-be1195955641",
+        "sort": 1
+      }
+    ],
+    "_syncId": "2c7f3dc2-05b8-455d-9393-65f13d5cfd39"
+  },
+  {
+    "name": "Content - Live Preview",
+    "icon": "preview",
+    "description": "Grants read access to all pages and posts. Used for Live Preview so you can preview draft content. Be careful not to expose tokens of users with this policy.",
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": false,
+    "app_access": false,
+    "roles": [
+      {
+        "role": null,
+        "sort": 4
+      }
+    ],
+    "_syncId": "bb66cca5-a450-46fe-ad0b-1ba4e5f7b9dc"
+  },
+  {
+    "name": "Administrator",
+    "icon": "verified",
+    "description": "$t:admin_policy_description",
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": true,
+    "app_access": true,
+    "roles": [
+      {
+        "role": "_sync_default_admin_role",
+        "sort": 1
+      }
+    ],
+    "_syncId": "e2a8d401-f9c4-4866-b93f-8676aee9f0f0"
+  },
+  {
+    "name": "Team - App Access",
+    "icon": "badge",
+    "description": "Grants Directus Studio access to team members",
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": false,
+    "app_access": true,
+    "roles": [
+      {
+        "role": "f9e36f7b-f90f-4f24-b848-439f1b24b413",
+        "sort": 3
+      },
+      {
+        "role": "941867f3-c962-40c1-b92f-be1195955641",
+        "sort": 3
+      },
+      {
+        "role": "1482e1af-1209-403a-b84a-517d1b2bef7a",
+        "sort": 3
+      }
+    ],
+    "_syncId": "f2c603d0-1d3e-4512-827a-7e92815eaa58"
+  },
+  {
+    "name": "Forms - Submission",
+    "icon": "smart_button",
+    "description": "Grants ability to create form submissions. Used in frontend.",
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": false,
+    "app_access": false,
+    "roles": [
+      {
+        "role": null,
+        "sort": 2
+      }
+    ],
+    "_syncId": "f3039fe3-9725-4290-abfb-70dc9b77a3e8"
+  }
+]

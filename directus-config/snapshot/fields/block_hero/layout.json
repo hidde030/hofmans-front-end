@@ -1,0 +1,88 @@
+{
+  "collection": "block_hero",
+  "field": "layout",
+  "type": "string",
+  "meta": {
+    "collection": "block_hero",
+    "conditions": null,
+    "display": "labels",
+    "display_options": {
+      "choices": [
+        {
+          "icon": "format_image_left",
+          "text": "Image Left",
+          "value": "image_left"
+        },
+        {
+          "icon": "image",
+          "text": "Image Center",
+          "value": "image_center"
+        },
+        {
+          "icon": "format_image_right",
+          "text": "Image Right",
+          "value": "image_right"
+        }
+      ],
+      "format": true
+    },
+    "field": "layout",
+    "group": null,
+    "hidden": false,
+    "interface": "radio-cards-interface",
+    "note": "The layout for the component. You can set the image to display left, right, or in the center of page..",
+    "options": {
+      "choices": [
+        {
+          "icon": "format_image_left",
+          "icon_type": "image",
+          "image": "d5a1290f-8819-4e7c-b292-bffe5b1c8274.jpg",
+          "text": "Image Left",
+          "value": "image_left"
+        },
+        {
+          "icon": "image",
+          "icon_type": "image",
+          "image": "8a652e52-a275-4dde-9fc5-edf2188afe56.jpg",
+          "text": "Image Center",
+          "value": "image_center"
+        },
+        {
+          "icon": "format_image_right",
+          "icon_type": "image",
+          "image": "fe7c7e04-5aac-4370-8bbd-6fd578d26ea1.jpg",
+          "text": "Image Right",
+          "value": "image_right"
+        }
+      ],
+      "gridSize": 3
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 13,
+    "special": null,
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  },
+  "schema": {
+    "name": "layout",
+    "table": "block_hero",
+    "data_type": "character varying",
+    "default_value": null,
+    "max_length": 255,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

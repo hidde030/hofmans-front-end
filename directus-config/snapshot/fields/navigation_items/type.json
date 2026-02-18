@@ -1,0 +1,109 @@
+{
+  "collection": "navigation_items",
+  "field": "type",
+  "type": "string",
+  "meta": {
+    "collection": "navigation_items",
+    "conditions": [
+      {
+        "hidden": true,
+        "name": "Hide if Children",
+        "options": {
+          "allowOther": false,
+          "iconOff": "radio_button_unchecked",
+          "iconOn": "radio_button_checked"
+        },
+        "rule": {
+          "_and": [
+            {
+              "has_children": {
+                "_eq": true
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "display": "labels",
+    "display_options": {
+      "choices": [
+        {
+          "icon": "web_asset",
+          "text": "Page",
+          "value": "page"
+        },
+        {
+          "icon": "article",
+          "text": "Post",
+          "value": "post"
+        },
+        {
+          "icon": "link",
+          "text": "URL",
+          "value": "url"
+        },
+        {
+          "icon": "tab_group",
+          "text": "Group",
+          "value": "group"
+        }
+      ]
+    },
+    "field": "type",
+    "group": null,
+    "hidden": false,
+    "interface": "select-dropdown",
+    "note": "What type of link is this? Page and Post allow you to link to internal content. URL is for external content. Group can contain other menu items.",
+    "options": {
+      "choices": [
+        {
+          "icon": "web_asset",
+          "text": "Page",
+          "value": "page"
+        },
+        {
+          "icon": "article",
+          "text": "Post",
+          "value": "post"
+        },
+        {
+          "icon": "link",
+          "text": "URL",
+          "value": "url"
+        },
+        {
+          "icon": "tab_group",
+          "text": "Group",
+          "value": "group"
+        }
+      ]
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 9,
+    "special": null,
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "half"
+  },
+  "schema": {
+    "name": "type",
+    "table": "navigation_items",
+    "data_type": "character varying",
+    "default_value": null,
+    "max_length": 255,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

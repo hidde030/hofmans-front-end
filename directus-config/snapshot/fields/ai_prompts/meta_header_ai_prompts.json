@@ -1,0 +1,33 @@
+{
+  "collection": "ai_prompts",
+  "field": "meta_header_ai_prompts",
+  "type": "alias",
+  "meta": {
+    "collection": "ai_prompts",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_header_ai_prompts",
+    "group": null,
+    "hidden": false,
+    "interface": "super-header",
+    "note": null,
+    "options": {
+      "help": "<h2>AI Prompts Collection Help</h2>\n<h3>Name</h3>\n<p><em>Unique identifier for this prompt</em></p>\n<p>Enter a clear, concise name that describes what this prompt does. Use kebab-case (lowercase with hyphens) for consistency, like \"create-article\" or \"generate-product-description\".</p>\n<h3>Description</h3>\n<p><em>Short description for the prompt to display to users</em></p>\n<p>Briefly explain what this prompt does in 1-2 sentences. Focus on the outcome users can expect when using this prompt. Keep it clear and action-oriented.</p>\n<h3>System Prompt</h3>\n<p><em>Instructions that shape how the AI responds</em></p>\n<p>This is the foundation of your AI prompt. Define the AI's role, capabilities, and constraints here. Be specific about tone, style, and approach. This text isn't visible to end users but significantly impacts output quality.</p>\n<h3>Messages</h3>\n<p><em>Define the conversation structure between users and AI</em></p>\n<h4>Role</h4>\n<p><em>Who is speaking in this message</em></p>\n<p>Select \"User\" for instructions from the human, or \"Assistant\" for example responses from the AI. Most prompt templates begin with a user message.</p>\n<h4>Text</h4>\n<p><em>The actual content of the message</em></p>\n<p>For user messages, include placeholders with double curly braces {{like this}} that will be replaced with real data. For assistant messages, provide example responses that model the desired output format.</p>\n<h3>Status</h3>\n<p><em>Is this prompt published and available to use?</em></p>\n<p>Toggle between draft and published states. Only published prompts are available to users in the content creation interface.</p>\n<h3>Creating Effective AI Prompts</h3>\n<p>Good prompts are clear, specific, and structured. Here are quick tips:</p>\n<ol>\n<li><strong>Be specific about deliverables</strong> - Define exactly what output you want (word count, format, sections).</li>\n<li><strong>Establish context</strong> - Provide relevant background information the AI needs to understand the task.</li>\n<li><strong>Define the audience</strong> - Specify who will read the content and their knowledge level.</li>\n<li><strong>Use placeholders consistently</strong> - Format placeholders with double curly braces {{like this}} for variables.</li>\n<li><strong>Include examples</strong> - Show what good outputs look like to guide the AI's response format.</li>\n<li><strong>Balance guidance with flexibility</strong> - Provide enough direction without over-constraining the AI's ability to generate creative content.</li>\n<li><strong>Test and iterate</strong> - Create your prompt, test the output, and refine based on results.</li>\n</ol>\n<p>Remember: The best prompts clearly communicate what you want while giving the AI enough information to generate high-quality, relevant content.</p>",
+      "subtitle": "{{status}} • Last Updated: {{updated_on}}",
+      "title": "{{name}}"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 7,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

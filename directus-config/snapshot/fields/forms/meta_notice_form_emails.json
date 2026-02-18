@@ -1,0 +1,31 @@
+{
+  "collection": "forms",
+  "field": "meta_notice_form_emails",
+  "type": "alias",
+  "meta": {
+    "collection": "forms",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_notice_form_emails",
+    "group": "meta_emails",
+    "hidden": false,
+    "interface": "presentation-notice",
+    "note": null,
+    "options": {
+      "text": "Set up automatic emails to notify your team members when forms are submitted, or send confirmation receipts to people who complete your forms."
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 1,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

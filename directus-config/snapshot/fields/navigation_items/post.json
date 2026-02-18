@@ -1,0 +1,66 @@
+{
+  "collection": "navigation_items",
+  "field": "post",
+  "type": "uuid",
+  "meta": {
+    "collection": "navigation_items",
+    "conditions": [
+      {
+        "hidden": false,
+        "name": "Show If Type = Post",
+        "options": {
+          "enableCreate": true,
+          "enableSelect": true
+        },
+        "rule": {
+          "_and": [
+            {
+              "type": {
+                "_eq": "post"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "display": null,
+    "display_options": null,
+    "field": "post",
+    "group": null,
+    "hidden": true,
+    "interface": "select-dropdown-m2o",
+    "note": "The internal post to link to.",
+    "options": {
+      "template": "{{title}}"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 11,
+    "special": [
+      "m2o"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  },
+  "schema": {
+    "name": "post",
+    "table": "navigation_items",
+    "data_type": "uuid",
+    "default_value": null,
+    "max_length": null,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": "posts",
+    "foreign_key_column": "id"
+  }
+}

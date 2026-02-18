@@ -1,0 +1,33 @@
+{
+  "collection": "block_gallery",
+  "field": "meta_header_block_gallery",
+  "type": "alias",
+  "meta": {
+    "collection": "block_gallery",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_header_block_gallery",
+    "group": null,
+    "hidden": false,
+    "interface": "super-header",
+    "note": null,
+    "options": {
+      "help": "<p>Create visual showcases with multiple images. Ideal for:</p>\n<ul>\n<li>Product portfolios</li>\n<li>Project showcases</li>\n<li>Event photo collections</li>\n<li>Team member galleries</li>\n<li>Before/after demonstrations</li>\n</ul>\n<p>Tips for great galleries:</p>\n<ul>\n<li>Use consistently sized images for the best presentation</li>\n<li>Add descriptive headlines to provide context</li>\n<li>Consider a tagline to explain what visitors are seeing</li>\n<li>Organize images in a logical sequence</li>\n</ul>",
+      "icon": "grid_view",
+      "title": "Gallery Block"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 6,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

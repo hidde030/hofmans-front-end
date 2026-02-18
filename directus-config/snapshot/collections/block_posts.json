@@ -1,0 +1,38 @@
+{
+  "collection": "block_posts",
+  "meta": {
+    "accountability": "all",
+    "archive_app_filter": true,
+    "archive_field": null,
+    "archive_value": null,
+    "collapse": "open",
+    "collection": "block_posts",
+    "color": null,
+    "display_template": "{{headline}}",
+    "group": "blocks",
+    "hidden": true,
+    "icon": "signpost",
+    "item_duplication_fields": [
+      "tagline",
+      "headline",
+      "collection",
+      "limit"
+    ],
+    "note": null,
+    "preview_url": null,
+    "singleton": false,
+    "sort": 4,
+    "sort_field": null,
+    "translations": [
+      {
+        "language": "en-US",
+        "translation": "Posts"
+      }
+    ],
+    "unarchive_value": null,
+    "versioning": false
+  },
+  "schema": {
+    "name": "block_posts"
+  }
+}

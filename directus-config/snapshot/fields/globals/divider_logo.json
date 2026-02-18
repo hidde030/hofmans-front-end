@@ -1,0 +1,33 @@
+{
+  "collection": "globals",
+  "field": "divider_logo",
+  "type": "alias",
+  "meta": {
+    "collection": "globals",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "divider_logo",
+    "group": null,
+    "hidden": false,
+    "interface": "presentation-divider",
+    "note": null,
+    "options": {
+      "color": "#A2B5CD",
+      "icon": "imagesmode",
+      "inlineTitle": true
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 10,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

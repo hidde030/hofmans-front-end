@@ -1,0 +1,33 @@
+{
+  "collection": "globals",
+  "field": "meta_notice_security",
+  "type": "alias",
+  "meta": {
+    "collection": "globals",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_notice_security",
+    "group": "meta_credentials",
+    "hidden": false,
+    "interface": "presentation-notice",
+    "note": null,
+    "options": {
+      "color": "warning",
+      "icon": "warning",
+      "text": "Be careful about changing the access policies and permissions for the `globals` collection so that you don't expose your private API keys."
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 1,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "collection": "forms",
+  "field": "meta_notice_form_fields",
+  "type": "alias",
+  "meta": {
+    "collection": "forms",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_notice_form_fields",
+    "group": "meta_fields",
+    "hidden": false,
+    "interface": "presentation-notice",
+    "note": null,
+    "options": {
+      "text": " Create custom forms by adding and configuring your desired input fields below. No coding required."
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 1,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

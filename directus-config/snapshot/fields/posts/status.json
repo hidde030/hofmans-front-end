@@ -1,0 +1,86 @@
+{
+  "collection": "posts",
+  "field": "status",
+  "type": "string",
+  "meta": {
+    "collection": "posts",
+    "conditions": null,
+    "display": "labels",
+    "display_options": {
+      "choices": [
+        {
+          "color": "#A2B5CD",
+          "icon": "draft_orders",
+          "text": "$t:draft",
+          "value": "draft"
+        },
+        {
+          "color": "#FFA439",
+          "icon": "rate_review",
+          "text": "In Review",
+          "value": "in_review"
+        },
+        {
+          "color": "#2ECDA7",
+          "icon": "check",
+          "text": "$t:published",
+          "value": "published"
+        }
+      ]
+    },
+    "field": "status",
+    "group": "meta_content",
+    "hidden": false,
+    "interface": "select-dropdown",
+    "note": "Is this post published?",
+    "options": {
+      "choices": [
+        {
+          "color": "#A2B5CD",
+          "icon": "draft_orders",
+          "text": "$t:draft",
+          "value": "draft"
+        },
+        {
+          "color": "#FFA439",
+          "icon": "rate_review",
+          "text": "In Review",
+          "value": "in_review"
+        },
+        {
+          "color": "#2ECDA7",
+          "icon": "check",
+          "text": "$t:published",
+          "value": "published"
+        }
+      ]
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 4,
+    "special": null,
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "half"
+  },
+  "schema": {
+    "name": "status",
+    "table": "posts",
+    "data_type": "character varying",
+    "default_value": "draft",
+    "max_length": 255,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": false,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

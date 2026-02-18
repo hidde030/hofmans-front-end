@@ -1,0 +1,34 @@
+{
+  "collection": "globals",
+  "field": "meta_divider_globals",
+  "type": "alias",
+  "meta": {
+    "collection": "globals",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_divider_globals",
+    "group": null,
+    "hidden": false,
+    "interface": "presentation-divider",
+    "note": null,
+    "options": {
+      "color": "#A2B5CD",
+      "icon": "link",
+      "inlineTitle": true,
+      "title": null
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 17,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

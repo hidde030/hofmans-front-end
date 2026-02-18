@@ -1,0 +1,55 @@
+{
+  "collection": "block_pricing",
+  "field": "headline",
+  "type": "text",
+  "meta": {
+    "collection": "block_pricing",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "headline",
+    "group": null,
+    "hidden": false,
+    "interface": "input",
+    "note": "Larger main headline for this page section.",
+    "options": {
+      "defaultView": {
+        "bearing": 0,
+        "center": {
+          "lat": 0,
+          "lng": 0
+        },
+        "pitch": 0,
+        "zoom": 0
+      },
+      "geometryType": "Point"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 8,
+    "special": null,
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  },
+  "schema": {
+    "name": "headline",
+    "table": "block_pricing",
+    "data_type": "text",
+    "default_value": null,
+    "max_length": null,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

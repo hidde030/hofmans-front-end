@@ -1,0 +1,33 @@
+{
+  "collection": "pages",
+  "field": "blocks",
+  "type": "alias",
+  "meta": {
+    "collection": "pages",
+    "conditions": null,
+    "display": "related-values",
+    "display_options": {
+      "template": "{{collection}}"
+    },
+    "field": "blocks",
+    "group": "meta_content",
+    "hidden": false,
+    "interface": "list-m2a",
+    "note": "Create and arrange different content blocks (like text, images, or videos) to build your page.",
+    "options": {
+      "enableSelect": false,
+      "prefix": null
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 7,
+    "special": [
+      "m2a"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

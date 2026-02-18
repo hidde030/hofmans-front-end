@@ -86,7 +86,6 @@ To get started, you need to configure environment variables. Follow these steps:
    ```
 
 2. **Update the following variables in your `.env` file:**
-
    - **`NEXT_PUBLIC_DIRECTUS_URL`**: URL of your Directus instance.
    - **`DIRECTUS_PUBLIC_TOKEN`**: Public token for accessing public resources in Directus. Use the token from the
      **Webmaster** account.
@@ -121,7 +120,7 @@ To get started, you need to configure environment variables. Follow these steps:
 This repository includes a [utility](https://www.npmjs.com/package/directus-sdk-typegen) to generate TypeScript types
 for your Directus schema.
 
-#### Usage
+### Usage
 
 1. Ensure your `.env` file is configured as described above.
 2. Run the following command:
@@ -177,3 +176,40 @@ src/
 ```
 
 ---
+
+@lucius02 READ THIS PLEASE TO SETUP THE CMS PROPERLY
+
+# CMS setup
+
+## Directus setup
+
+### 1. Create local directus instance
+
+```bash
+cd hofmans-cms/directus
+docker compose up -d
+```
+
+### 2. Create admin user
+
+Go to http://localhost:8055/admin/users and create an admin user or use existing admin user.
+
+### 3. Sync with live production instance
+
+npx directus-sync pull --directus-url https://directus-production-306b.up.railway.app --directus-token
+u4GRmMQVx2wvxair0CkExxLmKut-ZcUu
+
+Now we have folder called `directus-config` which has tables and fields of the database. We can use this to create new
+directus instance or update existing one.
+
+[More info about directus-sync](https://tractr.github.io/directus-sync/docs/getting-started/usage)
+
+### 4. Push to local instance
+
+npx directus-sync push --directus-url http://localhost:8055 --directus-token [PASSWORD]
+
+This command will:
+
+- Synchronize the schema
+- Update collections
+- Handle dependencies between elements

@@ -1,0 +1,34 @@
+{
+  "collection": "forms",
+  "field": "fields",
+  "type": "alias",
+  "meta": {
+    "collection": "forms",
+    "conditions": null,
+    "display": "related-values",
+    "display_options": {
+      "template": "{{name}} • {{type}}"
+    },
+    "field": "fields",
+    "group": "meta_fields",
+    "hidden": false,
+    "interface": "list-o2m",
+    "note": "Form structure and input fields",
+    "options": {
+      "enableSelect": false,
+      "sort": "sort",
+      "template": "{{name}} • {{type}}"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 2,
+    "special": [
+      "o2m"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

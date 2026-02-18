@@ -1,0 +1,46 @@
+{
+  "collection": "navigation",
+  "field": "id",
+  "type": "string",
+  "meta": {
+    "collection": "navigation",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "id",
+    "group": null,
+    "hidden": false,
+    "interface": "input",
+    "note": "Unique identifier for this menu. Can't be edited after creation.",
+    "options": {
+      "iconLeft": "vpn_key"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 7,
+    "special": null,
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "half"
+  },
+  "schema": {
+    "name": "id",
+    "table": "navigation",
+    "data_type": "character varying",
+    "default_value": null,
+    "max_length": 255,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": false,
+    "is_unique": true,
+    "is_indexed": false,
+    "is_primary_key": true,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

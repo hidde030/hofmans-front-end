@@ -1,0 +1,31 @@
+{
+  "collection": "pages",
+  "field": "meta_notice_pagebuilder",
+  "type": "alias",
+  "meta": {
+    "collection": "pages",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_notice_pagebuilder",
+    "group": "meta_content",
+    "hidden": false,
+    "interface": "presentation-notice",
+    "note": null,
+    "options": {
+      "text": "Build dynamic pages quickly using ready-made blocks. <a href=\"https://directus.io/docs/tutorials/getting-started/create-reusable-blocks-with-many-to-any-relationships?ref=simple_cms_notices\" target=\"_blank\">See our documentation to learn more about the Page Builder</a>."
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 6,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "collection": "posts",
+  "field": "meta_divider_info",
+  "type": "alias",
+  "meta": {
+    "collection": "posts",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_divider_info",
+    "group": "meta_content",
+    "hidden": false,
+    "interface": "presentation-divider",
+    "note": null,
+    "options": {
+      "color": "#A2B5CD",
+      "icon": "calendar_month",
+      "inlineTitle": true
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 3,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

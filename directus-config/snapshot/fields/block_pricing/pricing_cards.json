@@ -1,0 +1,30 @@
+{
+  "collection": "block_pricing",
+  "field": "pricing_cards",
+  "type": "alias",
+  "meta": {
+    "collection": "block_pricing",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "pricing_cards",
+    "group": null,
+    "hidden": false,
+    "interface": "list-o2m",
+    "note": "The individual pricing cards to display.",
+    "options": {
+      "template": "{{title}} • {{price}}"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 9,
+    "special": [
+      "o2m"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

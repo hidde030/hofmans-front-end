@@ -1,0 +1,55 @@
+{
+  "collection": "block_richtext",
+  "field": "alignment",
+  "type": "string",
+  "meta": {
+    "collection": "block_richtext",
+    "conditions": null,
+    "display": "formatted-value",
+    "display_options": null,
+    "field": "alignment",
+    "group": null,
+    "hidden": false,
+    "interface": "select-radio",
+    "note": "Controls how the content block is positioned on the page. Choose \"Left\" to align the block against the left margin or \"Center\" to position the block in the middle of the page. This setting affects the entire content block's placement, not the text alignment within it.",
+    "options": {
+      "choices": [
+        {
+          "text": "Left",
+          "value": "left"
+        },
+        {
+          "text": "Center",
+          "value": "center"
+        }
+      ]
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 10,
+    "special": null,
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  },
+  "schema": {
+    "name": "alignment",
+    "table": "block_richtext",
+    "data_type": "character varying",
+    "default_value": "center",
+    "max_length": 255,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

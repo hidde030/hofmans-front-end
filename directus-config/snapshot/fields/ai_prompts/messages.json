@@ -1,0 +1,113 @@
+{
+  "collection": "ai_prompts",
+  "field": "messages",
+  "type": "json",
+  "meta": {
+    "collection": "ai_prompts",
+    "conditions": null,
+    "display": "formatted-json-value",
+    "display_options": {
+      "format": "{{ role }} • {{ text }}"
+    },
+    "field": "messages",
+    "group": null,
+    "hidden": false,
+    "interface": "inline-repeater-interface",
+    "note": "Optional: Define the conversation structure between users and AI. Used to add context and improve outputs.",
+    "options": {
+      "addLabel": "New Message",
+      "fields": [
+        {
+          "field": "role",
+          "meta": {
+            "display": "labels",
+            "display_options": {
+              "choices": [
+                {
+                  "icon": "person",
+                  "text": "User",
+                  "value": "user"
+                },
+                {
+                  "icon": "robot",
+                  "text": "Assistant",
+                  "value": "assistant"
+                }
+              ]
+            },
+            "field": "role",
+            "interface": "select-dropdown",
+            "note": "Who is speaking in this message.",
+            "options": {
+              "choices": [
+                {
+                  "icon": "person",
+                  "text": "User",
+                  "value": "user"
+                },
+                {
+                  "icon": "robot",
+                  "text": "Assistant",
+                  "value": "assistant"
+                }
+              ]
+            },
+            "required": true,
+            "type": "string",
+            "width": "full"
+          },
+          "name": "role",
+          "type": "string"
+        },
+        {
+          "field": "text",
+          "meta": {
+            "display": "formatted-value",
+            "display_options": {
+              "format": true
+            },
+            "field": "text",
+            "interface": "input-rich-text-md",
+            "note": "The actual content of the message. You can use {{ curly_braces }} for placeholders that will be replaced with real data.",
+            "required": true,
+            "type": "text",
+            "width": "full"
+          },
+          "name": "text",
+          "type": "text"
+        }
+      ],
+      "showConfirmDiscard": true,
+      "template": "{{ role }} • {{ text }}"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 12,
+    "special": [
+      "cast-json"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  },
+  "schema": {
+    "name": "messages",
+    "table": "ai_prompts",
+    "data_type": "json",
+    "default_value": null,
+    "max_length": null,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

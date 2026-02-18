@@ -1,0 +1,80 @@
+{
+  "collection": "redirects",
+  "field": "response_code",
+  "type": "string",
+  "meta": {
+    "collection": "redirects",
+    "conditions": null,
+    "display": "labels",
+    "display_options": {
+      "choices": [
+        {
+          "description": "Page has permanently moved to the new URL.",
+          "icon": "sync_lock",
+          "icon_type": "icon",
+          "text": "Permanent (301)",
+          "value": "301"
+        },
+        {
+          "description": "Temporarily redirect traffic to the page to the new URL.",
+          "icon": "build_circle",
+          "icon_type": "icon",
+          "text": "Temporary (302)",
+          "value": "302"
+        }
+      ],
+      "conditionalFormatting": null
+    },
+    "field": "response_code",
+    "group": null,
+    "hidden": false,
+    "interface": "radio-cards-interface",
+    "note": null,
+    "options": {
+      "choices": [
+        {
+          "description": "Page has permanently moved to the new URL.",
+          "icon": "sync_lock",
+          "icon_type": "icon",
+          "text": "Permanent (301)",
+          "value": "301"
+        },
+        {
+          "description": "Temporarily redirect traffic to the page to the new URL.",
+          "icon": "build_circle",
+          "icon_type": "icon",
+          "text": "Temporary (302)",
+          "value": "302"
+        }
+      ],
+      "gridSize": 2
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 9,
+    "special": null,
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "half"
+  },
+  "schema": {
+    "name": "response_code",
+    "table": "redirects",
+    "data_type": "character varying",
+    "default_value": null,
+    "max_length": 255,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

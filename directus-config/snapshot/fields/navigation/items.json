@@ -1,0 +1,53 @@
+{
+  "collection": "navigation",
+  "field": "items",
+  "type": "alias",
+  "meta": {
+    "collection": "navigation",
+    "conditions": null,
+    "display": "related-values",
+    "display_options": {
+      "template": "{{title}} • {{type}}"
+    },
+    "field": "items",
+    "group": null,
+    "hidden": false,
+    "interface": "list-o2m",
+    "note": "Links within the menu.",
+    "options": {
+      "enableLink": true,
+      "filter": {
+        "_and": [
+          {
+            "_and": [
+              {
+                "navigation": {
+                  "_null": true
+                }
+              },
+              {
+                "parent": {
+                  "navigation": {
+                    "_null": true
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "template": "{{title}} • {{type}}"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 10,
+    "special": [
+      "o2m"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

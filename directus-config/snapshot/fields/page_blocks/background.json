@@ -1,0 +1,57 @@
+{
+  "collection": "page_blocks",
+  "field": "background",
+  "type": "string",
+  "meta": {
+    "collection": "page_blocks",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "background",
+    "group": null,
+    "hidden": false,
+    "interface": "select-dropdown",
+    "note": "Background color for the block to create contrast. Does not control dark or light mode for the entire site.",
+    "options": {
+      "choices": [
+        {
+          "icon": "light_mode",
+          "text": "Default",
+          "value": "light"
+        },
+        {
+          "icon": "dark_mode",
+          "text": "Dark",
+          "value": "dark"
+        }
+      ]
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 11,
+    "special": null,
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "half"
+  },
+  "schema": {
+    "name": "background",
+    "table": "page_blocks",
+    "data_type": "character varying",
+    "default_value": "light",
+    "max_length": 255,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

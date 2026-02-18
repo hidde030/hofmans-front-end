@@ -1,0 +1,60 @@
+{
+  "collection": "posts",
+  "field": "meta_header_posts",
+  "type": "alias",
+  "meta": {
+    "collection": "posts",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_header_posts",
+    "group": null,
+    "hidden": false,
+    "interface": "super-header",
+    "note": null,
+    "options": {
+      "actions": [
+        {
+          "actionType": "link",
+          "icon": "arrow_outward",
+          "label": "View on Website",
+          "type": "normal",
+          "url": "http://localhost:3000/blog/{{slug}}"
+        },
+        {
+          "actionType": "link",
+          "icon": "edit",
+          "label": "Open in Visual Editor",
+          "type": "normal",
+          "url": "/admin/visual/http://localhost:3000/blog/{{slug}}?visual-editing=true"
+        },
+        {
+          "actionType": "flow",
+          "flow": {
+            "collection": "directus_flows",
+            "key": "3172d021-0b0f-4d4d-bcca-c5c46eb8fadf"
+          },
+          "icon": "approval_delegation",
+          "label": "Request Review",
+          "type": "normal"
+        }
+      ],
+      "help": "<h2>Managing Blog Posts</h2>\n<p>Blog posts are a powerful way to share your content, news, and updates with your audience. Each post can include rich text content, images, and metadata to help with organization and discovery.</p>\n<h3>Post Settings</h3>\n<h4>Title</h4>\n<p>The main headline of your blog post. This appears at the top of the post and in preview cards across your site. Make it:</p>\n<ul>\n<li>Engaging and descriptive</li>\n<li>Clear about the post's content</li>\n<li>Optimized for search engines (aim for 50-60 characters)</li>\n</ul>\n<h4>Description</h4>\n<p>A brief preview of your post that appears in blog listings and search results. Write 1-2 compelling sentences that:</p>\n<ul>\n<li>Summarize the main point of your article</li>\n<li>Entice readers to click through</li>\n<li>Include relevant keywords naturally</li>\n</ul>\n<h4>Featured Image</h4>\n<p>The main visual for your post that appears:</p>\n<ul>\n<li>At the top of the post</li>\n<li>In preview cards across your site</li>\n<li>When sharing on social media Use high-quality, relevant images that capture attention and support your content.</li>\n</ul>\n<h4>URL Slug</h4>\n<p>The unique portion of the URL for this post. For example, in \"yoursite.com/posts/my-first-post\", \"my-first-post\" is the slug.</p>\n<ul>\n<li>Use lowercase letters and hyphens</li>\n<li>Keep it short but descriptive</li>\n<li>Include relevant keywords when possible</li>\n<li>Avoid special characters</li>\n</ul>\n<h4>Content</h4>\n<p>The main body of your post, supporting rich text formatting including:</p>\n<ul>\n<li>Headings and subheadings</li>\n<li>Paragraphs with formatting (bold, italic, etc.)</li>\n<li>Links to other content</li>\n<li>Bulleted and numbered lists</li>\n<li>Images and media</li>\n</ul>\n<h4>Author</h4>\n<p>Select the team member who wrote the post. This helps:</p>\n<ul>\n<li>Give credit to your writers</li>\n<li>Build authority for your content</li>\n<li>Allow readers to find more posts by the same author</li>\n</ul>\n<h4>Publishing Options</h4>\n<ul>\n<li><strong>Draft</strong>: Work on the post privately</li>\n<li><strong>In Review</strong>: Submit for team review</li>\n<li><strong>Published</strong>: Make the post public</li>\n<li><strong>Schedule</strong>: Set a future publication date and time</li>\n</ul>\n<h3>Best Practices for Blog Posts</h3>\n<h4>Writing Tips</h4>\n<ul>\n<li>Start with a strong opening paragraph</li>\n<li>Use subheadings to break up long content</li>\n<li>Keep paragraphs short (3-4 sentences)</li>\n<li>Include relevant internal and external links</li>\n<li>End with a clear conclusion or call to action</li>\n</ul>\n<h4>SEO Considerations</h4>\n<ul>\n<li>Include your main keyword in the title</li>\n<li>Use descriptive alt text for images</li>\n<li>Write naturally for your audience</li>\n<li>Link to related content on your site</li>\n<li>Use appropriate heading hierarchy</li>\n</ul>\n<h4>Image Guidelines</h4>\n<ul>\n<li>Choose relevant, high-quality featured images</li>\n<li>Optimize images for web performance</li>\n<li>Use consistent image sizes</li>\n<li>Include descriptive alt text</li>\n<li>Consider image placement within content</li>\n</ul>",
+      "icon": null,
+      "subtitle": "{{status}} • Published At: {{published_at}}",
+      "title": "{{title}}"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 7,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "fill"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "collection": "block_pricing_cards",
+  "field": "pricing",
+  "related_collection": "block_pricing",
+  "meta": {
+    "junction_field": null,
+    "many_collection": "block_pricing_cards",
+    "many_field": "pricing",
+    "one_allowed_collections": null,
+    "one_collection": "block_pricing",
+    "one_collection_field": null,
+    "one_deselect_action": "nullify",
+    "one_field": "pricing_cards",
+    "sort_field": "sort"
+  },
+  "schema": {
+    "table": "block_pricing_cards",
+    "column": "pricing",
+    "foreign_key_table": "block_pricing",
+    "foreign_key_column": "id",
+    "constraint_name": "block_pricing_cards_pricing_foreign",
+    "on_update": "NO ACTION",
+    "on_delete": "SET NULL"
+  }
+}

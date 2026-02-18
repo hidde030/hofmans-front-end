@@ -1,0 +1,35 @@
+{
+  "collection": "posts",
+  "field": "meta_seo",
+  "type": "alias",
+  "meta": {
+    "collection": "posts",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_seo",
+    "group": "meta_tabs",
+    "hidden": false,
+    "interface": "group-raw",
+    "note": null,
+    "options": null,
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 2,
+    "special": [
+      "alias",
+      "no-data",
+      "group"
+    ],
+    "translations": [
+      {
+        "language": "en-US",
+        "translation": "SEO"
+      }
+    ],
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

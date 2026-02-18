@@ -1,0 +1,33 @@
+{
+  "collection": "block_pricing",
+  "field": "meta_header_block_pricing",
+  "type": "alias",
+  "meta": {
+    "collection": "block_pricing",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_header_block_pricing",
+    "group": null,
+    "hidden": false,
+    "interface": "super-header",
+    "note": null,
+    "options": {
+      "help": "<p>Display your product or service pricing options in a clear, comparative format. Use this when:</p>\n<ul>\n<li>Showcasing different service tiers</li>\n<li>Highlighting feature differences between plans</li>\n<li>Promoting special offers or featured plans</li>\n<li>Presenting subscription options</li>\n</ul>\n<p>Best practices:</p>\n<ul>\n<li>Use clear, benefit-focused plan names</li>\n<li>Highlight your recommended or most popular option</li>\n<li>Keep feature lists scannable and easy to compare</li>\n<li>Include clear call-to-action buttons for each plan</li>\n</ul>",
+      "icon": "attach_money",
+      "title": "Pricing Block"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 6,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

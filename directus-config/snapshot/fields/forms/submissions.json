@@ -1,0 +1,43 @@
+{
+  "collection": "forms",
+  "field": "submissions",
+  "type": "alias",
+  "meta": {
+    "collection": "forms",
+    "conditions": null,
+    "display": "related-values",
+    "display_options": {
+      "template": "{{values.value}}"
+    },
+    "field": "submissions",
+    "group": "meta_submissions",
+    "hidden": false,
+    "interface": "list-o2m",
+    "note": "Received form responses.",
+    "options": {
+      "enableCreate": false,
+      "enableLink": true,
+      "enableSearchFilter": true,
+      "enableSelect": false,
+      "fields": [
+        "timestamp",
+        "values.value",
+        "values.field.name"
+      ],
+      "layout": "table",
+      "limit": 25,
+      "sort": "timestamp"
+    },
+    "readonly": true,
+    "required": false,
+    "searchable": true,
+    "sort": 2,
+    "special": [
+      "o2m"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "fill"
+  }
+}

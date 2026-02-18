@@ -1,0 +1,33 @@
+{
+  "collection": "block_posts",
+  "field": "meta_header_block_posts",
+  "type": "alias",
+  "meta": {
+    "collection": "block_posts",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_header_block_posts",
+    "group": null,
+    "hidden": false,
+    "interface": "super-header",
+    "note": null,
+    "options": {
+      "help": "<p>Automatically displays your most recent blog posts in chronological order. Perfect for:</p>\n<ul>\n<li>Showing latest articles on your homepage</li>\n<li>Keeping your content fresh and up-to-date</li>\n<li>Creating dynamic content sections</li>\n<li>Showcasing your recent writing</li>\n</ul>\n<p>You can:</p>\n<ul>\n<li>Set the number of posts to display</li>\n<li>Add a custom headline and tagline to label the section</li>\n<li>Trust the system to automatically keep your content current</li>\n</ul>\n<p>The posts will automatically update as you publish new content, ensuring your pages always show your latest articles.</p>",
+      "icon": "signpost",
+      "title": "Posts Block"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 6,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

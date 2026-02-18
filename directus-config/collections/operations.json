@@ -1,0 +1,656 @@
+[
+  {
+    "name": "Create Page",
+    "key": "create_page",
+    "type": "item-create",
+    "position_x": 73,
+    "position_y": 1,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "collection": "{{$trigger.body.collection}}",
+      "payload": "{{payload}}"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "a23110e1-700b-41b8-9f9e-ca0998b84a76",
+    "_syncId": "87d06203-9598-4bd5-8e6f-f14ae30a5a77"
+  },
+  {
+    "name": "Create Redirect",
+    "key": "create_redirect",
+    "type": "item-create",
+    "position_x": 91,
+    "position_y": 1,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "collection": "redirects",
+      "payload": "{{format_payload}}"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "c62ceaa5-bd09-4158-8329-98792debc5d5",
+    "_syncId": "18f9d737-bc7e-44be-bf12-950ba8441b87"
+  },
+  {
+    "name": "Duplication Fields",
+    "key": "duplication_fields",
+    "type": "item-read",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "query": {
+        "fields": [
+          "item_duplication_fields"
+        ]
+      },
+      "collection": "directus_collections",
+      "key": [
+        "{{$trigger.body.collection}}"
+      ]
+    },
+    "resolve": "446ee625-99b3-464c-ba2b-aadafa403ed2",
+    "reject": null,
+    "flow": "a23110e1-700b-41b8-9f9e-ca0998b84a76",
+    "_syncId": "c5b03e5a-4851-4863-a356-a58bef94f0fd"
+  },
+  {
+    "name": "Form",
+    "key": "form",
+    "type": "item-read",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "collection": "forms",
+      "key": [
+        "{{$trigger.payload.form}}"
+      ],
+      "query": {
+        "fields": [
+          "*",
+          "fields.*"
+        ]
+      },
+      "permissions": "$full"
+    },
+    "resolve": "00df7418-20f1-48d7-ab8e-8e73677307af",
+    "reject": null,
+    "flow": "61757ab0-b139-4079-b5eb-4e05bb8142ac",
+    "_syncId": "74265a44-67ec-4b1d-b7e7-f5e7ab32166e"
+  },
+  {
+    "name": "Format",
+    "key": "format",
+    "type": "exec",
+    "position_x": 55,
+    "position_y": 1,
+    "options": {
+      "code": "module.exports = function(data) {\n    const aiResponse = JSON.parse(data.write)\n\tconst payload = {}\n    payload.title = aiResponse.title\n    payload.description = aiResponse.description\n    payload.content = aiResponse.content\n    payload.slug = aiResponse.slug\n    return payload\n}"
+    },
+    "resolve": "ceb8ca4d-21e0-4b4d-b293-7529324f851b",
+    "reject": null,
+    "flow": "5915dd55-fff8-4d47-b48c-a0e42e5033c1",
+    "_syncId": "41ce352d-5a0a-41d9-b018-d57bc6484ace"
+  },
+  {
+    "name": "Format",
+    "key": "format",
+    "type": "exec",
+    "position_x": 19,
+    "position_y": 18,
+    "options": {
+      "code": "/**\n * Prepares email template data by matching trigger values with form fields\n * @param {Object} trigger - The trigger object containing payload values\n * @param {Object} form - The form object containing fields and email templates\n * @returns {Array} Array of prepared email template objects\n * @throws {Error} If required data is missing or invalid\n */\nfunction prepareEmailTemplateData(trigger, form) {\n  // Validate input parameters\n  if (!trigger?.payload?.values || !Array.isArray(trigger.payload.values)) {\n    throw new Error('Invalid trigger payload values');\n  }\n  \n  if (!form?.fields || !Array.isArray(form.fields)) {\n    throw new Error('Invalid form fields');\n  }\n  \n  if (!form?.emails || !Array.isArray(form.emails)) {\n    throw new Error('Invalid form emails');\n  }\n\n  // Create an object to store the field name-value pairs\n  const data = {};\n  \n  // Iterate through the trigger values and match them with form fields\n  trigger.payload.values.forEach(item => {\n    if (!item || typeof item !== 'object') {\n      throw new Error('Invalid trigger value item');\n    }\n\n    // Ensure required properties exist\n    if (!item.field && !item.field_name) {\n      throw new Error('Missing field identifier in trigger value');\n    }\n    \n    if (item.value === undefined) {\n      throw new Error('Missing value in trigger value');\n    }\n\n    // Find the corresponding field in the form\n    const formField = form.fields.find(field => field.id === item.field);\n    \n    // If a matching field is found, use its name as the key\n    if (formField && formField.name) {\n      data[formField.name] = item.value;\n    } else {\n      // Fallback to using the field_name from the trigger if no match is found\n      data[item.field_name || item.field] = item.value;\n    }\n  });\n\n  // Process and validate all email templates\n  const emailTemplates = form.emails.map(email => {\n    // Validate required email template properties\n    if (!email.subject) {\n      throw new Error('Missing email subject');\n    }\n    \n    if (!email.message) {\n      throw new Error('Missing email message template');\n    }\n    \n    if (!email.to) {\n      throw new Error('Missing email recipient');\n    }\n\n    // Normalize 'to' field to always be an array\n    const toField = Array.isArray(email.to) ? email.to : [email.to];\n    \n    // Validate each email address\n    toField.forEach(recipient => {\n      if (typeof recipient !== 'string' || !recipient.trim()) {\n        throw new Error('Invalid email recipient');\n      }\n    });\n\n    return {\n      to: toField,\n      subject: email.subject,\n      template: email.message,\n      data: data\n    };\n  });\n\n  return emailTemplates;\n}\n\nmodule.exports = function(data) {\n  if (!data?.$trigger || !data?.form) {\n    throw new Error('Missing required data');\n  }\n  \n  return prepareEmailTemplateData(data.$trigger, data.form);\n};"
+    },
+    "resolve": "1786ca18-5ba6-47bb-b3a1-691224fcd28c",
+    "reject": null,
+    "flow": "61757ab0-b139-4079-b5eb-4e05bb8142ac",
+    "_syncId": "00df7418-20f1-48d7-ab8e-8e73677307af"
+  },
+  {
+    "name": "Format",
+    "key": "format",
+    "type": "exec",
+    "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "code": "module.exports = function(data) {\n\treturn {\n        ...data.$trigger,\n        body: data.render.template\n    }\n}"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "5429ccb0-7e97-4ef5-9d65-2bbcf964f9a6",
+    "_syncId": "28ec6e20-07ac-4ccf-980d-01848946f3ce"
+  },
+  {
+    "name": "Format",
+    "key": "format",
+    "type": "exec",
+    "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "code": "module.exports = async function(data) {\n    return data.read_globals[0]\n}"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "69e87d0b-df14-4779-bdc8-abc05f2f1e97",
+    "_syncId": "b0465405-9a3c-426d-b183-2a2d2d0c0d20"
+  },
+  {
+    "name": "Format Payload",
+    "key": "format_payload",
+    "type": "exec",
+    "position_x": 73,
+    "position_y": 1,
+    "options": {
+      "code": "/**\n * Automatic Redirect Generator for Content URL Changes\n * \n * This function generates redirect objects when published content URLs change.\n * It works with both posts and pages collections to maintain SEO value\n * and prevent broken links when content is moved or renamed.\n */\nconst map = {\n  // Configuration for blog posts\n  posts: {\n    slugField: \"slug\",        // Field that contains the URL identifier for posts\n    routePrefix: \"/blog/\",    // Prefix added to all post URLs (e.g., /blog/my-post)\n  },\n  // Configuration for pages\n  pages: {\n    slugField: \"permalink\",   // Field that contains the URL identifier for pages\n    routePrefix: \"\",          // No prefix for pages (e.g., /about-us)\n  },\n};\n\n/**\n * Flow function executed when content URL changes\n * @param {Object} data - Data object from Directus Flow\n * @param {Object} data.$trigger - Information about what triggered the flow\n * @param {string} data.$trigger.collection - Collection name (posts/pages)\n * @param {Object} data.$trigger.payload - New data being saved\n * @param {Object} data.item - Previous version of the item before changes\n * @returns {Object} Redirect configuration object\n */\nmodule.exports = function (data) {\n  // Get the collection configuration based on whether this is a page or post\n  const collection = map[data.$trigger.collection];\n\n  const oldSlug = data.item[collection.slugField];\n  const newSlug = data.$trigger.payload[collection.slugField];\n  \n  // Build the old URL by combining the route prefix with the previous slug/permalink\n  const oldUrl = `${collection.routePrefix}${oldSlug}`;\n  \n  // Build the new URL by combining the route prefix with the new slug/permalink\n  const newUrl = `${collection.routePrefix}${newSlug}`;\n    \n  // Add a note\n  const note = `Created by Redirect automation on ${new Date().toLocaleDateString(\"en-US\")} at ${new Date().toLocaleTimeString(\"en-US\")} when a ${data.$trigger.collection} ${collection.slugField} was updated from \"${oldSlug}\" to \"${newSlug}\"`\n  \n  // Return a redirect object that will be saved to the redirects collection\n  return {\n    response_code: 301,       // Permanent redirect (best for SEO)\n    url_from: oldUrl,         // Where users were going before\n    url_to: newUrl,           // Where they should be sent now\n    note,\n  };\n};"
+    },
+    "resolve": "18f9d737-bc7e-44be-bf12-950ba8441b87",
+    "reject": null,
+    "flow": "c62ceaa5-bd09-4158-8329-98792debc5d5",
+    "_syncId": "69ed5275-6ec7-4035-b236-982d74efb658"
+  },
+  {
+    "name": "Get Editor",
+    "key": "get_editor",
+    "type": "item-read",
+    "position_x": 38,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "collection": "directus_users",
+      "key": [
+        "{{$trigger.body.editor.key}}"
+      ],
+      "query": {
+        "fields": [
+          "id",
+          "first_name",
+          "last_name",
+          "email"
+        ]
+      }
+    },
+    "resolve": "490eb85a-fd51-43ac-874a-2182cfce311c",
+    "reject": null,
+    "flow": "3172d021-0b0f-4d4d-bcca-c5c46eb8fadf",
+    "_syncId": "0f9dc568-d2bd-4685-ae4f-ba3ffb45779f"
+  },
+  {
+    "name": "Get Post",
+    "key": "get_post",
+    "type": "item-read",
+    "position_x": 19,
+    "position_y": 19,
+    "options": {
+      "permissions": "$full",
+      "collection": "{{$trigger.body.collection}}",
+      "key": "{{$trigger.body.keys}}"
+    },
+    "resolve": "deaef31b-f2ea-4e7c-98df-c95d82cdfb81",
+    "reject": null,
+    "flow": "3172d021-0b0f-4d4d-bcca-c5c46eb8fadf",
+    "_syncId": "45d9999c-e5a8-414f-a4fa-36c85b197845"
+  },
+  {
+    "name": "Get User",
+    "key": "get_user",
+    "type": "item-read",
+    "position_x": 57,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "collection": "directus_users",
+      "key": [
+        "{{$accountability.user}}"
+      ],
+      "query": {
+        "fields": [
+          "id",
+          "first_name",
+          "last_name",
+          "email"
+        ]
+      }
+    },
+    "resolve": "45d9999c-e5a8-414f-a4fa-36c85b197845",
+    "reject": null,
+    "flow": "3172d021-0b0f-4d4d-bcca-c5c46eb8fadf",
+    "_syncId": "490eb85a-fd51-43ac-874a-2182cfce311c"
+  },
+  {
+    "name": "Globals",
+    "key": "globals",
+    "type": "trigger",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "flow": "69e87d0b-df14-4779-bdc8-abc05f2f1e97"
+    },
+    "resolve": "141ea4df-0279-49f8-b89c-3b727cbd28f5",
+    "reject": null,
+    "flow": "d4bbac48-a444-49e0-aedb-9af5273b88df",
+    "_syncId": "86ee5b06-88c6-46b9-9f18-b1af852f8940"
+  },
+  {
+    "name": "Globals",
+    "key": "globals",
+    "type": "trigger",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "flow": "69e87d0b-df14-4779-bdc8-abc05f2f1e97"
+    },
+    "resolve": "b0edbdef-359b-4638-94c8-321a6f43b13b",
+    "reject": null,
+    "flow": "5915dd55-fff8-4d47-b48c-a0e42e5033c1",
+    "_syncId": "f162af2e-edc6-45b6-8268-9faf4a30d1f4"
+  },
+  {
+    "name": "Globals",
+    "key": "globals",
+    "type": "trigger",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "flow": "69e87d0b-df14-4779-bdc8-abc05f2f1e97"
+    },
+    "resolve": "0f9dc568-d2bd-4685-ae4f-ba3ffb45779f",
+    "reject": null,
+    "flow": "3172d021-0b0f-4d4d-bcca-c5c46eb8fadf",
+    "_syncId": "f2abdcf1-5911-4cb9-8086-654664d7e628"
+  },
+  {
+    "name": "Image",
+    "key": "image",
+    "type": "directus-labs-ai-image-generation",
+    "position_x": 56,
+    "position_y": 1,
+    "options": {
+      "apiKey": "{{globals.openai_api_key}}",
+      "quality": "hd",
+      "size": "landscape",
+      "prompt": "{{prompt}}"
+    },
+    "resolve": "deae0f70-f2ad-463f-8576-1f8ad200afd8",
+    "reject": null,
+    "flow": "d4bbac48-a444-49e0-aedb-9af5273b88df",
+    "_syncId": "0a2717f4-4580-48f2-b699-de2cd67fd024"
+  },
+  {
+    "name": "Import",
+    "key": "import",
+    "type": "request",
+    "position_x": 74,
+    "position_y": 1,
+    "options": {
+      "method": "POST",
+      "url": "{{globals.directus_url}}/files/import",
+      "body": "{\n  \"url\": \"{{image}}\"\n}",
+      "headers": [
+        {
+          "header": "Authorization",
+          "value": "Bearer fT6_R5in_QUpUSXlLqGIhYtbRlBnopFe"
+        }
+      ]
+    },
+    "resolve": "693e5141-2888-4d12-ac4c-366cb72d669f",
+    "reject": null,
+    "flow": "d4bbac48-a444-49e0-aedb-9af5273b88df",
+    "_syncId": "deae0f70-f2ad-463f-8576-1f8ad200afd8"
+  },
+  {
+    "name": "Is Published",
+    "key": "is_published",
+    "type": "condition",
+    "position_x": 55,
+    "position_y": 1,
+    "options": {
+      "filter": {
+        "_and": [
+          {
+            "item": {
+              "status": {
+                "_eq": "published"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "resolve": "69ed5275-6ec7-4035-b236-982d74efb658",
+    "reject": "67f7a2e1-d33a-4e56-8b1b-9c33a11c4342",
+    "flow": "c62ceaa5-bd09-4158-8329-98792debc5d5",
+    "_syncId": "1b80b3d7-9ea0-4d74-9100-7d40d2131279"
+  },
+  {
+    "name": "Item",
+    "key": "item",
+    "type": "item-read",
+    "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "query": {
+        "fields": "{{duplication_fields.item_duplication_fields}}"
+      },
+      "key": "{{$trigger.body.keys}}",
+      "collection": "{{$trigger.body.collection}}"
+    },
+    "resolve": "d54061d6-d467-43e3-849c-cbf0d992949c",
+    "reject": null,
+    "flow": "a23110e1-700b-41b8-9f9e-ca0998b84a76",
+    "_syncId": "446ee625-99b3-464c-ba2b-aadafa403ed2"
+  },
+  {
+    "name": "Read Item",
+    "key": "item",
+    "type": "item-read",
+    "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "collection": "{{$trigger.collection}}",
+      "key": "{{$trigger.keys}}"
+    },
+    "resolve": "1b80b3d7-9ea0-4d74-9100-7d40d2131279",
+    "reject": null,
+    "flow": "c62ceaa5-bd09-4158-8329-98792debc5d5",
+    "_syncId": "1fd41adb-d750-4bd5-843c-8a0894fc25ae"
+  },
+  {
+    "name": "Log Error",
+    "key": "log_error",
+    "type": "log",
+    "position_x": 37,
+    "position_y": 17,
+    "options": {
+      "message": "Trigger did NOT include a `to` address. "
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "7c8732cd-9d9e-44be-a3f6-89c0d42c7687",
+    "_syncId": "ff9e78c3-43b9-448f-b584-db88ee6ae4e7"
+  },
+  {
+    "name": "No Change",
+    "key": "no_change",
+    "type": "log",
+    "position_x": 37,
+    "position_y": 18,
+    "options": {
+      "message": "No redirect was created. The item `slug` or `permalink` did not change."
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "c62ceaa5-bd09-4158-8329-98792debc5d5",
+    "_syncId": "5c2c34ac-860f-43de-8cd5-2353677da725"
+  },
+  {
+    "name": "Not Published",
+    "key": "not_published",
+    "type": "log",
+    "position_x": 73,
+    "position_y": 18,
+    "options": {
+      "message": "No redirect was created. The item `status` was not `published`."
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "c62ceaa5-bd09-4158-8329-98792debc5d5",
+    "_syncId": "67f7a2e1-d33a-4e56-8b1b-9c33a11c4342"
+  },
+  {
+    "name": "Format Payload",
+    "key": "payload",
+    "type": "exec",
+    "position_x": 55,
+    "position_y": 1,
+    "options": {
+      "code": "/**\n* Page Duplication Flow Function\n* \n* This function handles the duplication of a Directus page, including all its content blocks.\n* It allows specifying a new title and permalink, or automatically creates them with \"-Copy\" suffix.\n* The duplicated page is always set to draft status for review before publishing.\n* \n* @param {Object} data - Data object from Directus Flow\n* @param {Object} data.$trigger.body - Optional data passed to the flow (new title/permalink)\n* @param {Object} data.item - The original page being duplicated with all its properties\n* @returns {Object} Modified page data for creating the duplicate\n*/\nmodule.exports = function(data) {\n   // Get the data submitted with the flow trigger (if any)\n   const triggerData = data.$trigger.body;\n   \n   // Get the full data of the existing page to duplicate\n   const existingData = data.item;\n   \n   // Set the title for the duplicate:\n   // - Use the provided title if it exists in the trigger data\n   // - Otherwise, append \"- Copy\" to the original page title\n   existingData.title = triggerData.title ?? existingData.title + ' - Copy';\n   \n   // Set the permalink for the duplicate:\n   // - Use the provided permalink if it exists in the trigger data\n   // - Otherwise, append \"-copy\" to the original permalink\n   existingData.permalink = triggerData.permalink ?? existingData.permalink + '-copy';\n   \n   // Always set the duplicate page to draft status\n   // This prevents accidental publishing of duplicate content\n   existingData.status = 'draft';\n   \n   // Return the modified data to create the duplicate page\n   // Note: Directus will handle copying all related blocks/components\n   return existingData;\n}"
+    },
+    "resolve": "87d06203-9598-4bd5-8e6f-f14ae30a5a77",
+    "reject": null,
+    "flow": "a23110e1-700b-41b8-9f9e-ca0998b84a76",
+    "_syncId": "d54061d6-d467-43e3-849c-cbf0d992949c"
+  },
+  {
+    "name": "Prompt",
+    "key": "prompt",
+    "type": "directus-labs-ai-writer-operation",
+    "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "apiKey": "{{globals.openai_api_key}}",
+      "promptKey": "custom",
+      "system": "You are an expert in writing prompts for generating images through Dall•E 3. \n\n## Rules\nReturn only the prompt text",
+      "text": "Use the following information and context to write a prompt to generate an image for a blog post.\n\nImage Style:\n{{ $trigger.body.prompt }}\n\nAspect Ratio: \n{{ $trigger.body.aspect_ratio }}\n\nColor Palette:\n{{ $trigger.body.colors }}",
+      "model": "gpt-4o-mini",
+      "aiProvider": "openai",
+      "apiKeyOpenAi": "{{globals.openai_api_key}}"
+    },
+    "resolve": "0a2717f4-4580-48f2-b699-de2cd67fd024",
+    "reject": null,
+    "flow": "d4bbac48-a444-49e0-aedb-9af5273b88df",
+    "_syncId": "141ea4df-0279-49f8-b89c-3b727cbd28f5"
+  },
+  {
+    "name": "Read Globals",
+    "key": "read_globals",
+    "type": "item-read",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "collection": "globals"
+    },
+    "resolve": "b0465405-9a3c-426d-b183-2a2d2d0c0d20",
+    "reject": null,
+    "flow": "69e87d0b-df14-4779-bdc8-abc05f2f1e97",
+    "_syncId": "4e6653f6-d103-4498-a10b-06417fa2b60a"
+  },
+  {
+    "name": "Render Template",
+    "key": "render",
+    "type": "liquidjs-operation",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "publicUrl": "http://localhost:8001/",
+      "mode": "custom",
+      "operationMode": "single",
+      "template": "{{ $trigger.template }}",
+      "data": "{{ $trigger.data }}"
+    },
+    "resolve": "28ec6e20-07ac-4ccf-980d-01848946f3ce",
+    "reject": null,
+    "flow": "5429ccb0-7e97-4ef5-9d65-2bbcf964f9a6",
+    "_syncId": "fffc3d80-5740-4934-bef6-eb3c4b239227"
+  },
+  {
+    "name": "Render",
+    "key": "render",
+    "type": "trigger",
+    "position_x": 41,
+    "position_y": 1,
+    "options": {
+      "flow": "5429ccb0-7e97-4ef5-9d65-2bbcf964f9a6",
+      "payload": "{{ format }}"
+    },
+    "resolve": "cb017ccf-e017-48ec-9f72-1f2bed9d178c",
+    "reject": null,
+    "flow": "61757ab0-b139-4079-b5eb-4e05bb8142ac",
+    "_syncId": "1786ca18-5ba6-47bb-b3a1-691224fcd28c"
+  },
+  {
+    "name": "Send",
+    "key": "send",
+    "type": "trigger",
+    "position_x": 59,
+    "position_y": 1,
+    "options": {
+      "flow": "7c8732cd-9d9e-44be-a3f6-89c0d42c7687",
+      "payload": "{{ render }}"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "61757ab0-b139-4079-b5eb-4e05bb8142ac",
+    "_syncId": "cb017ccf-e017-48ec-9f72-1f2bed9d178c"
+  },
+  {
+    "name": "Send Email",
+    "key": "send_email",
+    "type": "mail",
+    "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "to": "{{$trigger.to}}",
+      "subject": "{{$trigger.subject}}",
+      "type": "wysiwyg",
+      "body": "<p>{{$trigger.body}}</p>"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "7c8732cd-9d9e-44be-a3f6-89c0d42c7687",
+    "_syncId": "f8d077c1-8456-4f89-9c0e-eb85322d3963"
+  },
+  {
+    "name": "Send Email",
+    "key": "send_email",
+    "type": "mail",
+    "position_x": 37,
+    "position_y": 19,
+    "options": {
+      "to": [
+        "{{get_editor.email}}"
+      ],
+      "subject": "🧐 Review Request: {{get_post.title}} from {{get_user.first_name}} {{ get_user.last_name}}",
+      "body": "Hi {{ get_editor.first_name }},\n\n{{ get_user.first_name }} {{ get_user.last_name}} has requested your review on the following content:\n\n[{{ $trigger.body.collection }} – **{{ get_post.title }}**]({{globals.directus_url}}/admin/content/{{$trigger.body.collection}}/{{$trigger.body.keys[0]}})\n\n**Comments:**\n{{ $trigger.body.comments }}\n\n---\n\nPlease review to schedule for publishing or request changes.",
+      "replyTo": [
+        "{{get_user.email}}"
+      ]
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "3172d021-0b0f-4d4d-bcca-c5c46eb8fadf",
+    "_syncId": "deaef31b-f2ea-4e7c-98df-c95d82cdfb81"
+  },
+  {
+    "name": "Did Slug Change",
+    "key": "slug_changed",
+    "type": "condition",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "filter": {
+        "_or": [
+          {
+            "$trigger": {
+              "payload": {
+                "slug": {
+                  "_nnull": true
+                }
+              }
+            }
+          },
+          {
+            "$trigger": {
+              "payload": {
+                "permalink": {
+                  "_nnull": true
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "resolve": "1fd41adb-d750-4bd5-843c-8a0894fc25ae",
+    "reject": "5c2c34ac-860f-43de-8cd5-2353677da725",
+    "flow": "c62ceaa5-bd09-4158-8329-98792debc5d5",
+    "_syncId": "c7468ad6-b8b5-4550-af43-f4da5f0fe6bc"
+  },
+  {
+    "name": "Update",
+    "key": "update",
+    "type": "item-update",
+    "position_x": 92,
+    "position_y": 1,
+    "options": {
+      "collection": "posts",
+      "payload": {
+        "image": "{{import.data.data.id}}"
+      },
+      "key": "{{$trigger.body.keys}}",
+      "permissions": "$full"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "d4bbac48-a444-49e0-aedb-9af5273b88df",
+    "_syncId": "693e5141-2888-4d12-ac4c-366cb72d669f"
+  },
+  {
+    "name": "Update",
+    "key": "update",
+    "type": "item-update",
+    "position_x": 73,
+    "position_y": 1,
+    "options": {
+      "collection": "posts",
+      "permissions": "$full",
+      "key": [
+        "{{$trigger.body.keys}}"
+      ],
+      "payload": "{{format}}"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "5915dd55-fff8-4d47-b48c-a0e42e5033c1",
+    "_syncId": "ceb8ca4d-21e0-4b4d-b293-7529324f851b"
+  },
+  {
+    "name": "Verify To",
+    "key": "verify_to",
+    "type": "condition",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "filter": {
+        "$trigger": {
+          "to": {
+            "_nnull": true
+          }
+        }
+      }
+    },
+    "resolve": "f8d077c1-8456-4f89-9c0e-eb85322d3963",
+    "reject": "ff9e78c3-43b9-448f-b584-db88ee6ae4e7",
+    "flow": "7c8732cd-9d9e-44be-a3f6-89c0d42c7687",
+    "_syncId": "baf3d12c-b0e0-4e5e-b1bb-f54a8c312858"
+  },
+  {
+    "name": "Write",
+    "key": "write",
+    "type": "directus-labs-ai-writer-operation",
+    "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "apiKey": "{{globals.openai_api_key}}",
+      "model": "gpt-4o-mini",
+      "promptKey": "custom",
+      "system": "You are an expert in writing blog posts that are valuable for readers.\n\n## Rules\n- You are a human content writer. Avoid AI words like \"empower\". Avoid using prolix. Sound human.\n- ALWAYS output a JSON object that matches the sample below.\n{\n\"title\": \"Article Title\",\n\"slug\": \"formatted-slug\",\n\"description\": \"Short summary of the article to entice readers\",\n\"content\": \"Article content goes here. This needs to be properly encoded HTML string with proper line breaks, etc.\"\n}",
+      "json_mode": true,
+      "text": "Write an article based on this prompt.\n{{$trigger.body.prompt}}\n\n\n## Voice\nMatch this style and tone of voice when writing.\n{{ $trigger.body.voice }}",
+      "aiProvider": "openai",
+      "apiKeyOpenAi": "{{globals.openai_api_key}}",
+      "maxToken": 8192
+    },
+    "resolve": "41ce352d-5a0a-41d9-b018-d57bc6484ace",
+    "reject": null,
+    "flow": "5915dd55-fff8-4d47-b48c-a0e42e5033c1",
+    "_syncId": "b0edbdef-359b-4638-94c8-321a6f43b13b"
+  }
+]

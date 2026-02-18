@@ -1,0 +1,30 @@
+{
+  "collection": "directus_users",
+  "field": "posts",
+  "type": "alias",
+  "meta": {
+    "collection": "directus_users",
+    "conditions": null,
+    "display": "related-values",
+    "display_options": null,
+    "field": "posts",
+    "group": null,
+    "hidden": false,
+    "interface": "list-o2m",
+    "note": "Blog posts this user has authored.",
+    "options": {
+      "template": "{{title}}"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 1,
+    "special": [
+      "o2m"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

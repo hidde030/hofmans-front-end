@@ -1,0 +1,31 @@
+{
+  "collection": "forms",
+  "field": "meta_notice_form_responses",
+  "type": "alias",
+  "meta": {
+    "collection": "forms",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_notice_form_responses",
+    "group": "meta_submissions",
+    "hidden": false,
+    "interface": "presentation-notice",
+    "note": null,
+    "options": {
+      "text": "This table displays all responses submitted through this form. Each entry includes the submission timestamp and the values for each form field."
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 1,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

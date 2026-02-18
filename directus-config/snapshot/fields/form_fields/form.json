@@ -1,0 +1,50 @@
+{
+  "collection": "form_fields",
+  "field": "form",
+  "type": "uuid",
+  "meta": {
+    "collection": "form_fields",
+    "conditions": null,
+    "display": "related-values",
+    "display_options": {
+      "template": "{{title}}"
+    },
+    "field": "form",
+    "group": null,
+    "hidden": true,
+    "interface": "select-dropdown-m2o",
+    "note": "Parent form this field belongs to.",
+    "options": {
+      "template": "{{title}}"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 7,
+    "special": [
+      "m2o"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  },
+  "schema": {
+    "name": "form",
+    "table": "form_fields",
+    "data_type": "uuid",
+    "default_value": null,
+    "max_length": null,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": "forms",
+    "foreign_key_column": "id"
+  }
+}

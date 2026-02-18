@@ -1,0 +1,33 @@
+{
+  "collection": "redirects",
+  "field": "meta_header_redirects",
+  "type": "alias",
+  "meta": {
+    "collection": "redirects",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_header_redirects",
+    "group": null,
+    "hidden": false,
+    "interface": "super-header",
+    "note": null,
+    "options": {
+      "help": "<h2>What Are Redirects?</h2>\n<p>Redirects automatically send visitors from old URLs to new ones when content moves or changes.</p>\n<h2>Setting Up Redirects</h2>\n<ul>\n<li><strong>URL From</strong>: The old path (must be relative, like <code>/old-about-us</code>)</li>\n<li><strong>URL To</strong>: Where visitors should go (can be relative or full URL)</li>\n<li><strong>Response Code</strong>: Choose 301 (permanent) or 302 (temporary)</li>\n</ul>\n<h2>Automatic Redirects</h2>\n<p>When you change a published page's URL, there's a Flow that automatically creates redirects to prevent broken links. You can disable this in the Settings -&gt; Flows.</p>\n<h2>Best Practices</h2>\n<ul>\n<li>Keep URLs descriptive but concise</li>\n<li>Regularly review and clean up old redirects</li>\n<li>Avoid redirect chains</li>\n<li>Test redirects before publishing</li>\n</ul>",
+      "subtitle": "Redirecting to: {{url_to}}",
+      "title": "{{url_from}} • {{response_code}}"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 6,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

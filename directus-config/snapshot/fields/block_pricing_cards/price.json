@@ -1,0 +1,46 @@
+{
+  "collection": "block_pricing_cards",
+  "field": "price",
+  "type": "string",
+  "meta": {
+    "collection": "block_pricing_cards",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "price",
+    "group": null,
+    "hidden": false,
+    "interface": "input",
+    "note": "Price and term for the pricing plan. (ie `$199/mo`)",
+    "options": {
+      "placeholder": "$199 /month"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 9,
+    "special": null,
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "half"
+  },
+  "schema": {
+    "name": "price",
+    "table": "block_pricing_cards",
+    "data_type": "character varying",
+    "default_value": null,
+    "max_length": 255,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

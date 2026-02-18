@@ -1,0 +1,33 @@
+{
+  "collection": "globals",
+  "field": "meta_header_globals",
+  "type": "alias",
+  "meta": {
+    "collection": "globals",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_header_globals",
+    "group": null,
+    "hidden": false,
+    "interface": "super-header",
+    "note": null,
+    "options": {
+      "help": "<h2>Global Settings</h2>\n<p>These settings control site-wide elements that affect your entire website. There's only one global settings record.</p>\n<h3>Site Info</h3>\n<ul>\n<li><strong>Title</strong>: Your website's name, appears in browser tabs and search results</li>\n<li><strong>Tagline</strong>: Short description of your site used in search results</li>\n<li><strong>Description</strong>: Longer site summary for SEO and social sharing</li>\n<li><strong>Website URL</strong>: Your site's public address</li>\n<li><strong>CMS URL</strong>: Address of your admin system</li>\n</ul>\n<h3>Brand Assets</h3>\n<ul>\n<li><strong>Logo</strong>: Main site logo for light backgrounds</li>\n<li><strong>Dark Mode Logo</strong>: Alternate logo for dark themes</li>\n<li><strong>Favicon</strong>: Small icon for browser tabs (max 512&times;512px)</li>\n<li><strong>Accent Color</strong>: Your brand's primary color for buttons and highlights</li>\n</ul>\n<h3>Social Media Links</h3>\n<p>Add URLs for your social profiles:</p>\n<ul>\n<li>Facebook, Instagram, LinkedIn</li>\n<li>Twitter, YouTube, Vimeo</li>\n<li>GitHub, Discord, Docker</li>\n</ul>\n<h3>API Settings</h3>\n<ul>\n<li><strong>OpenAI API Key</strong>: Required for AI-powered features</li>\n</ul>",
+      "subtitle": "{{url}}",
+      "title": "{{title}} • Site Settings"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 6,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

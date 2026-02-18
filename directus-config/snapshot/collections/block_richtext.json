@@ -1,0 +1,40 @@
+{
+  "collection": "block_richtext",
+  "meta": {
+    "accountability": "all",
+    "archive_app_filter": true,
+    "archive_field": null,
+    "archive_value": null,
+    "collapse": "open",
+    "collection": "block_richtext",
+    "color": null,
+    "display_template": "{{headline}}",
+    "group": "blocks",
+    "hidden": true,
+    "icon": "format_color_text",
+    "item_duplication_fields": [
+      "tagline",
+      "headline",
+      "content",
+      "alignment"
+    ],
+    "note": null,
+    "preview_url": null,
+    "singleton": false,
+    "sort": 2,
+    "sort_field": null,
+    "translations": [
+      {
+        "language": "en-US",
+        "plural": "Rich Text",
+        "singular": "Rich Text",
+        "translation": "Rich Text"
+      }
+    ],
+    "unarchive_value": null,
+    "versioning": false
+  },
+  "schema": {
+    "name": "block_richtext"
+  }
+}

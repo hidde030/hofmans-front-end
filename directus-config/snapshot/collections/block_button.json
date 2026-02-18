@@ -1,0 +1,43 @@
+{
+  "collection": "block_button",
+  "meta": {
+    "accountability": "all",
+    "archive_app_filter": true,
+    "archive_field": null,
+    "archive_value": "archived",
+    "collapse": "open",
+    "collection": "block_button",
+    "color": null,
+    "display_template": "{{label}} - {{type}}",
+    "group": "block_button_group",
+    "hidden": true,
+    "icon": "smart_button",
+    "item_duplication_fields": [
+      "sort",
+      "type",
+      "page",
+      "post",
+      "url",
+      "label",
+      "variant"
+    ],
+    "note": null,
+    "preview_url": null,
+    "singleton": false,
+    "sort": 1,
+    "sort_field": "sort",
+    "translations": [
+      {
+        "language": "en-US",
+        "plural": "Buttons",
+        "singular": "Button",
+        "translation": "Button"
+      }
+    ],
+    "unarchive_value": "draft",
+    "versioning": false
+  },
+  "schema": {
+    "name": "block_button"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "collection": "form_submissions",
+  "field": "meta_header_form_submissions",
+  "type": "alias",
+  "meta": {
+    "collection": "form_submissions",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_header_form_submissions",
+    "group": null,
+    "hidden": false,
+    "interface": "super-header",
+    "note": null,
+    "options": {
+      "help": "<h2>Form Submissions</h2>\n<p>Form submissions are read-only records of responses received through your site's forms. This ensures data integrity and provides a reliable audit trail of all submitted information.</p>\n<h3>Understanding Submissions</h3>\n<p>Each submission contains:</p>\n<ul>\n<li>Unique submission ID</li>\n<li>Timestamp of submission</li>\n<li>Reference to the parent form</li>\n<li>All submitted field values</li>\n</ul>\n<h3>Automating with Flows</h3>\n<p>While submissions are read-only, you can use Flows to automate actions when new submissions arrive:</p>\n<ul>\n<li>Send custom email notifications</li>\n<li>Push data to external services</li>\n<li>Create records in other collections</li>\n<li>Trigger webhooks</li>\n<li>Format and transform submission data</li>\n</ul>\n<p>Think of Flows as your automation toolkit - they let you act on submission data without modifying the original records.</p>\n<h3>Data Management</h3>\n<h4>Exporting Data</h4>\n<p>Export submissions to work with them outside the CMS:</p>\n<ul>\n<li>Download as CSV for spreadsheet analysis</li>\n<li>Include date ranges for periodic reports</li>\n<li>Select specific fields to include</li>\n<li>Export file attachments in bulk</li>\n</ul>\n<h4>Data Cleanup</h4>\n<p>Keep your submission data organized:</p>\n<ul>\n<li>Archive old submissions</li>\n<li>Monitor storage usage from file uploads</li>\n<li>Watch for spam patterns</li>\n<li>Maintain audit logs</li>\n</ul>\n<h3>Privacy &amp; Security</h3>\n<p>Since form submissions often contain personal data:</p>\n<ul>\n<li>Follow your data retention policy</li>\n<li>Handle personal information according to privacy laws</li>\n<li>Regularly review old submissions for deletion</li>\n<li>Consider automation for data cleanup</li>\n<li>Monitor who has access to submission data</li>\n</ul>",
+      "subtitle": "Submitted at: {{timestamp}}",
+      "title": "Form Submission"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 1,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

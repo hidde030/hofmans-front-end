@@ -1,0 +1,59 @@
+{
+  "collection": "pages",
+  "field": "meta_header_pages",
+  "type": "alias",
+  "meta": {
+    "collection": "pages",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_header_pages",
+    "group": null,
+    "hidden": false,
+    "interface": "super-header",
+    "note": null,
+    "options": {
+      "actions": [
+        {
+          "actionType": "link",
+          "icon": "arrow_outward",
+          "label": "View on Website",
+          "type": "normal",
+          "url": "http://localhost:3000{{permalink}}"
+        },
+        {
+          "actionType": "link",
+          "icon": "edit",
+          "label": "Open in Visual Editor",
+          "type": "normal",
+          "url": "/admin/visual/http://localhost:3000{{permalink}}?visual-editing=true"
+        },
+        {
+          "actionType": "flow",
+          "flow": {
+            "collection": "directus_flows",
+            "key": "a23110e1-700b-41b8-9f9e-ca0998b84a76"
+          },
+          "icon": "copy_all",
+          "label": "Duplicate Page",
+          "type": "normal"
+        }
+      ],
+      "help": "<h2>Creating and Managing Pages</h2>\n<p>Pages are the foundation of your website, where you'll combine different content blocks to create engaging layouts. Each page can be built using a mix of blocks like Hero sections, Rich Text, Forms, and more.</p>\n<h3>Page Settings</h3>\n<h4>Title</h4>\n<p>The page title appears in browser tabs and search results. Make it clear and descriptive of the page's content. This is what visitors will see when they bookmark your page or share it on social media.</p>\n<h4>URL (Permalink)</h4>\n<ul>\n<li>Always starts with a forward slash (/)</li>\n<li>Use simple, lowercase words separated by hyphens</li>\n<li>Keep it short but descriptive</li>\n<li>Examples:\n<ul>\n<li>/about</li>\n<li>/contact-us</li>\n<li>/services/web-design</li>\n</ul>\n</li>\n</ul>\n<h4>Description</h4>\n<p>A brief summary of the page that appears in search results. Write 1-2 sentences that clearly explain what visitors will find on this page. Good descriptions help with SEO and encourage people to click through to your site.</p>\n<h4>Publishing Options</h4>\n<ul>\n<li><strong>Draft</strong>: Work on the page without making it public</li>\n<li><strong>In Review</strong>: Submit the page for review by other team members</li>\n<li><strong>Published</strong>: Make the page visible to the public</li>\n<li><strong>Schedule</strong>: Set a future publication date</li>\n</ul>\n<p><img src=\"/assets/5e93050a-6f17-4314-a7e5-f78bda425fea.png?width=2076&amp;height=1551\" alt=\"Help Blocks Content\" loading=\"lazy\"></p>\n<h2>Working with Blocks</h2>\n<p>Your page content is built by adding and arranging blocks. Think of blocks as building pieces that you can stack and rearrange to create your perfect page layout.</p>\n<h4>Tips for Building with Blocks</h4>\n<ul>\n<li>Start with a Hero block for main landing pages</li>\n<li>Use consistent block types for similar content across pages</li>\n<li>Consider the natural flow of information when ordering blocks</li>\n<li>Preview your page on both desktop and mobile before publishing</li>\n<li>You can temporarily hide blocks without deleting them using the \"Hide block\" toggle</li>\n</ul>\n<h4>Block Background Options</h4>\n<p>Each block can have either a light or dark background:</p>\n<ul>\n<li>Default (light): Default option, best for regular content sections</li>\n<li>Dark: Creates visual contrast, good for highlighting important sections</li>\n</ul>\n<h4>General Tips for All Blocks</h4>\n<ul>\n<li>Preview your changes before publishing</li>\n<li>Consider mobile viewing experience</li>\n<li>Keep related content in the same block type for consistency</li>\n<li>Use clear headlines and taglines to guide your visitors</li>\n<li>Make sure images are optimized for web use</li>\n<li>Test all interactive elements like forms and buttons</li>\n</ul>",
+      "subtitle": "{{status}} • Published At: {{published_at}}",
+      "title": "{{title}}"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 7,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "fill"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "collection": "posts",
+  "field": "meta_header_image",
+  "type": "alias",
+  "meta": {
+    "collection": "posts",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "meta_header_image",
+    "group": "meta_content",
+    "hidden": false,
+    "interface": "super-header",
+    "note": null,
+    "options": {
+      "actions": [
+        {
+          "actionType": "flow",
+          "flow": {
+            "collection": "directus_flows",
+            "key": "d4bbac48-a444-49e0-aedb-9af5273b88df"
+          },
+          "icon": "image",
+          "label": "AI Image Generator",
+          "type": "normal"
+        }
+      ],
+      "help": "<p><strong>Need inspiration?</strong> Use Flows like AI Image Generator to generate on-brand images for your post using AI.</p>\n<p><em>Note: This uses OpenAI so you'll need to add your API key in the&nbsp;<a href=\"/admin/content/globals\">Globals</a> collection first.</em></p>",
+      "icon": "image",
+      "title": "Image"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 8,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}
