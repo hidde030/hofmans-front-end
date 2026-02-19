@@ -1,0 +1,23 @@
+{
+    "collection": "navigation",
+    "meta": {
+        "insert_order": 2,
+        "create": true,
+        "update": true,
+        "delete": false,
+        "preserve_ids": true,
+        "ignore_on_update": []
+    },
+    "data": [
+        {
+            "_sync_id": "main",
+            "title": "Main Navigation",
+            "is_active": true
+        },
+        {
+            "_sync_id": "footer",
+            "title": "Footer Navigation",
+            "is_active": true
+        }
+    ]
+}

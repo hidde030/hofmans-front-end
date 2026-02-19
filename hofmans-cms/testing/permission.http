@@ -1,0 +1,47 @@
+@baseUrl = http://localhost:8055
+@token = oOBvq33MC5K3nGRAmCGVrfHHh8n5F3ep
+@testPageId = REPLACE_WITH_CREATED_PAGE_ID
+
+### 1) Health check (no auth)
+GET {{baseUrl}}/server/health
+
+### 2) Who is this token?
+GET {{baseUrl}}/users/me?fields=id,email,role,policies,status
+Authorization: Bearer {{token}}
+
+### 3) Effective permissions (best overview)
+GET {{baseUrl}}/permissions/me
+Authorization: Bearer {{token}}
+
+### 4) Check effective pages permissions only
+GET {{baseUrl}}/permissions/me
+Authorization: Bearer {{token}}
+
+### 5) Raw permission rows for pages/page_blocks
+GET {{baseUrl}}/permissions?fields=id,collection,action,permissions,validation,presets,fields&filter[collection][_in]=pages,page_blocks
+Authorization: Bearer {{token}}
+
+### 6) Raw permission rows for block collections used by pages
+GET {{baseUrl}}/permissions?fields=id,collection,action,permissions,validation,presets,fields&filter[collection][_in]=block_hero,block_richtext,block_form,block_posts,block_gallery,block_pricing,page_blocks
+Authorization: Bearer {{token}}
+
+### 7) Can this token read pages?
+GET {{baseUrl}}/items/pages?limit=1&fields=id,title,permalink
+Authorization: Bearer {{token}}
+
+### 8) Optional write test (creates one draft page)
+# Run only if you want to verify create permission explicitly.
+POST {{baseUrl}}/items/pages
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+	"title": "Permission Test",
+	"permalink": "/permission-test",
+	"status": "draft"
+}
+
+### 9) Cleanup optional write test
+DELETE {{baseUrl}}/items/pages/{{testPageId}}
+Authorization: Bearer {{token}}
+

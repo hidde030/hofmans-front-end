@@ -1,0 +1,90 @@
+{
+    "collection": "navigation_items",
+    "meta": {
+        "insert_order": 3,
+        "create": true,
+        "update": true,
+        "delete": false,
+        "preserve_ids": false,
+        "ignore_on_update": []
+    },
+    "data": [
+        {
+            "_sync_id": "nav-item-contact-main",
+            "sort": 1,
+            "navigation": "main",
+            "title": "Contact Us",
+            "type": "page",
+            "page": "page-contact",
+            "post": null,
+            "url": null,
+            "parent": null
+        },
+        {
+            "_sync_id": "nav-item-about-group",
+            "sort": 2,
+            "navigation": "main",
+            "title": "About",
+            "type": "group",
+            "page": null,
+            "post": null,
+            "url": null,
+            "parent": null
+        },
+        {
+            "_sync_id": "nav-item-diensten",
+            "sort": 3,
+            "navigation": "main",
+            "title": "Diensten",
+            "type": "page",
+            "page": "page-diensten",
+            "post": null,
+            "url": null,
+            "parent": null
+        },
+        {
+            "_sync_id": "nav-item-projecten",
+            "sort": 4,
+            "navigation": "main",
+            "title": "Projecten",
+            "type": "page",
+            "page": null,
+            "post": null,
+            "url": null,
+            "parent": null
+        },
+        {
+            "_sync_id": "nav-item-privacy",
+            "sort": 1,
+            "navigation": "footer",
+            "title": "Privacy Policy",
+            "type": "page",
+            "page": "page-privacy-policy",
+            "post": null,
+            "url": null,
+            "parent": null
+        },
+        {
+            "_sync_id": "nav-item-contact-footer",
+            "sort": 2,
+            "navigation": "footer",
+            "title": "Contact Us",
+            "type": "page",
+            "page": "page-contact",
+            "post": null,
+            "url": null,
+            "parent": null
+        },
+        {
+            "_sync_id": "nav-item-blog",
+            "sort": 5,
+            "navigation": "footer",
+            "title": "Blog",
+            "type": "page",
+            "page": "page-blog",
+            "post": null,
+            "url": "/posts",
+            "parent": null
+        }
+    ]
+}

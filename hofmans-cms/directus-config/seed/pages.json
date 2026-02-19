@@ -1,0 +1,164 @@
+{
+	"collection": "pages",
+	"meta": {
+		"insert_order": 1,
+		"create": true,
+		"update": true,
+		"delete": false,
+		"preserve_ids": false,
+		"ignore_on_update": []
+	},
+	"data": [
+		{
+			"_sync_id": "page-home",
+			"title": "Home",
+			"permalink": "/",
+			"status": "published",
+			"seo": {
+				"meta_description": "Hofmans de Allesdrukker verzorgt professioneel drukwerk, print en signing in IJsselstein. Persoonlijk advies, snelle levering en topkwaliteit gegarandeerd.",
+				"title": "Hofmans de Allesdrukker | Drukwerk & Print IJsselstein",
+				"no_index": false,
+				"no_follow": false,
+				"og_image": "ea743e20-e6e9-4be8-a949-3771cd182810.png"
+			},
+			"published_at": "2025-04-07T18:17:00.000Z",
+			"blocks": [
+				{
+					"collection": "block_hero",
+					"item": "0e09d473-7f86-4e70-a199-e81e6c04c3c6",
+					"sort": 1,
+					"hide_block": false,
+					"background": "light"
+				},
+				{
+					"collection": "block_richtext",
+					"item": "129625db-433f-4104-9922-3b803ba4599d",
+					"sort": 2,
+					"hide_block": false,
+					"background": "light"
+				},
+				{
+					"collection": "block_gallery",
+					"item": "34fdcf0e-cc5d-4c40-b61f-4f0a5e167306",
+					"sort": 3,
+					"hide_block": false,
+					"background": "dark"
+				},
+				{
+					"collection": "block_pricing",
+					"item": "48cf2543-15e0-454f-9b31-cbf3c2406712",
+					"sort": 4,
+					"hide_block": false,
+					"background": "light"
+				},
+				{
+					"collection": "block_form",
+					"item": "1419faec-e263-431c-bd5f-a57f394c39f6",
+					"sort": 5,
+					"hide_block": false,
+					"background": "light"
+				}
+			]
+		},
+		{
+			"_sync_id": "page-diensten",
+			"title": "Diensten",
+			"permalink": "/diensten",
+			"status": "in_review",
+			"seo": {
+				"title": "Drukwerk & Signing Diensten | Hofmans de Allesdrukker",
+				"meta_description": "Ontdek alle drukwerk, print en signing diensten van Hofmans de Allesdrukker in IJsselstein. Van zeefdruk tot digitaal drukwerk, snel en professioneel verzorgd."
+			},
+			"published_at": "2025-11-11T11:00:00.000Z",
+			"blocks": []
+		},
+		{
+			"_sync_id": "page-contact",
+			"title": "Contact",
+			"permalink": "/contact",
+			"status": "published",
+			"seo": {
+				"no_index": false,
+				"title": "Contact | Hofmans de Allesdrukker IJsselstein",
+				"meta_description": "Neem contact op met Hofmans de Allesdrukker in IJsselstein. Bel, mail of kom langs voor advies over drukwerk, print en signing op maat."
+			},
+			"published_at": "2024-07-01T16:00:00.000Z",
+			"blocks": [
+				{
+					"collection": "block_form",
+					"item": "185eca12-4af1-4a1c-bfd7-4bc2fab52097",
+					"sort": 1,
+					"hide_block": false,
+					"background": "light"
+				}
+			]
+		},
+		{
+			"_sync_id": "page-about-us",
+			"title": "About Us",
+			"permalink": "/about-us",
+			"status": "published",
+			"seo": {
+				"title": "About Us",
+				"no_index": true
+			},
+			"published_at": "2024-12-01T17:00:00.000Z",
+			"blocks": [
+				{
+					"collection": "block_richtext",
+					"item": "1134799b-3fd1-47ea-963f-13d8ac1b9e3a",
+					"sort": 2,
+					"hide_block": false,
+					"background": "light"
+				}
+			]
+		},
+		{
+			"_sync_id": "page-blog",
+			"title": "Blog",
+			"permalink": "/blog",
+			"status": "published",
+			"seo": {
+				"title": "Learn from our team | Blog",
+				"meta_description": "All the tips and advice we've learned about working with headless CMS over the years."
+			},
+			"published_at": "2024-09-01T16:00:00.000Z",
+			"blocks": [
+				{
+					"collection": "block_posts",
+					"item": "060b632d-d70d-4db1-8b95-4fbab7a52ae8",
+					"sort": 1,
+					"hide_block": false,
+					"background": "light"
+				},
+				{
+					"collection": "block_form",
+					"item": "3e262b2d-48fc-4816-b5e8-c991817d56fc",
+					"sort": 2,
+					"hide_block": false,
+					"background": "light"
+				}
+			]
+		},
+		{
+			"_sync_id": "page-privacy-policy",
+			"title": "Privacy Policy",
+			"permalink": "/privacy-policy",
+			"status": "published",
+			"seo": {
+				"title": "Privacy Policy for Simple Website CMS template",
+				"meta_description": "Here's all the fine print for our website. You can read it all. There's nothing secret. It's just words to fill up the page. You'll want to change them later."
+			},
+			"published_at": "2024-05-01T16:00:00.000Z",
+			"blocks": [
+				{
+					"collection": "block_richtext",
+					"item": "a6275645-16b7-4994-8100-8c43ca07ab06",
+					"sort": 1,
+					"hide_block": false,
+					"background": "light"
+				}
+			]
+		}
+	]
+}
