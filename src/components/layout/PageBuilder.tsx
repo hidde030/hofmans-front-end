@@ -1,3 +1,4 @@
+import React from 'react';
 import { PageBlock } from '@/types/directus-schema';
 import BaseBlock from '@/components/blocks/BaseBlock';
 import Container from '@/components/ui/container';
@@ -14,19 +15,24 @@ const PageBuilder = ({ sections }: PageBuilderProps) => {
 
 	return (
 		<div>
-			{validBlocks.map((block) => (
-				<div key={block.id} data-background={block.background} className="py-16">
-					<Container>
-						<BaseBlock
-							block={{
-								collection: block.collection,
-								item: block.item,
-								id: block.id,
-							}}
-						/>
-					</Container>
-				</div>
-			))}
+			{validBlocks.map((block) => {
+				const isFullWidth = block.collection === 'block_hero' && (block.item as any).layout === 'image_cover';
+				const Wrapper = isFullWidth ? React.Fragment : Container;
+
+				return (
+					<div key={block.id} data-background={block.background} className={isFullWidth ? '' : 'py-16'}>
+						<Wrapper>
+							<BaseBlock
+								block={{
+									collection: block.collection,
+									item: block.item,
+									id: block.id,
+								}}
+							/>
+						</Wrapper>
+					</div>
+				);
+			})}
 		</div>
 	);
 };

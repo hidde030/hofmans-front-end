@@ -52,11 +52,10 @@ const RichText = ({ data, className }: RichTextProps) => {
 			iframe.style.height = '100%';
 		});
 	}, [content, router]);
-
 	return (
 		<div
 			className={cn(
-				'mx-auto max-w-[600px] space-y-6',
+				'mx-auto  space-y-6',
 				alignment === 'center' ? 'text-center' : alignment === 'right' ? 'text-right' : 'text-left',
 				className,
 			)}
