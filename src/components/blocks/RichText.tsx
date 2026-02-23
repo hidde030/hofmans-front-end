@@ -52,6 +52,7 @@ const RichText = ({ data, className }: RichTextProps) => {
 			iframe.style.height = '100%';
 		});
 	}, [content, router]);
+
 	return (
 		<div
 			className={cn(
