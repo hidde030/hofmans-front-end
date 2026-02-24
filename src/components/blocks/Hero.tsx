@@ -41,7 +41,7 @@ export default function Hero({ data }: HeroProps) {
 				layout === 'image_center'
 					? 'items-center text-center'
 					: layout === 'image_cover'
-						? 'items-center justify-center text-center min-h-[70vh] py-20 overflow-hidden'
+						? 'items-center justify-center text-center min-h-[70vh] overflow-hidden'
 						: layout === 'image_left'
 							? 'md:flex-row-reverse items-center'
 							: 'md:flex-row items-center',
@@ -104,9 +104,9 @@ export default function Hero({ data }: HeroProps) {
 			{image && (
 				<div
 					className={cn(
-						layout === 'image_cover'
-							? 'absolute inset-0 -z-10'
-							: cn('relative w-full', layout === 'image_center' ? 'md:w-3/4 xl:w-2/3 h-[400px]' : 'md:w-1/2 h-[562px]'),
+						layout === 'image_cover' ? 'absolute inset-0 -z-10' : 'relative w-full',
+						layout !== 'image_cover' &&
+							(layout === 'image_center' ? 'md:w-3/4 xl:w-2/3 h-[400px]' : 'md:w-1/2 h-[562px]'),
 					)}
 					data-directus={setAttr({
 						collection: 'block_hero',
@@ -122,7 +122,7 @@ export default function Hero({ data }: HeroProps) {
 						sizes={layout === 'image_center' || layout === 'image_cover' ? '100vw' : '(max-width: 768px) 100vw, 50vw'}
 						className={cn(layout === 'image_cover' ? 'object-cover' : 'object-contain')}
 					/>
-					{layout === 'image_cover' && <div className="absolute inset-0 bg-black/40" />}
+					{layout === 'image_cover' && <div className="absolute inset-0 bg-black/60" />}
 				</div>
 			)}
 		</section>
