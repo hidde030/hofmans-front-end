@@ -3,7 +3,6 @@
 import React, { forwardRef } from 'react';
 import Link from 'next/link';
 import Container from '@/components/ui/container';
-import ThemeToggle from '@/components/ui/ThemeToggle';
 
 interface SocialLink {
 	service: string;
@@ -84,7 +83,6 @@ const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, re
 										)}
 									</li>
 								))}
-								<ThemeToggle className="dark:text-white" />
 							</ul>
 						</nav>
 					</div>
