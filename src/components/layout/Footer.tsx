@@ -1,14 +1,9 @@
 'use client';
 
 import React, { forwardRef } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
-import Container from '@/components/ui/container';
-import ThemeToggle from '@/components/ui/ThemeToggle';
-
-interface SocialLink {
-	service: string;
-	url: string;
-}
+import { setAttr } from '@directus/visual-editing';
 
 interface NavigationItem {
 	id: string;
@@ -18,78 +13,171 @@ interface NavigationItem {
 }
 
 interface FooterProps {
-	navigation: { items: NavigationItem[] };
+	navigation: { id?: string; items: NavigationItem[] };
 	globals: {
+		id: string;
 		logo?: string | null;
-		logo_dark_mode?: string | null;
-		description?: string | null;
-		social_links?: SocialLink[];
+		social_links?: { service: string; url: string }[];
+		address?: string | null;
+		zip_code?: string | null;
+		city?: string | null;
+		phone?: string | null;
+		email?: string | null;
 	};
 }
 
+
+// Sociale media iconen die we ondersteunen
+const SOCIAL_ICON_ORDER = ['linkedin', 'instagram', 'facebook'];
+
 const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, ref) => {
 	const directusURL = process.env.NEXT_PUBLIC_DIRECTUS_URL;
-	const lightLogoUrl = globals?.logo ? `${directusURL}/assets/${globals.logo}` : '/images/logo.svg';
-	const darkLogoUrl = globals?.logo_dark_mode ? `${directusURL}/assets/${globals.logo_dark_mode}` : '';
+	const logoUrl = globals?.logo ? `${directusURL}/assets/${globals.logo}` : '/images/logo-white.svg';
+
+	// Bepaal sociale links: gebruik globals.social_links of val terug op lege array
+	const socialLinks: { service: string; url: string }[] = globals?.social_links || [];
+
+	// Haal sociale links op in de gewenste volgorde
+	const orderedSocialLinks = SOCIAL_ICON_ORDER.map((service) =>
+		socialLinks.find((s) => s.service.toLowerCase() === service),
+	).filter(Boolean) as { service: string; url: string }[];
+
+	// Splits de navigatie in twee kolommen: eerste helft = Diensten, tweede helft = Hofmans
+	const allItems = navigation?.items || [];
+	const half = Math.ceil(allItems.length / 2);
+	const dienstenItems = allItems.slice(0, half);
+	const hofmansItems = allItems.slice(half);
 
 	return (
-		<footer ref={ref} className="bg-gray dark:bg-[var(--background-variant-color)] py-16">
-			<Container className="text-foreground dark:text-white">
-				<div className="flex flex-col md:flex-row justify-between items-start gap-8 pt-8">
-					<div className="flex-1">
-						<Link href="/" className="inline-block transition-opacity hover:opacity-70">
-							<img
-								src={lightLogoUrl}
-								alt="Logo"
-								className={darkLogoUrl ? 'w-[120px] h-auto dark:hidden' : 'w-[120px] h-auto'}
+		<footer
+			ref={ref}
+			data-directus={
+				navigation
+					? setAttr({
+						collection: 'navigation',
+						item: navigation.id ?? null,
+						fields: ['items'],
+						mode: 'modal',
+					})
+					: undefined
+			}
+		>
+			{/* Bovenste sectie: sociale media balk */}
+			<div className="bg-[#42566E] border-t border-b border-[#536678]">
+				<div className="max-w-7xl mx-auto px-6 py-4 flex justify-end items-center gap-5">
+					{orderedSocialLinks.map((social) => (
+						<a
+							key={social.service}
+							href={social.url}
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label={social.service}
+							className="hover:opacity-70 transition-opacity"
+						>
+							<Image
+								src={`/icons/social/${social.service.toLowerCase()}.svg`}
+								alt={`${social.service} icon`}
+								width={24}
+								height={24}
+								className="invert"
 							/>
-							{darkLogoUrl && (
-								<img src={darkLogoUrl} alt="Logo (Dark Mode)" className="w-[120px] h-auto hidden dark:block" />
-							)}
-						</Link>
-						{globals?.description && <p className="text-description mt-2">{globals.description}</p>}
-						{globals?.social_links && (
-							<div className="mt-4 flex space-x-4">
-								{globals.social_links.map((social) => (
-									<a
-										key={social.service}
-										href={social.url}
-										target="_blank"
-										rel="noopener noreferrer"
-										className="size-8 rounded bg-transparent inline-flex items-center justify-center transition-colors hover:opacity-70"
-									>
-										<img
-											src={`/icons/social/${social.service}.svg`}
-											alt={`${social.service} icon`}
-											className="size-6 dark:invert"
-										/>
-									</a>
-								))}
-							</div>
-						)}
+						</a>
+					))}
+
+					{/* Toon standaard iconen als er geen sociale links zijn ingesteld */}
+					{orderedSocialLinks.length === 0 &&
+						SOCIAL_ICON_ORDER.map((service) => (
+							<a
+								key={service}
+								href="#"
+								aria-label={service}
+								className="hover:opacity-70 transition-opacity"
+							>
+								<Image
+									src={`/icons/social/${service}.svg`}
+									alt={`${service} icon`}
+									width={24}
+									height={24}
+									className="invert"
+								/>
+							</a>
+						))}
+				</div>
+			</div>
+
+			{/* Onderstc sectie: adres + links + logo */}
+			<div className="bg-[#F5F8FB]">
+				<div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
+					{/* Kolom 1: Adresgegevens */}
+					<div
+						className="text-[#42566E] text-sm leading-7"
+						data-directus={setAttr({
+							collection: 'globals',
+							item: globals.id,
+							fields: ['address', 'zip_code', 'city', 'phone', 'email'],
+							mode: 'modal',
+						})}
+					>
+						<p>{globals.address || 'Lage dijk - noord 10'}</p>
+						<p>
+							{globals.zip_code && globals.city
+								? `${globals.zip_code} ${globals.city}`
+								: '3401 VA IJsselstein, Utrecht'}
+						</p>
+						<p>{globals.phone || '030 - 6880970'}</p>
+						<p>{globals.email || 'info@deallesdrukker.nl'}</p>
 					</div>
-					<div className="flex flex-col items-start md:items-end flex-1">
-						<nav className="w-full md:w-auto text-left">
-							<ul className="space-y-4">
-								{navigation?.items?.map((item) => (
-									<li key={item.id}>
-										{item.page?.permalink ? (
-											<Link href={item.page.permalink} className="text-nav font-medium hover:underline">
-												{item.title}
-											</Link>
-										) : (
-											<a href={item.url || '#'} className="text-nav font-medium hover:underline">
-												{item.title}
-											</a>
-										)}
-									</li>
-								))}
-								<ThemeToggle className="dark:text-white" />
-							</ul>
-						</nav>
+
+					{/* Kolom 2: Diensten */}
+					<div>
+						<h4 className="text-[#42566E] font-bold text-base mb-3">Diensten</h4>
+						<ul className="space-y-1">
+							{dienstenItems.map((item) => (
+								<li key={item.id}>
+									<Link
+										href={item.page?.permalink || item.url || '#'}
+										className="text-[#42566E] text-sm hover:text-[#E87722] transition-colors"
+									>
+										{item.title}
+									</Link>
+								</li>
+							))}
+						</ul>
+					</div>
+
+					{/* Kolom 3: Hofmans */}
+					<div>
+						<h4 className="text-[#42566E] font-bold text-base mb-3">Hofmans</h4>
+						<ul className="space-y-1">
+							{hofmansItems.map((item) => (
+								<li key={item.id}>
+									<Link
+										href={item.page?.permalink || item.url || '#'}
+										className="text-[#42566E] text-sm hover:text-[#E87722] transition-colors"
+									>
+										{item.title}
+									</Link>
+								</li>
+							))}
+						</ul>
+					</div>
+
+					{/* Kolom 4: Oranje Hofmans logo blok */}
+					<div className="flex md:justify-end">
+						<Link href="/" className="inline-block">
+							<div className="bg-[#E87722] px-6 py-4 flex items-center justify-center">
+								<Image
+									src={logoUrl}
+									alt="Hofmans"
+									width={120}
+									height={34}
+									className="h-8 w-auto"
+								/>
+							</div>
+						</Link>
 					</div>
 				</div>
-			</Container>
+			</div>
 		</footer>
 	);
 });

@@ -317,6 +317,11 @@ export interface Globals {
 	accent_color?: string | null;
 	/** @description Main logo shown on the site (for dark mode). */
 	logo_dark_mode?: DirectusFile | string | null;
+	address?: string | null;
+	zip_code?: string | null;
+	city?: string | null;
+	phone?: string | null;
+	email?: string | null;
 	date_created?: string | null;
 	user_created?: DirectusUser | string | null;
 	date_updated?: string | null;
@@ -682,10 +687,10 @@ export interface DirectusSettings {
 	public_note?: string | null;
 	auth_login_attempts?: number | null;
 	auth_password_policy?:
-		| null
-		| `/^.{8,}$/`
-		| `/(?=^.{8,}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{';'?>.<,])(?!.*\\s).*$/`
-		| null;
+	| null
+	| `/^.{8,}$/`
+	| `/(?=^.{8,}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{';'?>.<,])(?!.*\\s).*$/`
+	| null;
 	storage_asset_transform?: 'all' | 'none' | 'presets' | null;
 	storage_asset_presets?: Array<{
 		key: string;
@@ -1007,4 +1012,5 @@ export enum CollectionNames {
 	directus_translations = 'directus_translations',
 	directus_versions = 'directus_versions',
 	directus_extensions = 'directus_extensions',
+	block_meer_weten = 'block_meer_weten',
 }
