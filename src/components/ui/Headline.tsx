@@ -1,3 +1,5 @@
+import { cn } from '@/lib/utils';
+
 interface HeadlineProps {
 	headline?: string | null;
 	className?: string;
@@ -10,8 +12,7 @@ const Headline = ({ headline, className = '', as: Component = 'p', 'data-directu
 
 	return (
 		<Component
-			className={`font-heading text-foreground font-normal ${className}
-         text-4xl md:text-5xl lg:text-headline`}
+			className={cn('font-heading text-foreground font-normal text-4xl md:text-5xl lg:text-headline', className)}
 			data-directus={dataDirectus}
 		>
 			{headline}
