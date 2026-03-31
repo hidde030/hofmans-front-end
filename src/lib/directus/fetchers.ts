@@ -60,7 +60,10 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 										'id',
 										'tagline',
 										'headline',
+										'subtitle',
 										'description',
+										'phone',
+										'email',
 										'layout',
 										'image',
 										{

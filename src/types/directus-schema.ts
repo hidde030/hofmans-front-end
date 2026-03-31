@@ -122,6 +122,9 @@ export interface BlockHero {
 	button_group?: BlockButtonGroup | string | null;
 	/** @description Supporting copy that shows below the headline. */
 	description?: string | null;
+	subtitle?: string | null;
+	phone?: string | null;
+	email?: string | null;
 	/** @description Smaller copy shown above the headline to label a section or add extra context. */
 	tagline?: string | null;
 	/** @description The layout for the component. You can set the image to display left, right, or in the center of page.. */

@@ -14,6 +14,9 @@ interface HeroProps {
 		tagline: string;
 		headline: string;
 		description: string;
+		subtitle?: string | null;
+		phone?: string | null;
+		email?: string | null;
 		layout: 'image_left' | 'image_center' | 'image_right';
 		image: string;
 		button_group?: {
@@ -32,7 +35,7 @@ interface HeroProps {
 }
 
 export default function Hero({ data }: HeroProps) {
-	const { id, layout, tagline, headline, description, image, button_group } = data;
+	const { id, layout, tagline, headline, subtitle, description, phone, email, image, button_group } = data;
 
 	return (
 		<section
@@ -69,6 +72,19 @@ export default function Hero({ data }: HeroProps) {
 						mode: 'popover',
 					})}
 				/>
+				{subtitle && (
+					<div
+						className="text-lg font-medium tracking-tight text-foreground"
+						data-directus={setAttr({
+							collection: 'block_hero',
+							item: id,
+							fields: 'subtitle',
+							mode: 'popover',
+						})}
+					>
+						{subtitle}
+					</div>
+				)}
 				{description && (
 					<BaseText
 						content={description}
@@ -79,6 +95,38 @@ export default function Hero({ data }: HeroProps) {
 							mode: 'popover',
 						})}
 					/>
+				)}
+				{(phone || email) && (
+					<div className="flex flex-col sm:flex-row gap-6 mt-4 md:mt-8">
+						{phone && (
+							<a
+								href={`tel:${phone.replace(/\s+/g, '')}`}
+								className="text-base font-medium hover:underline"
+								data-directus={setAttr({
+									collection: 'block_hero',
+									item: id,
+									fields: 'phone',
+									mode: 'popover',
+								})}
+							>
+								{phone}
+							</a>
+						)}
+						{email && (
+							<a
+								href={`mailto:${email}`}
+								className="text-base font-medium hover:underline"
+								data-directus={setAttr({
+									collection: 'block_hero',
+									item: id,
+									fields: 'email',
+									mode: 'popover',
+								})}
+							>
+								{email}
+							</a>
+						)}
+					</div>
 				)}
 				{button_group && button_group.buttons.length > 0 && (
 					<div
