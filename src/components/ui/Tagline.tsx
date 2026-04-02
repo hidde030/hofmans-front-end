@@ -1,3 +1,5 @@
+import { cn } from '@/lib/utils';
+
 interface TitleProps {
 	tagline?: string | null;
 	className?: string;
@@ -10,8 +12,7 @@ const Tagline = ({ tagline, className = '', as: Component = 'h2', 'data-directus
 
 	return (
 		<Component
-			className={`font-heading text-accent font-normal uppercase ${className}
-         text-lg md:text-xl lg:text-tagline`}
+			className={cn('font-heading text-accent font-normal uppercase text-lg md:text-xl lg:text-tagline', className)}
 			data-directus={dataDirectus}
 		>
 			{tagline}
