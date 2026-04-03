@@ -11,11 +11,14 @@ import { setAttr } from '@directus/visual-editing';
 interface HeroProps {
 	data: {
 		id: string;
-		tagline: string;
-		headline: string;
-		description: string;
+		tagline?: string | null;
+		headline?: string | null;
+		subtitle?: string | null;
+		description?: string | null;
+		phone?: string | null;
+		email?: string | null;
 		layout: 'image_left' | 'image_center' | 'image_right' | 'image_cover';
-		image: string;
+		image?: string | null;
 		button_group?: {
 			id: string;
 			buttons: Array<{
@@ -27,7 +30,7 @@ interface HeroProps {
 				pagePermalink?: string | null;
 				postSlug?: string | null;
 			}>;
-		};
+		} | null;
 	};
 }
 
