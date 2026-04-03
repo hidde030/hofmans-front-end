@@ -1,30 +1,31 @@
+
 export interface ExtensionSeoMetadata {
-	title?: string;
-	meta_description?: string;
-	og_image?: string;
-	additional_fields?: Record<string, unknown>;
-	sitemap?: {
-		change_frequency: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
-		priority: string;
-	};
-	no_index?: boolean;
-	no_follow?: boolean;
+    title?: string;
+    meta_description?: string;
+    og_image?: string;
+    additional_fields?: Record<string, unknown>;
+    sitemap?: {
+        change_frequency: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
+        priority: string;
+    };
+    no_index?: boolean;
+    no_follow?: boolean;
 }
 
 export interface AiPrompt {
 	/** @primaryKey */
 	id: string;
+	sort?: number | null;
 	/** @description Unique name for the prompt. Use names like "create-article" or "generate-product-description". @required */
 	name: string;
-	/** @description Briefly explain what this prompt does in 1-2 sentences. */
-	description?: string | null;
-	/** @description Instructions that shape how the AI responds. */
-	system_prompt?: string | null;
-	/** @description Optional: Define the conversation structure between users and AI. Used to add context and improve outputs. */
-	messages?: Array<{ role: 'user' | 'assistant'; text: string }> | null;
-	sort?: number | null;
 	/** @description Is this prompt published and available to use? */
 	status?: 'draft' | 'in_review' | 'published';
+	/** @description Briefly explain what this prompt does in 1-2 sentences. */
+	description?: string | null;
+	/** @description Optional: Define the conversation structure between users and AI. Used to add context and improve outputs. */
+	messages?: Array<{ role: 'user' | 'assistant'; text: string }> | null;
+	/** @description Instructions that shape how the AI responds. */
+	system_prompt?: string | null;
 	date_created?: string | null;
 	user_created?: DirectusUser | string | null;
 	date_updated?: string | null;
@@ -94,7 +95,7 @@ export interface BlockGallery {
 	date_updated?: string | null;
 	user_updated?: DirectusUser | string | null;
 	/** @description Images to include in the image gallery. */
-	items?: DirectusFile[] | string[] | null;
+	items?: BlockGalleryItem[] | string[];
 }
 
 export interface BlockGalleryItem {
@@ -125,11 +126,14 @@ export interface BlockHero {
 	/** @description Smaller copy shown above the headline to label a section or add extra context. */
 	tagline?: string | null;
 	/** @description The layout for the component. You can set the image to display left, right, or in the center of page.. */
-	layout?: 'image_left' | 'image_center' | 'image_right' | null;
+	layout?: 'image_cover' | 'image_left' | 'image_center' | 'image_right' | null;
 	date_created?: string | null;
 	user_created?: DirectusUser | string | null;
 	date_updated?: string | null;
 	user_updated?: DirectusUser | string | null;
+	subtitle?: string | null;
+	phone?: string | null;
+	email?: string | null;
 }
 
 export interface BlockPost {
@@ -277,7 +281,7 @@ export interface FormSubmission {
 
 export interface FormSubmissionValue {
 	/** @primaryKey */
-	id?: string;
+	id: string;
 	/** @description Parent form submission for this value. */
 	form_submission?: FormSubmission | string | null;
 	field?: FormField | string | null;
@@ -295,10 +299,7 @@ export interface Globals {
 	/** @primaryKey */
 	id: string;
 	/** @description Social media profile URLs */
-	social_links?: Array<{
-		url: string;
-		service: 'facebook' | 'instagram' | 'linkedin' | 'x' | 'vimeo' | 'youtube' | 'github' | 'discord' | 'docker';
-	}> | null;
+	social_links?: Array<{ url: string; service: 'facebook' | 'instagram' | 'linkedin' | 'x' | 'vimeo' | 'youtube' | 'github' | 'discord' | 'docker' }> | null;
 	/** @description Short phrase describing the site. */
 	tagline?: string | null;
 	/** @description Main site title */
@@ -313,19 +314,19 @@ export interface Globals {
 	openai_api_key?: string | null;
 	/** @description The public URL for this Directus instance. Used in Flows. */
 	directus_url?: string | null;
-	/** @description Accent color for the website (used on buttons, links, etc). */
-	accent_color?: string | null;
 	/** @description Main logo shown on the site (for dark mode). */
 	logo_dark_mode?: DirectusFile | string | null;
+	/** @description Accent color for the website (used on buttons, links, etc). */
+	accent_color?: string | null;
+	date_created?: string | null;
+	user_created?: DirectusUser | string | null;
+	date_updated?: string | null;
+	user_updated?: DirectusUser | string | null;
 	address?: string | null;
 	zip_code?: string | null;
 	city?: string | null;
 	phone?: string | null;
 	email?: string | null;
-	date_created?: string | null;
-	user_created?: DirectusUser | string | null;
-	date_updated?: string | null;
-	user_updated?: DirectusUser | string | null;
 }
 
 export interface Navigation {
@@ -453,6 +454,34 @@ export interface Redirect {
 	user_updated?: DirectusUser | string | null;
 }
 
+export interface ServiceBlock {
+	/** @primaryKey */
+	id: string;
+	service_id?: Service | string | null;
+	item?: BlockHero | BlockRichtext | BlockForm | BlockPost | BlockGallery | BlockPricing | string | null;
+	collection?: string | null;
+	sort?: number | null;
+}
+
+export interface Service {
+	/** @primaryKey */
+	id: string;
+	status?: 'published' | 'draft' | 'archived';
+	sort?: number | null;
+	user_created?: DirectusUser | string | null;
+	date_created?: string | null;
+	user_updated?: DirectusUser | string | null;
+	date_updated?: string | null;
+	/** @required */
+	title: string;
+	description?: string | null;
+	image?: DirectusFile | string | null;
+	slug?: string | null;
+	seo?: ExtensionSeoMetadata | null;
+	/** @description Create and arrange different content blocks (like text, images, or videos) to build your service page. */
+	blocks?: ServiceBlock[] | string[];
+}
+
 export interface DirectusAccess {
 	/** @primaryKey */
 	id: string;
@@ -533,6 +562,7 @@ export interface DirectusField {
 	group?: DirectusField | string | null;
 	validation?: 'json' | null;
 	validation_message?: string | null;
+	searchable?: boolean;
 }
 
 export interface DirectusFile {
@@ -686,31 +716,12 @@ export interface DirectusSettings {
 	public_background?: DirectusFile | string | null;
 	public_note?: string | null;
 	auth_login_attempts?: number | null;
-	auth_password_policy?:
-	| null
-	| `/^.{8,}$/`
-	| `/(?=^.{8,}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{';'?>.<,])(?!.*\\s).*$/`
-	| null;
+	auth_password_policy?: null | `/^.{8,}$/` | `/(?=^.{8,}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{';'?>.<,])(?!.*\\s).*$/` | null;
 	storage_asset_transform?: 'all' | 'none' | 'presets' | null;
-	storage_asset_presets?: Array<{
-		key: string;
-		fit: 'contain' | 'cover' | 'inside' | 'outside';
-		width: number;
-		height: number;
-		quality: number;
-		withoutEnlargement: boolean;
-		format: 'auto' | 'jpeg' | 'png' | 'webp' | 'tiff' | 'avif';
-		transforms: 'json';
-	}> | null;
+	storage_asset_presets?: Array<{ key: string; fit: 'contain' | 'cover' | 'inside' | 'outside'; width: number; height: number; quality: number; withoutEnlargement: boolean; format: 'auto' | 'jpeg' | 'png' | 'webp' | 'tiff' | 'avif'; transforms: 'json' }> | null;
 	custom_css?: string | null;
 	storage_default_folder?: DirectusFolder | string | null;
-	basemaps?: Array<{
-		name: string;
-		type: 'raster' | 'tile' | 'style';
-		url: string;
-		tileSize: number;
-		attribution: string;
-	}> | null;
+	basemaps?: Array<{ name: string; type: 'raster' | 'tile' | 'style'; url: string; tileSize: number; attribution: string }> | null;
 	mapbox_key?: string | null;
 	module_bar?: 'json' | null;
 	project_descriptor?: string | null;
@@ -729,9 +740,33 @@ export interface DirectusSettings {
 	public_registration_verify_email?: boolean;
 	public_registration_role?: DirectusRole | string | null;
 	public_registration_email_filter?: 'json' | null;
+	visual_editor_urls?: Array<{ url: string }> | null;
+	project_id?: string | null;
+	mcp_enabled?: boolean;
+	mcp_allow_deletes?: boolean;
+	mcp_prompts_collection?: string | null;
+	mcp_system_prompt_enabled?: boolean;
+	mcp_system_prompt?: string | null;
 	/** @description Settings for the Command Palette Module. */
 	command_palette_settings?: Record<string, any> | null;
-	visual_editor_urls?: Array<{ url: string }> | null;
+	project_owner?: string | null;
+	project_usage?: string | null;
+	org_name?: string | null;
+	product_updates?: boolean | null;
+	project_status?: string | null;
+	ai_openai_api_key?: string | null;
+	ai_anthropic_api_key?: string | null;
+	ai_system_prompt?: string | null;
+	ai_google_api_key?: string | null;
+	ai_openai_compatible_api_key?: string | null;
+	ai_openai_compatible_base_url?: string | null;
+	ai_openai_compatible_name?: string | null;
+	ai_openai_compatible_models?: Array<{ id: string; name: string; context: number; output: number; attachment: boolean; reasoning: boolean; providerOptions: Record<string, any> }> | null;
+	ai_openai_compatible_headers?: Array<{ header: string; value: string }> | null;
+	ai_openai_allowed_models?: Array<`gpt-4o-mini` | `gpt-4.1-nano` | `gpt-4.1-mini` | `gpt-4.1` | `gpt-5-nano` | `gpt-5-mini` | `gpt-5` | `gpt-5.2` | `gpt-5.2-chat-latest` | `gpt-5.2-pro`> | null;
+	ai_anthropic_allowed_models?: Array<`claude-haiku-4-5` | `claude-sonnet-4-5` | `claude-opus-4-5`> | null;
+	ai_google_allowed_models?: Array<`gemini-3-pro-preview` | `gemini-3-flash-preview` | `gemini-2.5-pro` | `gemini-2.5-flash`> | null;
+	collaborative_editing_enabled?: boolean;
 }
 
 export interface DirectusUser {
@@ -762,24 +797,10 @@ export interface DirectusUser {
 	theme_light?: string | null;
 	theme_light_overrides?: 'json' | null;
 	theme_dark_overrides?: 'json' | null;
+	text_direction?: 'auto' | 'ltr' | 'rtl';
 	/** @description Blog posts this user has authored. */
 	posts?: Post[] | string[];
 	policies?: DirectusAccess[] | string[];
-}
-
-export interface DirectusWebhook {
-	/** @primaryKey */
-	id: number;
-	name?: string;
-	method?: null;
-	url?: string;
-	status?: 'active' | 'inactive';
-	data?: boolean;
-	actions?: 'create' | 'update' | 'delete';
-	collections?: string[];
-	headers?: Array<{ header: string; value: string }> | null;
-	was_active_before_deprecation?: boolean;
-	migrated_flow?: DirectusFlow | string | null;
 }
 
 export interface DirectusDashboard {
@@ -910,6 +931,47 @@ export interface DirectusExtension {
 	bundle?: string | null;
 }
 
+export interface DirectusDeployment {
+	/** @primaryKey */
+	id: string;
+	provider?: string;
+	credentials?: string | null;
+	options?: 'json' | null;
+	date_created?: string | null;
+	user_created?: DirectusUser | string | null;
+	projects?: DirectusDeploymentProject[] | string[];
+}
+
+export interface DirectusDeploymentProject {
+	/** @primaryKey */
+	id: string;
+	deployment?: DirectusDeployment | string;
+	external_id?: string;
+	name?: string;
+	date_created?: string | null;
+	user_created?: DirectusUser | string | null;
+	runs?: DirectusDeploymentRun[] | string[];
+}
+
+export interface DirectusDeploymentRun {
+	/** @primaryKey */
+	id: string;
+	project?: DirectusDeploymentProject | string;
+	external_id?: string;
+	target?: string;
+	date_created?: string | null;
+	user_created?: DirectusUser | string | null;
+}
+
+export interface DirectusSyncIdMap {
+	/** @primaryKey */
+	id: number;
+	table?: string;
+	sync_id?: string;
+	local_id?: string;
+	created_at?: string | null;
+}
+
 export interface Schema {
 	ai_prompts: AiPrompt[];
 	block_button: BlockButton[];
@@ -933,6 +995,8 @@ export interface Schema {
 	pages: Page[];
 	posts: Post[];
 	redirects: Redirect[];
+	service_blocks: ServiceBlock[];
+	services: Service[];
 	directus_access: DirectusAccess[];
 	directus_activity: DirectusActivity[];
 	directus_collections: DirectusCollection[];
@@ -950,7 +1014,6 @@ export interface Schema {
 	directus_sessions: DirectusSession[];
 	directus_settings: DirectusSettings;
 	directus_users: DirectusUser[];
-	directus_webhooks: DirectusWebhook[];
 	directus_dashboards: DirectusDashboard[];
 	directus_panels: DirectusPanel[];
 	directus_notifications: DirectusNotification[];
@@ -960,6 +1023,10 @@ export interface Schema {
 	directus_translations: DirectusTranslation[];
 	directus_versions: DirectusVersion[];
 	directus_extensions: DirectusExtension[];
+	directus_deployments: DirectusDeployment[];
+	directus_deployment_projects: DirectusDeploymentProject[];
+	directus_deployment_runs: DirectusDeploymentRun[];
+	directus_sync_id_map: DirectusSyncIdMap[];
 }
 
 export enum CollectionNames {
@@ -985,6 +1052,8 @@ export enum CollectionNames {
 	pages = 'pages',
 	posts = 'posts',
 	redirects = 'redirects',
+	service_blocks = 'service_blocks',
+	services = 'services',
 	directus_access = 'directus_access',
 	directus_activity = 'directus_activity',
 	directus_collections = 'directus_collections',
@@ -1002,7 +1071,6 @@ export enum CollectionNames {
 	directus_sessions = 'directus_sessions',
 	directus_settings = 'directus_settings',
 	directus_users = 'directus_users',
-	directus_webhooks = 'directus_webhooks',
 	directus_dashboards = 'directus_dashboards',
 	directus_panels = 'directus_panels',
 	directus_notifications = 'directus_notifications',
@@ -1012,5 +1080,8 @@ export enum CollectionNames {
 	directus_translations = 'directus_translations',
 	directus_versions = 'directus_versions',
 	directus_extensions = 'directus_extensions',
-	block_meer_weten = 'block_meer_weten',
+	directus_deployments = 'directus_deployments',
+	directus_deployment_projects = 'directus_deployment_projects',
+	directus_deployment_runs = 'directus_deployment_runs',
+	directus_sync_id_map = 'directus_sync_id_map'
 }

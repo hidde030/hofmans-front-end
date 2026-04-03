@@ -33,7 +33,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(({ navigation,
 	return (
 		<header ref={ref} className="w-full z-50 sticky top-0 shadow-md">
 			{/* Oranje topbalk met logo */}
-			<div className="bg-[#E87722] flex items-center justify-center py-5 px-4">
+			<div className="bg-[#f0972a] flex items-center justify-center py-5 px-4">
 				<Link href="/" aria-label="Naar homepagina">
 					<Image
 						src={logoUrl}
@@ -68,7 +68,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(({ navigation,
 							<li key={item.id}>
 								<Link
 									href={item.page?.permalink || item.url || '#'}
-									className="text-[#42566E] text-[15px] font-medium hover:text-[#E87722] transition-colors"
+									className="text-[#42566E] text-[15px] font-medium hover:text-[#f0972a] transition-colors"
 								>
 									{item.title}
 								</Link>
@@ -82,7 +82,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(({ navigation,
 							<li key={item.id}>
 								<Link
 									href={item.page?.permalink || item.url || '#'}
-									className="text-[#42566E] text-[15px] font-medium hover:text-[#E87722] transition-colors"
+									className="text-[#42566E] text-[15px] font-medium hover:text-[#f0972a] transition-colors"
 								>
 									{item.title}
 								</Link>
@@ -97,7 +97,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(({ navigation,
 					<button
 						onClick={() => setMenuOpen(!menuOpen)}
 						aria-label={menuOpen ? 'Sluit menu' : 'Open menu'}
-						className="text-[#42566E] hover:text-[#E87722] transition-colors"
+						className="text-[#42566E] hover:text-[#f0972a] transition-colors"
 					>
 						{menuOpen ? <X size={24} /> : <Menu size={24} />}
 					</button>
@@ -110,7 +110,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(({ navigation,
 							<div key={item.id}>
 								{item.children && item.children.length > 0 ? (
 									<Collapsible>
-										<CollapsibleTrigger className="flex items-center gap-1 text-[#42566E] text-[15px] font-medium hover:text-[#E87722] transition-colors w-full text-left focus:outline-none">
+										<CollapsibleTrigger className="flex items-center gap-1 text-[#42566E] text-[15px] font-medium hover:text-[#f0972a] transition-colors w-full text-left focus:outline-none">
 											<span>{item.title}</span>
 											<ChevronDown size={16} />
 										</CollapsibleTrigger>
@@ -119,7 +119,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(({ navigation,
 												<Link
 													key={child.id}
 													href={child.page?.permalink || child.url || '#'}
-													className="text-[#42566E] text-sm hover:text-[#E87722] transition-colors"
+													className="text-[#42566E] text-sm hover:text-[#f0972a] transition-colors"
 													onClick={handleLinkClick}
 												>
 													{child.title}
@@ -130,7 +130,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(({ navigation,
 								) : (
 									<Link
 										href={item.page?.permalink || item.url || '#'}
-										className="text-[#42566E] text-[15px] font-medium hover:text-[#E87722] transition-colors"
+										className="text-[#42566E] text-[15px] font-medium hover:text-[#f0972a] transition-colors"
 										onClick={handleLinkClick}
 									>
 										{item.title}
