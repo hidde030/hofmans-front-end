@@ -48,9 +48,9 @@ const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, re
 		>
 			{/* Onderste sectie: adres + links + logo */}
 			<div className="bg-[#F5F8FB]">
-				<div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-6 gap-8">
-					{/* Kolom 1: Adresgegevens + Logo */}
-					<div className="md:col-span-2 flex flex-col gap-12">
+				<div className="max-w-7xl mx-auto px-6 py-16 flex flex-col md:flex-row justify-between items-start gap-12">
+					{/* Linkerkant: Adresgegevens + Logo */}
+					<div className="flex flex-col gap-12">
 						<div
 							className="text-[#42566E] text-[15px] leading-loose"
 							data-directus={setAttr({
@@ -93,39 +93,38 @@ const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, re
 						</div>
 					</div>
 
-					{/* Kolom 2: Leeg - zorgt voor ruimte in het midden */}
-					<div className="hidden md:block md:col-span-2"></div>
-
-					{/* Kolommen 3 + 4: Dynamische navigatie uit Directus */}
-					{navigation?.items?.map((column) => (
-						<div key={column.id} className="md:col-span-1">
-							<h4
-								className="text-[#42566E] font-bold text-2xl mb-8 font-heading"
-								data-directus={setAttr({
-									collection: 'navigation_item',
-									item: column.id,
-									fields: 'title',
-									mode: 'popover',
-								})}
-							>
-								{column.title}
-							</h4>
-							{column.children && column.children.length > 0 && (
-								<ul className="space-y-4">
-									{column.children.map((item) => (
-										<li key={item.id}>
-											<Link
-												href={item.page?.permalink || item.url || '#'}
-												className="text-[#42566E] text-base hover:text-[#f0972a] transition-colors"
-											>
-												{item.title}
-											</Link>
-										</li>
-									))}
-								</ul>
-							)}
-						</div>
-					))}
+					{/* Rechterkant: Dynamische navigatie uit Directus */}
+					<div className="flex flex-col sm:flex-row gap-12 md:gap-24">
+						{navigation?.items?.map((column) => (
+							<div key={column.id} className="min-w-[150px]">
+								<h4
+									className="text-[#42566E] font-bold text-2xl mb-8 font-heading"
+									data-directus={setAttr({
+										collection: 'navigation_item',
+										item: column.id,
+										fields: 'title',
+										mode: 'popover',
+									})}
+								>
+									{column.title}
+								</h4>
+								{column.children && column.children.length > 0 && (
+									<ul className="space-y-4">
+										{column.children.map((item) => (
+											<li key={item.id}>
+												<Link
+													href={item.page?.permalink || item.url || '#'}
+													className="text-[#42566E] text-base hover:text-[#f0972a] transition-colors"
+												>
+													{item.title}
+												</Link>
+											</li>
+										))}
+									</ul>
+								)}
+							</div>
+						))}
+					</div>
 				</div>
 			</div>
 		</footer>
