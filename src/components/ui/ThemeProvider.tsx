@@ -12,8 +12,7 @@ export function ThemeProvider({ children, ...props }: React.ComponentProps<typeo
 
 	useEffect(() => {
 		const storedTheme = localStorage.getItem('theme');
-		const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-		setTheme(storedTheme || systemTheme);
+		setTheme(storedTheme || 'light');
 		setMounted(true);
 	}, []);
 
@@ -30,7 +29,13 @@ export function ThemeProvider({ children, ...props }: React.ComponentProps<typeo
 	}
 
 	return (
-		<NextThemesProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange {...props}>
+		<NextThemesProvider
+			attribute="class"
+			defaultTheme="light"
+			enableSystem={false}
+			disableTransitionOnChange
+			{...props}
+		>
 			{children}
 		</NextThemesProvider>
 	);
