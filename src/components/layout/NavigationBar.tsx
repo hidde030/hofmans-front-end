@@ -15,7 +15,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/compon
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui/collapsible';
 import { ChevronDown, Menu } from 'lucide-react';
-import ThemeToggle from '../ui/ThemeToggle';
 import SearchModal from '@/components/ui/SearchModal';
 import Container from '@/components/ui/container';
 import { setAttr } from '@directus/visual-editing';
@@ -161,7 +160,6 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(({ navigation,
 							</DropdownMenuContent>
 						</DropdownMenu>
 					</div>
-					<ThemeToggle />
 				</nav>
 			</Container>
 		</header>
