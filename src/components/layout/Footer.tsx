@@ -4,6 +4,12 @@ import React, { forwardRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { setAttr } from '@directus/visual-editing';
+import Container from '@/components/ui/container';
+
+interface SocialLink {
+	service: string;
+	url: string;
+}
 
 interface NavigationItem {
 	id: string;

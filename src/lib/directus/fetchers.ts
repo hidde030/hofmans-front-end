@@ -28,6 +28,7 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 							{
 								item: {
 									block_richtext: ['id', 'tagline', 'headline', 'content', 'alignment'],
+									block_text_image: ['id', 'tagline', 'headline', 'content', 'image', 'image_position'],
 									block_gallery: ['id', 'tagline', 'headline', { items: ['id', 'directus_file', 'sort'] as any }],
 									block_pricing: [
 										'id',
@@ -60,7 +61,10 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 										'id',
 										'tagline',
 										'headline',
+										'subtitle',
 										'description',
+										'phone',
+										'email',
 										'layout',
 										'image',
 										{
@@ -122,12 +126,16 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 				},
 			}),
 		);
-
 		if (!pageData.length) {
 			throw new Error('Page not found');
 		}
 
 		const page = pageData[0];
+		
+		const textImageBlocks = (page.blocks as any[])?.filter((b: any) => b.collection === 'block_text_image');
+		console.log('--- FETCHED block_text_image BLOCKS voor', permalink, '---');
+		console.dir(textImageBlocks, { depth: null });
+		console.log('-----------------------------------------');
 
 		if (Array.isArray(page.blocks)) {
 			for (const block of page.blocks as PageBlock[]) {

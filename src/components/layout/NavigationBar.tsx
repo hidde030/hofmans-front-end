@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui/collapsible';
 import { ChevronDown, Menu, X } from 'lucide-react';
+import SearchModal from '@/components/ui/SearchModal';
+import Container from '@/components/ui/container';
 import { setAttr } from '@directus/visual-editing';
 
 interface NavigationItem {
@@ -52,11 +54,11 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(({ navigation,
 				data-directus={
 					navigation
 						? setAttr({
-								collection: 'navigation',
-								item: navigation.id ?? null,
-								fields: ['items'],
-								mode: 'modal',
-							})
+							collection: 'navigation',
+							item: navigation.id ?? null,
+							fields: ['items'],
+							mode: 'modal',
+						})
 						: undefined
 				}
 			>

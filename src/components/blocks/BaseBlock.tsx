@@ -1,6 +1,7 @@
 'use client';
 
 import RichText from '@/components/blocks/RichText';
+import TextWithImage from '@/components/blocks/TextWithImage';
 import Hero from '@/components/blocks/Hero';
 import Gallery from '@/components/blocks/Gallery';
 import Pricing from '@/components/blocks/Pricing';
@@ -23,6 +24,7 @@ const BaseBlock = ({ block }: BaseBlockProps) => {
 		block_pricing: Pricing,
 		block_posts: Posts,
 		block_form: Form,
+		block_text_image: TextWithImage,
 	};
 
 	const Component = components[block.collection];
