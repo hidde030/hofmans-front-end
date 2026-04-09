@@ -1,7 +1,9 @@
 'use client';
 
 import React, { forwardRef } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
+import { setAttr } from '@directus/visual-editing';
 import Container from '@/components/ui/container';
 
 interface SocialLink {
@@ -14,80 +16,122 @@ interface NavigationItem {
 	title: string;
 	url?: string | null;
 	page?: { permalink?: string | null };
+	children?: NavigationItem[];
 }
 
 interface FooterProps {
-	navigation: { items: NavigationItem[] };
+	navigation: { id?: string; items: NavigationItem[] };
 	globals: {
+		id: string;
 		logo?: string | null;
-		logo_dark_mode?: string | null;
-		description?: string | null;
-		social_links?: SocialLink[];
+		social_links?: { service: string; url: string }[];
+		address?: string | null;
+		zip_code?: string | null;
+		city?: string | null;
+		phone?: string | null;
+		email?: string | null;
 	};
 }
 
+
 const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, ref) => {
 	const directusURL = process.env.NEXT_PUBLIC_DIRECTUS_URL;
-	const lightLogoUrl = globals?.logo ? `${directusURL}/assets/${globals.logo}` : '/images/logo.svg';
-	const darkLogoUrl = globals?.logo_dark_mode ? `${directusURL}/assets/${globals.logo_dark_mode}` : '';
+	const logoUrl = globals?.logo ? `${directusURL}/assets/${globals.logo}` : '/images/logo-white.svg';
 
 	return (
-		<footer ref={ref} className="bg-gray dark:bg-[var(--background-variant-color)] py-16">
-			<Container className="text-foreground dark:text-white">
-				<div className="flex flex-col md:flex-row justify-between items-start gap-8 pt-8">
-					<div className="flex-1">
-						<Link href="/" className="inline-block transition-opacity hover:opacity-70">
-							<img
-								src={lightLogoUrl}
-								alt="Logo"
-								className={darkLogoUrl ? 'w-[120px] h-auto dark:hidden' : 'w-[120px] h-auto'}
-							/>
-							{darkLogoUrl && (
-								<img src={darkLogoUrl} alt="Logo (Dark Mode)" className="w-[120px] h-auto hidden dark:block" />
-							)}
-						</Link>
-						{globals?.description && <p className="text-description mt-2">{globals.description}</p>}
-						{globals?.social_links && (
-							<div className="mt-4 flex space-x-4">
-								{globals.social_links.map((social) => (
-									<a
-										key={social.service}
-										href={social.url}
-										target="_blank"
-										rel="noopener noreferrer"
-										className="size-8 rounded bg-transparent inline-flex items-center justify-center transition-colors hover:opacity-70"
-									>
-										<img
-											src={`/icons/social/${social.service}.svg`}
-											alt={`${social.service} icon`}
-											className="size-6 dark:invert"
-										/>
-									</a>
-								))}
-							</div>
-						)}
+		<footer
+			ref={ref}
+			data-directus={
+				navigation
+					? setAttr({
+						collection: 'navigation',
+						item: navigation.id ?? null,
+						fields: ['items'],
+						mode: 'modal',
+					})
+					: undefined
+			}
+		>
+			{/* Onderste sectie: adres + links + logo */}
+			<div className="bg-[#F5F8FB]">
+				<div className="max-w-7xl mx-auto px-6 py-16 flex flex-col md:flex-row justify-between items-start gap-12">
+					{/* Linkerkant: Adresgegevens + Logo */}
+					<div className="flex flex-col gap-12">
+						<div
+							className="text-[#42566E] text-[15px] leading-loose"
+							data-directus={setAttr({
+								collection: 'globals',
+								item: globals.id,
+								fields: ['address', 'zip_code', 'city', 'phone', 'email'],
+								mode: 'modal',
+							})}
+						>
+							<p>{globals.address || 'Lage dijk - noord 10'}</p>
+							<p>
+								{globals.zip_code && globals.city
+									? `${globals.zip_code} ${globals.city}`
+									: '3401 VA IJsselstein, Utrecht'}
+							</p>
+							<p>{globals.phone || '030 - 6880970'}</p>
+							<p>{globals.email || 'info@deallesdrukker.nl'}</p>
+						</div>
+
+						<div className="flex">
+							<Link
+								href="/"
+								className="inline-block"
+								data-directus={setAttr({
+									collection: 'globals',
+									item: globals.id,
+									fields: 'logo',
+									mode: 'modal',
+								})}
+							>
+								<Image
+									src={logoUrl}
+									alt="Hofmans"
+									width={150}
+									height={42}
+									className="h-10 w-auto"
+								/>
+							</Link>
+						</div>
 					</div>
-					<div className="flex flex-col items-start md:items-end flex-1">
-						<nav className="w-full md:w-auto text-left">
-							<ul className="space-y-4">
-								{navigation?.items?.map((item) => (
-									<li key={item.id}>
-										{item.page?.permalink ? (
-											<Link href={item.page.permalink} className="text-nav font-medium hover:underline">
-												{item.title}
-											</Link>
-										) : (
-											<a href={item.url || '#'} className="text-nav font-medium hover:underline">
-												{item.title}
-											</a>
-										)}
-									</li>
-								))}
-							</ul>
-						</nav>
+
+					{/* Rechterkant: Dynamische navigatie uit Directus */}
+					<div className="flex flex-col sm:flex-row gap-12 md:gap-24">
+						{navigation?.items?.map((column) => (
+							<div key={column.id} className="min-w-[150px]">
+								<h4
+									className="text-[#42566E] font-bold text-2xl mb-8 font-heading"
+									data-directus={setAttr({
+										collection: 'navigation_item',
+										item: column.id,
+										fields: 'title',
+										mode: 'popover',
+									})}
+								>
+									{column.title}
+								</h4>
+								{column.children && column.children.length > 0 && (
+									<ul className="space-y-4">
+										{column.children.map((item) => (
+											<li key={item.id}>
+												<Link
+													href={item.page?.permalink || item.url || '#'}
+													className="text-[#42566E] text-base hover:text-[#f0972a] transition-colors"
+												>
+													{item.title}
+												</Link>
+											</li>
+										))}
+									</ul>
+								)}
+							</div>
+						))}
 					</div>
 				</div>
-			</Container>
+			</div>
 		</footer>
 	);
 });
