@@ -3,24 +3,22 @@
 import { useState, forwardRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import {
-	NavigationMenu,
-	NavigationMenuList,
-	NavigationMenuItem,
-	NavigationMenuTrigger,
-	NavigationMenuContent,
-	NavigationMenuLink,
-} from '@/components/ui/navigation-menu';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui/collapsible';
-import { ChevronDown, Menu } from 'lucide-react';
+import { ChevronDown, Menu, X } from 'lucide-react';
 import SearchModal from '@/components/ui/SearchModal';
 import Container from '@/components/ui/container';
 import { setAttr } from '@directus/visual-editing';
 
+interface NavigationItem {
+	id: string;
+	title: string;
+	url?: string | null;
+	page?: { permalink?: string | null };
+	children?: NavigationItem[];
+}
+
 interface NavigationBarProps {
-	navigation: any;
+	navigation: { id?: string; items: NavigationItem[] };
 	globals: any;
 }
 
@@ -28,142 +26,126 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(({ navigation,
 	const [menuOpen, setMenuOpen] = useState(false);
 
 	const directusURL = process.env.NEXT_PUBLIC_DIRECTUS_URL;
-	const lightLogoUrl = globals?.logo ? `${directusURL}/assets/${globals.logo}` : '/images/logo.svg';
-	const darkLogoUrl = globals?.logo_dark_mode ? `${directusURL}/assets/${globals.logo_dark_mode}` : '';
+	const logoUrl = globals?.logo ? `${directusURL}/assets/${globals.logo}` : '/images/logo-white.svg';
 
 	const handleLinkClick = () => {
 		setMenuOpen(false);
 	};
 
 	return (
-		<header ref={ref} className="sticky top-0 z-50 w-full bg-background text-foreground">
-			<Container className="flex items-center justify-between p-4">
-				<Link href="/" className="flex-shrink-0">
+		<header ref={ref} className="w-full z-50 sticky top-0 shadow-md">
+			{/* Oranje topbalk met logo */}
+			<div className="bg-[#f0972a] flex items-center justify-center py-5 px-4">
+				<Link href="/" aria-label="Naar homepagina">
 					<Image
-						src={lightLogoUrl}
-						alt="Logo"
-						width={150}
-						height={100}
-						className="w-[120px] h-auto dark:hidden"
+						src={logoUrl}
+						alt="Hofmans"
+						width={180}
+						height={50}
+						className="h-12 w-auto"
 						priority
 					/>
-					{darkLogoUrl && (
-						<Image
-							src={darkLogoUrl}
-							alt="Logo (Dark Mode)"
-							width={150}
-							height={100}
-							className="w-[120px] h-auto hidden dark:block"
-							priority
-						/>
-					)}
 				</Link>
+			</div>
 
-				<nav className="flex items-center gap-4">
-					<SearchModal />
-					<NavigationMenu
-						className="hidden md:flex"
-						data-directus={
-							navigation
-								? setAttr({
-										collection: 'navigation',
-										item: navigation.id,
-										fields: ['items'],
-										mode: 'modal',
-									})
-								: undefined
-						}
-					>
-						<NavigationMenuList className="flex gap-6">
-							{navigation?.items?.map((section: any) => (
-								<NavigationMenuItem key={section.id}>
-									{section.children && section.children.length > 0 ? (
-										<>
-											<NavigationMenuTrigger className="focus:outline-none">
-												<span className="font-heading text-nav">{section.title}</span>
-											</NavigationMenuTrigger>
-											<NavigationMenuContent className="absolute mt-2 min-w-[150px] rounded-md bg-background p-4 shadow-md">
-												<ul className="flex flex-col gap-2 pb-4">
-													{section.children.map((child: any) => (
-														<li key={child.id}>
-															<NavigationMenuLink
-																href={child.page?.permalink || child.url || '#'}
-																className="font-heading text-nav"
-															>
-																{child.title}
-															</NavigationMenuLink>
-														</li>
-													))}
-												</ul>
-											</NavigationMenuContent>
-										</>
-									) : (
-										<NavigationMenuLink
-											href={section.page?.permalink || section.url || '#'}
-											className="font-heading text-nav"
-										>
-											{section.title}
-										</NavigationMenuLink>
-									)}
-								</NavigationMenuItem>
-							))}
-						</NavigationMenuList>
-					</NavigationMenu>
-
-					<div className="flex md:hidden">
-						<DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
-							<DropdownMenuTrigger asChild>
-								<Button
-									variant="link"
-									size="icon"
-									aria-label="Open menu"
-									className="dark:text-white dark:hover:text-accent"
+			{/* Witte navigatiebalk */}
+			<nav
+				className="bg-white border-b border-gray-200"
+				data-directus={
+					navigation
+						? setAttr({
+							collection: 'navigation',
+							item: navigation.id ?? null,
+							fields: ['items'],
+							mode: 'modal',
+						})
+						: undefined
+				}
+			>
+				{/* Desktop navigatie */}
+				<div className="max-w-7xl mx-auto px-6 hidden md:flex items-center justify-between py-3">
+					{/* Links (links uitgelijnd) */}
+					<ul className="flex items-center gap-8">
+						{navigation?.items?.slice(0, Math.ceil((navigation?.items?.length || 0) - 1)).map((item) => (
+							<li key={item.id}>
+								<Link
+									href={item.page?.permalink || item.url || '#'}
+									className="text-[#42566E] text-[15px] font-medium hover:text-[#f0972a] transition-colors"
 								>
-									<Menu />
-								</Button>
-							</DropdownMenuTrigger>
-							<DropdownMenuContent align="start" className="top-full w-screen p-6 shadow-md max-w-full overflow-hidden">
-								<div className="flex flex-col gap-4">
-									{navigation?.items?.map((section: any) => (
-										<div key={section.id}>
-											{section.children && section.children.length > 0 ? (
-												<Collapsible>
-													<CollapsibleTrigger className="font-heading text-nav hover:text-accent w-full text-left flex items-center focus:outline-none">
-														<span>{section.title}</span>
-														<ChevronDown className="size-4 ml-1 hover:rotate-180 active:rotate-180 focus:rotate-180" />
-													</CollapsibleTrigger>
-													<CollapsibleContent className="ml-4 mt-2 flex flex-col gap-2">
-														{section.children.map((child: any) => (
-															<Link
-																key={child.id}
-																href={child.page?.permalink || child.url || '#'}
-																className="font-heading text-nav"
-																onClick={handleLinkClick}
-															>
-																{child.title}
-															</Link>
-														))}
-													</CollapsibleContent>
-												</Collapsible>
-											) : (
+									{item.title}
+								</Link>
+							</li>
+						))}
+					</ul>
+
+					{/* Rechts uitgelijnd item (Over ons) */}
+					<ul className="flex items-center">
+						{navigation?.items?.slice(-1).map((item) => (
+							<li key={item.id}>
+								<Link
+									href={item.page?.permalink || item.url || '#'}
+									className="text-[#42566E] text-[15px] font-medium hover:text-[#f0972a] transition-colors"
+								>
+									{item.title}
+								</Link>
+							</li>
+						))}
+					</ul>
+				</div>
+
+				{/* Mobile navigatie */}
+				<div className="md:hidden flex items-center justify-between px-6 py-3">
+					<span className="text-[#42566E] text-sm font-medium">Menu</span>
+					<button
+						onClick={() => setMenuOpen(!menuOpen)}
+						aria-label={menuOpen ? 'Sluit menu' : 'Open menu'}
+						className="text-[#42566E] hover:text-[#f0972a] transition-colors"
+					>
+						{menuOpen ? <X size={24} /> : <Menu size={24} />}
+					</button>
+				</div>
+
+				{/* Mobile dropdown */}
+				{menuOpen && (
+					<div className="md:hidden bg-white border-t border-gray-100 px-6 py-4 flex flex-col gap-3">
+						{navigation?.items?.map((item) => (
+							<div key={item.id}>
+								{item.children && item.children.length > 0 ? (
+									<Collapsible>
+										<CollapsibleTrigger className="flex items-center gap-1 text-[#42566E] text-[15px] font-medium hover:text-[#f0972a] transition-colors w-full text-left focus:outline-none">
+											<span>{item.title}</span>
+											<ChevronDown size={16} />
+										</CollapsibleTrigger>
+										<CollapsibleContent className="ml-4 mt-2 flex flex-col gap-2">
+											{item.children.map((child) => (
 												<Link
-													href={section.page?.permalink || section.url || '#'}
-													className="font-heading text-nav"
+													key={child.id}
+													href={child.page?.permalink || child.url || '#'}
+													className="text-[#42566E] text-sm hover:text-[#f0972a] transition-colors"
 													onClick={handleLinkClick}
 												>
-													{section.title}
+													{child.title}
 												</Link>
-											)}
-										</div>
-									))}
-								</div>
-							</DropdownMenuContent>
-						</DropdownMenu>
+											))}
+										</CollapsibleContent>
+									</Collapsible>
+								) : (
+									<Link
+										href={item.page?.permalink || item.url || '#'}
+										className="text-[#42566E] text-[15px] font-medium hover:text-[#f0972a] transition-colors"
+										onClick={handleLinkClick}
+									>
+										{item.title}
+									</Link>
+								)}
+							</div>
+						))}
 					</div>
-				</nav>
-			</Container>
+				)}
+			</nav>
 		</header>
 	);
 });
+
 NavigationBar.displayName = 'NavigationBar';
 export default NavigationBar;
