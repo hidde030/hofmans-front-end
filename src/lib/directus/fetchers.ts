@@ -116,6 +116,15 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 											],
 										},
 									],
+									block_team: [
+										'id',
+										'tagline',
+										'headline',
+										'id',
+										'name',
+										'role',
+										'image',
+									],
 								},
 							},
 						],
@@ -131,7 +140,7 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 		}
 
 		const page = pageData[0];
-		
+
 		const textImageBlocks = (page.blocks as any[])?.filter((b: any) => b.collection === 'block_text_image');
 		console.log('--- FETCHED block_text_image BLOCKS voor', permalink, '---');
 		console.dir(textImageBlocks, { depth: null });

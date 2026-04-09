@@ -95,7 +95,7 @@ export interface BlockGallery {
 	date_updated?: string | null;
 	user_updated?: DirectusUser | string | null;
 	/** @description Images to include in the image gallery. */
-	items?: DirectusFile[] | string[] | null;
+	items?: BlockGalleryItem[] | string[];
 }
 
 export interface BlockGalleryItem {
@@ -208,6 +208,16 @@ export interface BlockRichtext {
 	user_created?: DirectusUser | string | null;
 	date_updated?: string | null;
 	user_updated?: DirectusUser | string | null;
+}
+
+export interface BlockTeam {
+	/** @primaryKey */
+	id: number;
+	name?: string | null;
+	role?: string | null;
+	image?: DirectusFile | string | null;
+	headline?: string | null;
+	tagline?: string | null;
 }
 
 export interface BlockTextImage {
@@ -994,6 +1004,7 @@ export interface Schema {
 	block_pricing: BlockPricing[];
 	block_pricing_cards: BlockPricingCard[];
 	block_richtext: BlockRichtext[];
+	block_team: BlockTeam[];
 	block_text_image: BlockTextImage[];
 	form_fields: FormField[];
 	forms: Form[];
@@ -1052,6 +1063,7 @@ export enum CollectionNames {
 	block_pricing = 'block_pricing',
 	block_pricing_cards = 'block_pricing_cards',
 	block_richtext = 'block_richtext',
+	block_team = 'block_team',
 	block_text_image = 'block_text_image',
 	form_fields = 'form_fields',
 	forms = 'forms',
