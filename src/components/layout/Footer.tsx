@@ -77,24 +77,23 @@ const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, re
 						</div>
 
 						<div className="flex">
-							<Link href="/" className="inline-block">
-								<div
-									className="bg-[#f0972a] px-10 py-8 flex items-center justify-center min-w-[200px]"
-									data-directus={setAttr({
-										collection: 'globals',
-										item: globals.id,
-										fields: 'logo',
-										mode: 'modal',
-									})}
-								>
-									<Image
-										src={logoUrl}
-										alt="Hofmans"
-										width={150}
-										height={42}
-										className="h-10 w-auto"
-									/>
-								</div>
+							<Link
+								href="/"
+								className="inline-block"
+								data-directus={setAttr({
+									collection: 'globals',
+									item: globals.id,
+									fields: 'logo',
+									mode: 'modal',
+								})}
+							>
+								<Image
+									src={logoUrl}
+									alt="Hofmans"
+									width={150}
+									height={42}
+									className="h-10 w-auto"
+								/>
 							</Link>
 						</div>
 					</div>
