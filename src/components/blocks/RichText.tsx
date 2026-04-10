@@ -56,7 +56,7 @@ const RichText = ({ data, className }: RichTextProps) => {
 	return (
 		<div
 			className={cn(
-				'mx-auto max-w-[600px] space-y-6',
+				'mx-auto container space-y-6',
 				alignment === 'center' ? 'text-center' : alignment === 'right' ? 'text-right' : 'text-left',
 				className,
 			)}
