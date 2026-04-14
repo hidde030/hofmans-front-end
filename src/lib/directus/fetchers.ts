@@ -29,7 +29,7 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 								item: {
 									block_richtext: ['id', 'tagline', 'headline', 'content', 'alignment'],
 									block_text_image: ['id', 'tagline', 'headline', 'content', 'image', 'image_position'],
-									block_gallery: ['id', 'tagline', 'headline', { items: ['id', 'directus_file', 'sort'] as any }],
+									block_gallery: ['id', 'tagline', 'headline', 'display_type', 'disable_lightbox', { items: ['id', 'directus_file', 'sort', 'title', 'content'] as any }],
 									block_pricing: [
 										'id',
 										'tagline',
@@ -131,7 +131,7 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 		}
 
 		const page = pageData[0];
-		
+
 		const textImageBlocks = (page.blocks as any[])?.filter((b: any) => b.collection === 'block_text_image');
 		console.log('--- FETCHED block_text_image BLOCKS voor', permalink, '---');
 		console.dir(textImageBlocks, { depth: null });
