@@ -23,8 +23,8 @@ const TextWithImage = ({ data, className }: TextWithImageProps) => {
 	const { id, tagline, headline, content, image, image_position = 'right' } = data;
 
 	return (
-		<div className={cn('mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-8 items-center', className)}>
-			<div className={cn('space-y-6', image_position === 'left' ? 'md:order-2' : 'md:order-1')}>
+		<div className={cn('mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center px-8 md:px-0', className)}>
+			<div className={cn('space-y-6 text-center md:text-left', image_position === 'left' ? 'md:order-2' : 'md:order-1')}>
 				{tagline && (
 					<Tagline
 						tagline={tagline}
@@ -39,6 +39,7 @@ const TextWithImage = ({ data, className }: TextWithImageProps) => {
 				{headline && (
 					<Headline
 						headline={headline}
+						className="text-3xl md:text-4xl lg:text-5xl"
 						data-directus={setAttr({
 							collection: 'block_text_image',
 							item: id,
@@ -50,6 +51,7 @@ const TextWithImage = ({ data, className }: TextWithImageProps) => {
 				{content && (
 					<Text
 						content={content}
+						className="text-base md:text-lg leading-relaxed"
 						data-directus={setAttr({
 							collection: 'block_text_image',
 							item: id,
@@ -62,7 +64,7 @@ const TextWithImage = ({ data, className }: TextWithImageProps) => {
 			{image && (
 				<div
 					className={cn(
-						'relative w-full aspect-square md:aspect-auto md:h-full min-h-[300px]',
+						'relative w-full aspect-[4/3] md:aspect-square lg:aspect-[4/3] min-h-[250px] md:min-h-[400px]',
 						image_position === 'left' ? 'md:order-1' : 'md:order-2',
 					)}
 					data-directus={setAttr({
@@ -72,7 +74,7 @@ const TextWithImage = ({ data, className }: TextWithImageProps) => {
 						mode: 'popover',
 					})}
 				>
-					<DirectusImage uuid={image} alt={headline || 'Image'} fill className="object-cover rounded-xl" />
+					<DirectusImage uuid={image} alt={headline || 'Image'} fill className="object-cover rounded-2xl shadow-lg" />
 				</div>
 			)}
 		</div>

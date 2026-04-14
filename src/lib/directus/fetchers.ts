@@ -9,6 +9,7 @@ import { RedirectError } from '../redirects';
 export const fetchPageData = async (permalink: string, postPage = 1) => {
 	const { directus, readItems } = useDirectus();
 	try {
+		console.log(`[DEBUG] fetchPageData called for: "${permalink}"`);
 		const pageData = await directus.request(
 			readItems('pages', {
 				filter: { permalink: { _eq: permalink } },
@@ -127,9 +128,11 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 			}),
 		);
 		if (!pageData.length) {
+			console.warn(`[DEBUG] No page found in Directus for permalink: "${permalink}"`);
 			throw new Error('Page not found');
 		}
 
+		console.log(`[DEBUG] Successfully fetched page: "${pageData[0].title}" (ID: ${pageData[0].id})`);
 		const page = pageData[0];
 
 		const textImageBlocks = (page.blocks as any[])?.filter((b: any) => b.collection === 'block_text_image');

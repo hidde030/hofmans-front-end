@@ -35,7 +35,7 @@ const FormBlock = ({ data }: FormBlockProps) => {
 	}
 
 	return (
-		<section className="mx-auto">
+		<section className="mx-auto px-8 md:px-0">
 			{tagline && (
 				<Tagline
 					tagline={tagline}
