@@ -40,7 +40,7 @@ export default function Hero({ data }: HeroProps) {
 	return (
 		<section
 			className={cn(
-				'relative w-full mx-auto flex flex-col gap-6 md:gap-12',
+				'relative w-full mx-auto flex flex-col gap-6 md:gap-12 px-4',
 				layout === 'image_center'
 					? 'items-center text-center'
 					: layout === 'image_cover'
