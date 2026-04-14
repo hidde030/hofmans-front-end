@@ -29,7 +29,7 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 								item: {
 									block_richtext: ['id', 'tagline', 'headline', 'content', 'alignment'],
 									block_text_image: ['id', 'tagline', 'headline', 'content', 'image', 'image_position'],
-									block_gallery: ['id', 'tagline', 'headline', { items: ['id', 'directus_file', 'sort'] as any }],
+									block_gallery: ['id', 'tagline', 'headline', 'display_type', 'disable_lightbox', { items: ['id', 'directus_file', 'sort', 'title', 'content'] as any }],
 									block_pricing: [
 										'id',
 										'tagline',
@@ -115,15 +115,6 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 												},
 											],
 										},
-									],
-									block_team: [
-										'id',
-										'tagline',
-										'headline',
-										'id',
-										'name',
-										'role',
-										'image',
 									],
 								},
 							},

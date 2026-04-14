@@ -94,6 +94,8 @@ export interface BlockGallery {
 	user_created?: DirectusUser | string | null;
 	date_updated?: string | null;
 	user_updated?: DirectusUser | string | null;
+	display_type?: 'grid' | 'carousel' | null;
+	disable_lightbox?: boolean | null;
 	/** @description Images to include in the image gallery. */
 	items?: BlockGalleryItem[] | string[];
 }
@@ -110,6 +112,8 @@ export interface BlockGalleryItem {
 	user_created?: DirectusUser | string | null;
 	date_updated?: string | null;
 	user_updated?: DirectusUser | string | null;
+	title?: string | null;
+	content?: string | null;
 }
 
 export interface BlockHero {
@@ -210,23 +214,13 @@ export interface BlockRichtext {
 	user_updated?: DirectusUser | string | null;
 }
 
-export interface BlockTeam {
-	/** @primaryKey */
-	id: number;
-	name?: string | null;
-	role?: string | null;
-	image?: DirectusFile | string | null;
-	headline?: string | null;
-	tagline?: string | null;
-}
-
 export interface BlockTextImage {
 	/** @primaryKey */
 	id: string;
 	tagline?: string | null;
 	headline?: string | null;
 	content?: string | null;
-	image?: string | null;
+	image?: DirectusFile | string | null;
 	image_position?: 'left' | 'right' | null;
 }
 
@@ -783,9 +777,9 @@ export interface DirectusSettings {
 	ai_openai_compatible_name?: string | null;
 	ai_openai_compatible_models?: Array<{ id: string; name: string; context: number; output: number; attachment: boolean; reasoning: boolean; providerOptions: Record<string, any> }> | null;
 	ai_openai_compatible_headers?: Array<{ header: string; value: string }> | null;
-	ai_openai_allowed_models?: Array<`gpt-4o-mini` | `gpt-4.1-nano` | `gpt-4.1-mini` | `gpt-4.1` | `gpt-5-nano` | `gpt-5-mini` | `gpt-5` | `gpt-5.2` | `gpt-5.2-chat-latest` | `gpt-5.2-pro`> | null;
-	ai_anthropic_allowed_models?: Array<`claude-haiku-4-5` | `claude-sonnet-4-5` | `claude-opus-4-5`> | null;
-	ai_google_allowed_models?: Array<`gemini-3-pro-preview` | `gemini-3-flash-preview` | `gemini-2.5-pro` | `gemini-2.5-flash`> | null;
+	ai_openai_allowed_models?: Array<`gpt-4o-mini` | `gpt-4.1-nano` | `gpt-4.1-mini` | `gpt-4.1` | `gpt-5-nano` | `gpt-5-mini` | `gpt-5` | `gpt-5.2` | `gpt-5.2-chat-latest` | `gpt-5.2-pro` | `gpt-5.4` | `gpt-5.4-pro`> | null;
+	ai_anthropic_allowed_models?: Array<`claude-haiku-4-5` | `claude-sonnet-4-5` | `claude-opus-4-5` | `claude-sonnet-4-6` | `claude-opus-4-6`> | null;
+	ai_google_allowed_models?: Array<`gemini-3-pro-preview` | `gemini-3-flash-preview` | `gemini-2.5-pro` | `gemini-2.5-flash` | `gemini-3.1-pro-preview` | `gemini-3.1-flash-lite-preview` | `gemini-2.5-flash-lite`> | null;
 	collaborative_editing_enabled?: boolean;
 }
 
@@ -959,6 +953,9 @@ export interface DirectusDeployment {
 	options?: 'json' | null;
 	date_created?: string | null;
 	user_created?: DirectusUser | string | null;
+	webhook_ids?: 'json' | null;
+	webhook_secret?: string | null;
+	last_synced_at?: string | null;
 	projects?: DirectusDeploymentProject[] | string[];
 }
 
@@ -970,6 +967,9 @@ export interface DirectusDeploymentProject {
 	name?: string;
 	date_created?: string | null;
 	user_created?: DirectusUser | string | null;
+	url?: string | null;
+	framework?: string | null;
+	deployable?: boolean;
 	runs?: DirectusDeploymentRun[] | string[];
 }
 
@@ -981,6 +981,10 @@ export interface DirectusDeploymentRun {
 	target?: string;
 	date_created?: string | null;
 	user_created?: DirectusUser | string | null;
+	status?: string | null;
+	url?: string | null;
+	started_at?: string | null;
+	completed_at?: string | null;
 }
 
 export interface DirectusSyncIdMap {
@@ -1004,7 +1008,6 @@ export interface Schema {
 	block_pricing: BlockPricing[];
 	block_pricing_cards: BlockPricingCard[];
 	block_richtext: BlockRichtext[];
-	block_team: BlockTeam[];
 	block_text_image: BlockTextImage[];
 	form_fields: FormField[];
 	forms: Form[];
@@ -1063,7 +1066,6 @@ export enum CollectionNames {
 	block_pricing = 'block_pricing',
 	block_pricing_cards = 'block_pricing_cards',
 	block_richtext = 'block_richtext',
-	block_team = 'block_team',
 	block_text_image = 'block_text_image',
 	form_fields = 'form_fields',
 	forms = 'forms',

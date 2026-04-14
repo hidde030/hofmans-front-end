@@ -7,11 +7,15 @@ import Headline from '@/components/ui/Headline';
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogClose } from '@/components/ui/dialog';
 import { ArrowLeft, ArrowRight, ZoomIn, X } from 'lucide-react';
 import { setAttr } from '@directus/visual-editing';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { cn } from '@/lib/utils';
 
 interface GalleryItem {
 	id: string;
 	directus_file: string;
 	sort?: number;
+	title?: string;
+	content?: string;
 }
 
 interface GalleryData {
@@ -19,6 +23,8 @@ interface GalleryData {
 	tagline?: string;
 	headline?: string;
 	items: GalleryItem[];
+	display_type?: 'grid' | 'carousel' | null;
+	disable_lightbox?: boolean | null;
 }
 
 interface GalleryProps {
@@ -26,7 +32,7 @@ interface GalleryProps {
 }
 
 const Gallery = ({ data }: GalleryProps) => {
-	const { tagline, headline, items, id } = data;
+	const { tagline, headline, items, id, display_type, disable_lightbox } = data;
 
 	const [isLightboxOpen, setLightboxOpen] = useState(false);
 	const [currentIndex, setCurrentIndex] = useState(0);
@@ -35,6 +41,7 @@ const Gallery = ({ data }: GalleryProps) => {
 	const isValidIndex = sortedItems.length > 0 && currentIndex >= 0 && currentIndex < sortedItems.length;
 
 	const handleOpenLightbox = (index: number) => {
+		if (disable_lightbox) return;
 		setCurrentIndex(index);
 		setLightboxOpen(true);
 	};
@@ -75,8 +82,70 @@ const Gallery = ({ data }: GalleryProps) => {
 		return () => window.removeEventListener('keydown', handleKeyDown);
 	}, [isLightboxOpen]);
 
+	const renderGalleryItem = (item: GalleryItem, index: number) => (
+		<div
+			key={item.id}
+			className={cn('group', !disable_lightbox && 'cursor-pointer')}
+			onClick={() => handleOpenLightbox(index)}
+			aria-label={`Gallery item ${item.id}`}
+		>
+			<div className="relative aspect-square overflow-hidden rounded-xl shadow-md transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1">
+				{item.directus_file ? (
+					<DirectusImage
+						uuid={item.directus_file}
+						alt={item.title || `Gallery item ${item.id}`}
+						fill
+						sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+						className="w-full h-full object-cover"
+					/>
+				) : (
+					<div className="flex items-center justify-center h-full bg-gray-100 text-sm text-gray-500">
+						Image not available
+					</div>
+				)}
+				{!disable_lightbox && (
+					<div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 flex justify-center items-center transition-opacity duration-300">
+						<div className="bg-white/90 p-3 rounded-full shadow-lg transform scale-90 group-hover:scale-100 transition-transform duration-300">
+							<ZoomIn className="size-6 text-gray-800" />
+						</div>
+					</div>
+				)}
+			</div>
+			{(item.title || item.content) && (
+				<div className="mt-4 text-center px-2">
+					{item.title && (
+						<h3
+							className="text-lg font-bold text-[#42566E] font-heading line-clamp-1"
+							data-directus={setAttr({
+								collection: 'block_gallery_items',
+								item: item.id,
+								fields: 'title',
+								mode: 'popover',
+							})}
+						>
+							{item.title}
+						</h3>
+					)}
+					{item.content && (
+						<p
+							className="text-sm text-[#42566E]/70 line-clamp-2 mt-1"
+							data-directus={setAttr({
+								collection: 'block_gallery_items',
+								item: item.id,
+								fields: 'content',
+								mode: 'popover',
+							})}
+						>
+							{item.content}
+						</p>
+					)}
+				</div>
+			)}
+		</div>
+	);
+
 	return (
-		<section className="relative">
+		<section className="relative px-4 sm:px-6 lg:px-8">
 			{tagline && (
 				<Tagline
 					tagline={tagline}
@@ -102,41 +171,43 @@ const Gallery = ({ data }: GalleryProps) => {
 
 			{sortedItems.length > 0 && (
 				<div
-					className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
 					data-directus={setAttr({
 						collection: 'block_gallery',
 						item: id,
 						fields: 'items',
 						mode: 'modal',
 					})}
+					className="mt-8"
 				>
-					{sortedItems.map((item, index) => (
-						<div
-							key={item.id}
-							className="relative overflow-hidden rounded-lg group hover:shadow-lg transition-shadow duration-300 cursor-pointer h-[300px]"
-							onClick={() => handleOpenLightbox(index)}
-							aria-label={`Gallery item ${item.id}`}
+					{display_type === 'carousel' ? (
+						<Carousel
+							opts={{
+								align: 'start',
+								loop: true,
+							}}
+							className="w-full max-w-6xl mx-auto"
 						>
-							{item.directus_file ? (
-								<DirectusImage
-									uuid={item.directus_file}
-									alt={`Gallery item ${item.id}`}
-									fill
-									sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-									className="w-full h-auto object-cover rounded-lg"
-								/>
-							) : (
-								<div className="flex items-center justify-center h-full text-sm text-gray-500">Image not available</div>
-							)}
-							<div className="absolute inset-0 bg-white bg-opacity-60 opacity-0 group-hover:opacity-100 flex justify-center items-center transition-opacity duration-300">
-								<ZoomIn className="size-10 text-gray-800" />
+							<CarouselContent className="-ml-4">
+								{sortedItems.map((item, index) => (
+									<CarouselItem key={item.id} className="pl-4 basis-full sm:basis-1/2 md:basis-1/3">
+										{renderGalleryItem(item, index)}
+									</CarouselItem>
+								))}
+							</CarouselContent>
+							<div className="hidden sm:block">
+								<CarouselPrevious className="-left-12 hover:bg-[#42566E] hover:text-white transition-colors" />
+								<CarouselNext className="-right-12 hover:bg-[#42566E] hover:text-white transition-colors" />
 							</div>
+						</Carousel>
+					) : (
+						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+							{sortedItems.map((item, index) => renderGalleryItem(item, index))}
 						</div>
-					))}
+					)}
 				</div>
 			)}
 
-			{isLightboxOpen && isValidIndex && (
+			{!disable_lightbox && isLightboxOpen && isValidIndex && (
 				<Dialog open={isLightboxOpen} onOpenChange={setLightboxOpen}>
 					<DialogContent
 						className="flex max-w-full max-h-full items-center justify-center p-2 bg-transparent border-none z-50"
