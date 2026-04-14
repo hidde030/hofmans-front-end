@@ -37,9 +37,7 @@
 		@apply outline-none ring-2 ring-[var(--accent-color)] ring-offset-2 ring-offset-background;
 	}
 
-	[data-background='dark'] {
-		@apply bg-gray dark:bg-[var(--background-variant-color)];
-	}
+
 
 
 	:root:not(.dark) [data-background='dark'] {
@@ -50,7 +48,7 @@
 }
 
 @layer utilities {
-	a {
+	a:not(.inline-flex) {
 		@apply hover:text-accent transition-colors no-underline;
 	}
 }
