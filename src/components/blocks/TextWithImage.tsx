@@ -74,7 +74,7 @@ const TextWithImage = ({ data, className }: TextWithImageProps) => {
 						mode: 'popover',
 					})}
 				>
-					<DirectusImage uuid={image} alt={headline || 'Image'} fill className="object-cover rounded-2xl shadow-lg" />
+					<DirectusImage uuid={image} alt={headline || 'Image'} fill className="object-contain rounded-xl" />
 				</div>
 			)}
 		</div>

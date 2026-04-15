@@ -16,11 +16,12 @@ const PageBuilder = ({ sections }: PageBuilderProps) => {
 	return (
 		<div>
 			{validBlocks.map((block) => {
-				const isFullWidth = block.collection === 'block_hero' && (block.item as any).layout === 'image_cover';
+				const isHero = block.collection === 'block_hero';
+				const isFullWidth = isHero && (block.item as any).layout === 'image_cover';
 				const Wrapper = isFullWidth ? React.Fragment : Container;
 
 				return (
-					<div key={block.id} data-background={block.background} className="py-16">
+					<div key={block.id} data-background={block.background} className={isFullWidth ? undefined : "py-16"}>
 						<Wrapper>
 							<BaseBlock
 								block={{

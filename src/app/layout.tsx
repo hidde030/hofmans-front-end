@@ -1,4 +1,6 @@
+// @ts-ignore - CSS imports are valid in Next.js
 import '@/styles/globals.css';
+// @ts-ignore - CSS imports are valid in Next.js
 import '@/styles/fonts.css';
 import { ReactNode } from 'react';
 import { Metadata } from 'next';
