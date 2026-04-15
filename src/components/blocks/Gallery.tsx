@@ -25,6 +25,7 @@ interface GalleryData {
 	items: GalleryItem[];
 	display_type?: 'grid' | 'carousel' | null;
 	disable_lightbox?: boolean | null;
+	alignment?: 'left' | 'center' | 'right' | null;
 }
 
 interface GalleryProps {
@@ -32,7 +33,7 @@ interface GalleryProps {
 }
 
 const Gallery = ({ data }: GalleryProps) => {
-	const { tagline, headline, items, id, display_type, disable_lightbox } = data;
+	const { tagline, headline, items, id, display_type, disable_lightbox, alignment } = data;
 
 	const [isLightboxOpen, setLightboxOpen] = useState(false);
 	const [currentIndex, setCurrentIndex] = useState(0);
@@ -144,15 +145,22 @@ const Gallery = ({ data }: GalleryProps) => {
 		</div>
 	);
 
+	const alignmentClasses = {
+		left: 'text-left',
+		center: 'text-center',
+		right: 'text-right',
+	}[alignment || 'left'];
+
 	return (
-		<section className="relative px-4 sm:px-6 lg:px-8">
+		<section className="relative px-8 md:px-0">
 			{tagline && (
 				<Tagline
 					tagline={tagline}
+					className={alignmentClasses}
 					data-directus={setAttr({
 						collection: 'block_gallery',
 						item: id,
-						fields: 'tagline',
+						fields: ['tagline', 'alignment'],
 						mode: 'popover',
 					})}
 				/>
@@ -160,10 +168,11 @@ const Gallery = ({ data }: GalleryProps) => {
 			{headline && (
 				<Headline
 					headline={headline}
+					className={alignmentClasses}
 					data-directus={setAttr({
 						collection: 'block_gallery',
 						item: id,
-						fields: 'headline',
+						fields: ['headline', 'alignment'],
 						mode: 'popover',
 					})}
 				/>

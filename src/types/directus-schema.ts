@@ -96,6 +96,7 @@ export interface BlockGallery {
 	user_updated?: DirectusUser | string | null;
 	display_type?: 'grid' | 'carousel' | null;
 	disable_lightbox?: boolean | null;
+	alignment?: 'left' | 'center' | 'right' | null;
 	/** @description Images to include in the image gallery. */
 	items?: BlockGalleryItem[] | string[];
 }
