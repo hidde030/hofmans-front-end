@@ -145,7 +145,7 @@ const Gallery = ({ data }: GalleryProps) => {
 	);
 
 	return (
-		<section className="relative px-8">
+		<section className="relative px-8 md:px-0">
 			{tagline && (
 				<Tagline
 					tagline={tagline}
