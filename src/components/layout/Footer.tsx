@@ -44,19 +44,19 @@ const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, re
 			data-directus={
 				navigation
 					? setAttr({
-						collection: 'navigation',
-						item: navigation.id ?? null,
-						fields: ['items'],
-						mode: 'modal',
-					})
+							collection: 'navigation',
+							item: navigation.id ?? null,
+							fields: ['items'],
+							mode: 'modal',
+						})
 					: undefined
 			}
 		>
 			{/* Onderste sectie: adres + links + logo */}
 			<div className="bg-[#F5F8FB]">
-				<div className="max-w-7xl mx-auto px-6 py-16 flex flex-col md:flex-row justify-between items-start gap-12">
+				<div className="max-w-7xl mx-auto px-8 py-12 md:py-16 flex flex-col md:flex-row justify-between items-center md:items-start gap-12 text-center md:text-left">
 					{/* Linkerkant: Adresgegevens + Logo */}
-					<div className="flex flex-col gap-12">
+					<div className="flex flex-col items-center md:items-start gap-8 md:gap-12">
 						<div
 							className="text-[#42566E] text-[15px] leading-loose"
 							data-directus={setAttr({
@@ -66,13 +66,13 @@ const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, re
 								mode: 'modal',
 							})}
 						>
-							<p>{globals.address || 'Lage dijk - noord 10'}</p>
+							<p className="font-semibold md:font-normal">{globals.address || 'Lage dijk - noord 10'}</p>
 							<p>
 								{globals.zip_code && globals.city
 									? `${globals.zip_code} ${globals.city}`
 									: '3401 VA IJsselstein, Utrecht'}
 							</p>
-							<p>{globals.phone || '030 - 6880970'}</p>
+							<p className="text-accent font-bold mt-2 md:mt-0">{globals.phone || '030 - 6880970'}</p>
 							<p>{globals.email || 'info@deallesdrukker.nl'}</p>
 						</div>
 
@@ -92,18 +92,18 @@ const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, re
 									alt="Hofmans"
 									width={150}
 									height={42}
-									className="h-10 w-auto"
+									className="h-10 w-auto opacity-70 hover:opacity-100 transition-opacity"
 								/>
 							</Link>
 						</div>
 					</div>
 
 					{/* Rechterkant: Dynamische navigatie uit Directus */}
-					<div className="flex flex-col sm:flex-row gap-12 md:gap-24">
+					<div className="flex flex-col sm:flex-row flex-wrap justify-center md:justify-start gap-12 md:gap-24">
 						{navigation?.items?.map((column) => (
 							<div key={column.id} className="min-w-[150px]">
 								<h4
-									className="text-[#42566E] font-bold text-2xl mb-8 font-heading"
+									className="text-[#42566E] font-bold text-xl md:text-2xl mb-4 md:mb-8 font-heading"
 									data-directus={setAttr({
 										collection: 'navigation_item',
 										item: column.id,
@@ -114,7 +114,7 @@ const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, re
 									{column.title}
 								</h4>
 								{column.children && column.children.length > 0 && (
-									<ul className="space-y-4">
+									<ul className="space-y-3 md:space-y-4">
 										{column.children.map((item) => (
 											<li key={item.id}>
 												<Link

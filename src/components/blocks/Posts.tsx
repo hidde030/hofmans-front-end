@@ -100,7 +100,7 @@ const Posts = ({ data }: PostsProps) => {
 	const paginationLinks = generatePagination();
 
 	return (
-		<div>
+		<div className="px-8 md:px-0">
 			{tagline && (
 				<Tagline
 					tagline={tagline}

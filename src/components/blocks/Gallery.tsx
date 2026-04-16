@@ -145,7 +145,7 @@ const Gallery = ({ data }: GalleryProps) => {
 	);
 
 	return (
-		<section className="relative px-4 sm:px-6 lg:px-8">
+		<section className="relative px-8 md:px-0">
 			{tagline && (
 				<Tagline
 					tagline={tagline}
@@ -182,21 +182,23 @@ const Gallery = ({ data }: GalleryProps) => {
 					{display_type === 'carousel' ? (
 						<Carousel
 							opts={{
-								align: 'start',
+								align: 'center',
 								loop: true,
 							}}
 							className="w-full max-w-6xl mx-auto"
 						>
-							<CarouselContent className="-ml-4">
-								{sortedItems.map((item, index) => (
-									<CarouselItem key={item.id} className="pl-4 basis-full sm:basis-1/2 md:basis-1/3">
-										{renderGalleryItem(item, index)}
-									</CarouselItem>
-								))}
-							</CarouselContent>
-							<div className="hidden sm:block">
-								<CarouselPrevious className="-left-12 hover:bg-[#42566E] hover:text-white transition-colors" />
-								<CarouselNext className="-right-12 hover:bg-[#42566E] hover:text-white transition-colors" />
+							<div className="relative">
+								<CarouselContent className="-ml-4">
+									{sortedItems.map((item, index) => (
+										<CarouselItem key={item.id} className="pl-4 basis-[66.6%] sm:basis-1/2 md:basis-1/3">
+											{renderGalleryItem(item, index)}
+										</CarouselItem>
+									))}
+								</CarouselContent>
+								<div className="absolute top-0 w-full aspect-[1.5/1] sm:aspect-[2/1] md:aspect-[3/1] pointer-events-none">
+									<CarouselPrevious className="left-0 sm:-left-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
+									<CarouselNext className="right-0 sm:-right-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
+								</div>
 							</div>
 						</Carousel>
 					) : (

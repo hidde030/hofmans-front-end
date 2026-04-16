@@ -39,18 +39,12 @@ const Pricing = ({ data }: PricingProps) => {
 		return null;
 	}
 
-	const gridClasses = (() => {
-		if (pricing_cards.length === 1) return 'grid-cols-1';
-		if (pricing_cards.length % 3 === 0) return 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3';
-
-		return 'grid-cols-1 sm:grid-cols-2';
-	})();
-
 	return (
-		<section>
+		<section className="px-8 md:px-0">
 			{tagline && (
 				<Tagline
 					tagline={tagline}
+					className="text-center md:text-left"
 					data-directus={setAttr({
 						collection: 'block_pricing',
 						item: id,
@@ -62,6 +56,7 @@ const Pricing = ({ data }: PricingProps) => {
 			{headline && (
 				<Headline
 					headline={headline}
+					className="text-center md:text-left text-3xl md:text-4xl lg:text-5xl"
 					data-directus={setAttr({
 						collection: 'block_pricing',
 						item: id,
@@ -71,7 +66,7 @@ const Pricing = ({ data }: PricingProps) => {
 				/>
 			)}
 			<div
-				className={`grid gap-6 mt-8 ${gridClasses}`}
+				className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-12"
 				data-directus={setAttr({
 					collection: 'block_pricing',
 					item: id,
