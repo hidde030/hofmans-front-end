@@ -96,7 +96,7 @@ const Gallery = ({ data }: GalleryProps) => {
 						alt={item.title || `Gallery item ${item.id}`}
 						fill
 						sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-						className="w-full h-full object-cover"
+						className="size-full object-cover"
 					/>
 				) : (
 					<div className="flex items-center justify-center h-full bg-gray-100 text-sm text-gray-500">

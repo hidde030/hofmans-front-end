@@ -3,6 +3,160 @@ import { useDirectus } from './directus';
 import { readItems, aggregate, readItem, readSingleton, withToken, QueryFilter } from '@directus/sdk';
 import { RedirectError } from '../redirects';
 
+export const fetchServiceData = async (slug: string) => {
+	const { directus, readItems } = useDirectus();
+
+	try {
+		const serviceData = await directus.request(
+			readItems('services', {
+				filter: { slug: { _eq: slug }, status: { _eq: 'published' } },
+				limit: 1,
+				fields: [
+					'id',
+					'title',
+					'description',
+					'image',
+					'seo',
+					{
+						blocks: [
+							'id',
+							'collection',
+							'item',
+							'sort',
+							{
+								item: {
+									block_richtext: ['id', 'tagline', 'headline', 'content', 'alignment'],
+									block_text_image: ['id', 'tagline', 'headline', 'content', 'image', 'image_position'],
+									block_gallery: ['id', 'tagline', 'headline', 'display_type', 'disable_lightbox', { items: ['id', 'directus_file', 'sort', 'title', 'content'] as any }],
+									block_pricing: [
+										'id',
+										'tagline',
+										'headline',
+										{
+											pricing_cards: [
+												'id',
+												'title',
+												'description',
+												'price',
+												'badge',
+												'features',
+												'is_highlighted',
+												{
+													button: [
+														'id',
+														'label',
+														'variant',
+														'url',
+														'type',
+														{ page: ['permalink'] },
+														{ post: ['slug'] },
+													],
+												},
+											],
+										},
+									],
+									block_hero: [
+										'id',
+										'tagline',
+										'headline',
+										'subtitle',
+										'description',
+										'phone',
+										'email',
+										'layout',
+										'image',
+										{
+											button_group: [
+												'id',
+												{
+													buttons: [
+														'id',
+														'label',
+														'variant',
+														'url',
+														'type',
+														{ page: ['permalink'] },
+														{ post: ['slug'] },
+													],
+												},
+											],
+										},
+									],
+									block_posts: ['id', 'tagline', 'headline', 'collection', 'limit'],
+									block_button_group: [
+										'id',
+										{
+											buttons: [
+												'id',
+												'label',
+												'variant',
+												'url',
+												'type',
+												{ page: ['permalink'] },
+												{ post: ['slug'] },
+											],
+										},
+									],
+									block_related_service: [
+										'id',
+										'headline',
+										{
+											services: [{ services_id: ['id', 'title', 'slug', 'image'] }],
+										}
+									],
+									block_form: [
+										'id',
+										'tagline',
+										'headline',
+										{
+											form: [
+												'id',
+												'title',
+												'submit_label',
+												'success_message',
+												'on_success',
+												'success_redirect_url',
+												'is_active',
+												{
+													fields: [
+														'id',
+														'name',
+														'type',
+														'label',
+														'placeholder',
+														'help',
+														'validation',
+														'width',
+														'choices',
+														'required',
+														'sort',
+													],
+												},
+											],
+										},
+									],
+								},
+							},
+						],
+					},
+				],
+				deep: {
+					blocks: { _sort: ['sort'] },
+				},
+			})
+		);
+
+		if (!serviceData.length) {
+			throw new Error('Service not found');
+		}
+
+		return serviceData[0];
+	} catch (error) {
+		console.error(`Error fetching service mapped to ${slug}:`, error);
+		throw error;
+	}
+};
+
 /**
  * Fetches page data by permalink, including all nested blocks and dynamically fetching blog posts if required.
  */
@@ -85,6 +239,27 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 										},
 									],
 									block_posts: ['id', 'tagline', 'headline', 'collection', 'limit'],
+									block_button_group: [
+										'id',
+										{
+											buttons: [
+												'id',
+												'label',
+												'variant',
+												'url',
+												'type',
+												{ page: ['permalink'] },
+												{ post: ['slug'] },
+											],
+										},
+									],
+									block_related_service: [
+										'id',
+										'headline',
+										{
+											services: [{ services_id: ['id', 'title', 'slug', 'image'] }],
+										}
+									],
 									block_form: [
 										'id',
 										'tagline',
