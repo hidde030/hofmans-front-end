@@ -1,4 +1,4 @@
-import { BlockPost, PageBlock, Post, Redirect, Schema } from '@/types/directus-schema';
+import { BlockAllServices, BlockPost, PageBlock, Post, Redirect, Schema } from '@/types/directus-schema';
 import { useDirectus } from './directus';
 import { readItems, aggregate, readItem, readSingleton, withToken, QueryFilter } from '@directus/sdk';
 import { RedirectError } from '../redirects';
@@ -358,7 +358,7 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 						}),
 					);
 
-					(block.item as any).services = services;
+					(block.item as BlockAllServices & { services: typeof services }).services = services;
 				}
 			}
 		}

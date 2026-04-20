@@ -14,7 +14,7 @@ interface BlockAllServicesProps {
 }
 
 export default function BlockAllServices({ data }: BlockAllServicesProps) {
-	const services: Service[] = Array.isArray((data as any).services) ? (data as any).services : [];
+	const services: Service[] = Array.isArray(data.services) ? data.services : [];
 
 	return (
 		<section className="py-16 md:py-24">
