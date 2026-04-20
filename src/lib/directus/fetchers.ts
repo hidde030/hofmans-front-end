@@ -104,6 +104,14 @@ export const fetchServiceData = async (slug: string) => {
 											services: [{ services_id: ['id', 'title', 'slug', 'image'] }],
 										}
 									],
+									block_all_services: ['id', 'headline'],
+									block_related_projects: [
+										'id',
+										'headline',
+										{
+											projects: [{ projects_id: ['id', 'title', 'slug', 'image'] }],
+										}
+									],
 									block_form: [
 										'id',
 										'tagline',
@@ -261,6 +269,14 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 											services: [{ services_id: ['id', 'title', 'slug', 'image'] }],
 										}
 									],
+									block_all_services: ['id', 'headline'],
+									block_related_projects: [
+										'id',
+										'headline',
+										{
+											projects: [{ projects_id: ['id', 'title', 'slug', 'image'] }],
+										}
+									],
 									block_form: [
 										'id',
 										'tagline',
@@ -331,6 +347,18 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 					);
 
 					(block.item as BlockPost & { posts: Post[] }).posts = posts;
+				}
+
+				if (block.collection === 'block_all_services' && typeof block.item === 'object') {
+					const services = await directus.request(
+						readItems('services', {
+							fields: ['id', 'title', 'slug', 'image'],
+							filter: { status: { _eq: 'published' } },
+							sort: ['sort'],
+						}),
+					);
+
+					(block.item as any).services = services;
 				}
 			}
 		}
