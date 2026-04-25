@@ -43,11 +43,11 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 					disableTransitionOnChange
 				>
 					<VisualEditingLayout
-						headerNavigation={headerNavigation}
 						footerNavigation={footerNavigation}
 						globals={globals}
+						showHeader={false}
 					>
-						<main className="flex-grow">{children}</main>
+						{children}
 					</VisualEditingLayout>
 				</ThemeProvider>
 			</body>

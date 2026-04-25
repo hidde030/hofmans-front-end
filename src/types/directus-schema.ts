@@ -424,6 +424,11 @@ export interface Page {
 	user_updated?: DirectusUser | string | null;
 	/** @description Create and arrange different content blocks (like text, images, or videos) to build your page. */
 	blocks?: PageBlock[] | string[];
+	header_navigation?: string | null;
+	header_background_color?: string | null;
+	header_logo?: DirectusFile | string | null;
+	hide_home_link?: boolean | null;
+	custom_navigation?: any;
 }
 
 export interface Post {

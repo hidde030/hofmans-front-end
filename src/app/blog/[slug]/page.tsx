@@ -1,5 +1,5 @@
 import { draftMode } from 'next/headers';
-import { fetchPostBySlug } from '@/lib/directus/fetchers';
+import { fetchPostBySlug, fetchSiteData } from '@/lib/directus/fetchers';
 import BlogPostClient from './BlogPostClient';
 import type { DirectusUser } from '@/types/directus-schema';
 
@@ -16,10 +16,13 @@ export default async function BlogPostPage({
 	const isDraft = preview === 'true' && !!token;
 
 	try {
-		const { post, relatedPosts } = await fetchPostBySlug(slug, {
-			draft: isDraft,
-			token,
-		});
+		const [{ post, relatedPosts }, { globals, headerNavigation }] = await Promise.all([
+			fetchPostBySlug(slug, {
+				draft: isDraft,
+				token,
+			}),
+			fetchSiteData(),
+		]);
 
 		if (!post) {
 			return <div className="text-center text-xl mt-[20%]">404 - Post Not Found</div>;
@@ -37,6 +40,8 @@ export default async function BlogPostPage({
 				authorName={authorName}
 				postUrl={postUrl}
 				isDraft={isDraft}
+				headerNavigation={headerNavigation}
+				globals={globals}
 			/>
 		);
 	} catch (error) {

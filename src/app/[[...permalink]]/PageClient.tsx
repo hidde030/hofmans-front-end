@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import PageBuilder from '@/components/layout/PageBuilder';
+import NavigationBar from '@/components/layout/NavigationBar';
 import { useVisualEditing } from '@/hooks/useVisualEditing';
 import { PageBlock } from '@/types/directus-schema';
 import { Button } from '@/components/ui/button';
@@ -12,14 +13,31 @@ import { setAttr } from '@directus/visual-editing';
 interface PageClientProps {
 	sections: PageBlock[];
 	pageId?: string;
+	customNavigation?: any;
+	headerNavigation: any;
+	globals: any;
+	headerBackgroundColor?: string | null;
+	headerLogo?: any;
+	hideHomeLink?: boolean;
 }
 
 interface VisualEditingOptions {
 	customClass?: string;
 	onSaved?: () => void;
+	elements?: HTMLElement[];
 }
 
-export default function PageClient({ sections, pageId }: PageClientProps) {
+export default function PageClient({
+	sections,
+	pageId,
+	customNavigation,
+	headerNavigation,
+	globals,
+	headerBackgroundColor,
+	headerLogo,
+	hideHomeLink,
+}: PageClientProps) {
+	const navRef = useRef<HTMLElement>(null);
 	const { isVisualEditingEnabled, apply } = useVisualEditing();
 	const router = useRouter();
 
@@ -31,8 +49,17 @@ export default function PageClient({ sections, pageId }: PageClientProps) {
 				},
 			} as VisualEditingOptions);
 
+			if (navRef.current) {
+				apply({
+					elements: [navRef.current],
+					onSaved: () => {
+						router.refresh();
+					},
+				} as VisualEditingOptions);
+			}
+
 			apply({
-				elements: document.querySelector('#visual-editing-button') as HTMLElement,
+				elements: [document.querySelector('#visual-editing-button') as HTMLElement],
 				customClass: 'visual-editing-button-class',
 				onSaved: () => {
 					router.refresh();
@@ -41,9 +68,22 @@ export default function PageClient({ sections, pageId }: PageClientProps) {
 		}
 	}, [isVisualEditingEnabled, apply, router]);
 
+	const navigationToUse = customNavigation || headerNavigation;
+
 	return (
-		<div className="relative">
-			<PageBuilder sections={sections} />
+		<div className="relative flex flex-col min-h-screen">
+			<NavigationBar
+				ref={navRef}
+				navigation={navigationToUse}
+				globals={globals}
+				customBackgroundColor={headerBackgroundColor}
+				customLogo={headerLogo}
+				hideHomeLink={hideHomeLink}
+				pageId={pageId}
+			/>
+			<main className="flex-grow">
+				<PageBuilder sections={sections} />
+			</main>
 			{isVisualEditingEnabled && pageId && (
 				<div className="fixed z-50 w-full bottom-4 inset-x-0 p-4 flex justify-center items-center gap-2">
 					{/* If you're not using the visual editor it's safe to remove this element. Just a helper to let editors add edit / add new blocks to a page. */}

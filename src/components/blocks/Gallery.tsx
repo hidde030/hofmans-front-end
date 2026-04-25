@@ -113,7 +113,7 @@ const Gallery = ({ data }: GalleryProps) => {
 				)}
 			</div>
 			{(item.title || item.content) && (
-				<div className="mt-4 text-center px-2">
+				<div className="mt-4 text-center">
 					{item.title && (
 						<h3
 							className="text-lg font-bold text-[#42566E] font-heading line-clamp-1"
@@ -152,7 +152,7 @@ const Gallery = ({ data }: GalleryProps) => {
 	}[alignment || 'left'];
 
 	return (
-		<section className="relative px-8 md:px-0">
+		<section className="relative">
 			{tagline && (
 				<Tagline
 					tagline={tagline}
@@ -186,7 +186,7 @@ const Gallery = ({ data }: GalleryProps) => {
 						fields: 'items',
 						mode: 'modal',
 					})}
-					className="mt-8"
+					className="mt-8 px-8"
 				>
 					{display_type === 'carousel' ? (
 						<Carousel
@@ -204,9 +204,9 @@ const Gallery = ({ data }: GalleryProps) => {
 										</CarouselItem>
 									))}
 								</CarouselContent>
-								<div className="absolute top-0 w-full aspect-[1.5/1] sm:aspect-[2/1] md:aspect-[3/1] pointer-events-none">
-									<CarouselPrevious className="left-0 sm:-left-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
-									<CarouselNext className="right-0 sm:-right-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
+								<div className="flex justify-center gap-4 mt-8 md:absolute md:top-0 md:w-full md:aspect-[3/1] md:pointer-events-none">
+									<CarouselPrevious className="static md:absolute md:left-0 lg:-left-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
+									<CarouselNext className="static md:absolute md:right-0 lg:-right-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
 								</div>
 							</div>
 						</Carousel>

@@ -7,10 +7,11 @@ import NavigationBar from '@/components/layout/NavigationBar';
 import Footer from '@/components/layout/Footer';
 
 interface VisualEditingLayoutProps {
-	headerNavigation: any;
+	headerNavigation?: any;
 	footerNavigation: any;
 	globals: any;
 	children: ReactNode;
+	showHeader?: boolean;
 }
 
 export default function VisualEditingLayout({
@@ -18,6 +19,7 @@ export default function VisualEditingLayout({
 	footerNavigation,
 	globals,
 	children,
+	showHeader = true,
 }: VisualEditingLayoutProps) {
 	const navRef = useRef<HTMLElement>(null);
 	const footerRef = useRef<HTMLElement>(null);
@@ -45,7 +47,9 @@ export default function VisualEditingLayout({
 
 	return (
 		<>
-			<NavigationBar ref={navRef} navigation={headerNavigation} globals={globals} />
+			{showHeader && headerNavigation && (
+				<NavigationBar ref={navRef} navigation={headerNavigation} globals={globals} />
+			)}
 			{children}
 			<Footer ref={footerRef} navigation={footerNavigation} globals={globals} />
 		</>
