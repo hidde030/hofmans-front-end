@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, ReactNode } from 'react';
+import { useRef, useEffect, ReactNode, Suspense } from 'react';
 import { useVisualEditing } from '@/hooks/useVisualEditing';
 import { useRouter } from 'next/navigation';
 import NavigationBar from '@/components/layout/NavigationBar';
@@ -14,15 +14,15 @@ interface VisualEditingLayoutProps {
 	showHeader?: boolean;
 }
 
-export default function VisualEditingLayout({
-	headerNavigation,
-	footerNavigation,
-	globals,
-	children,
+function VisualEditingControls({
+	navRef,
+	footerRef,
 	showHeader = true,
-}: VisualEditingLayoutProps) {
-	const navRef = useRef<HTMLElement>(null);
-	const footerRef = useRef<HTMLElement>(null);
+}: {
+	navRef: React.RefObject<HTMLElement | null>;
+	footerRef: React.RefObject<HTMLElement | null>;
+	showHeader?: boolean;
+}) {
 	const { isVisualEditingEnabled, apply } = useVisualEditing();
 	const router = useRouter();
 
@@ -43,7 +43,19 @@ export default function VisualEditingLayout({
 				});
 			}
 		}
-	}, [isVisualEditingEnabled, apply, router]);
+	}, [isVisualEditingEnabled, apply, router, navRef, footerRef]);
+
+	return null;
+}
+
+export default function VisualEditingLayout({
+	headerNavigation,
+	footerNavigation,
+	globals,
+	children,
+}: VisualEditingLayoutProps) {
+	const navRef = useRef<HTMLElement>(null);
+	const footerRef = useRef<HTMLElement>(null);
 
 	return (
 		<>
@@ -52,6 +64,9 @@ export default function VisualEditingLayout({
 			)}
 			{children}
 			<Footer ref={footerRef} navigation={footerNavigation} globals={globals} />
+			<Suspense fallback={null}>
+				<VisualEditingControls navRef={navRef} footerRef={footerRef} />
+			</Suspense>
 		</>
 	);
 }

@@ -198,6 +198,21 @@ export interface BlockPricingCard {
 	user_updated?: DirectusUser | string | null;
 }
 
+export interface BlockRelatedService {
+	/** @primaryKey */
+	id: string;
+	headline?: string | null;
+	services?: BlockRelatedServiceService[] | string[];
+}
+
+export interface BlockRelatedServiceService {
+	/** @primaryKey */
+	id: string;
+	block_related_service_id?: BlockRelatedService | string | null;
+	services_id?: Service | string | null;
+	sort?: number | null;
+}
+
 export interface BlockRichtext {
 	/** @description Rich text content for this block. */
 	content?: string | null;
@@ -478,7 +493,7 @@ export interface ServiceBlock {
 	/** @primaryKey */
 	id: string;
 	service_id?: Service | string | null;
-	item?: BlockHero | BlockRichtext | BlockForm | BlockPost | BlockGallery | BlockPricing | string | null;
+	item?: BlockHero | BlockRichtext | BlockForm | BlockPost | BlockGallery | BlockPricing | BlockTextImage | BlockButtonGroup | BlockGalleryItem | BlockButton | BlockRelatedService | string | null;
 	collection?: string | null;
 	sort?: number | null;
 }
@@ -1013,6 +1028,8 @@ export interface Schema {
 	block_posts: BlockPost[];
 	block_pricing: BlockPricing[];
 	block_pricing_cards: BlockPricingCard[];
+	block_related_service: BlockRelatedService[];
+	block_related_service_services: BlockRelatedServiceService[];
 	block_richtext: BlockRichtext[];
 	block_text_image: BlockTextImage[];
 	form_fields: FormField[];
@@ -1071,6 +1088,8 @@ export enum CollectionNames {
 	block_posts = 'block_posts',
 	block_pricing = 'block_pricing',
 	block_pricing_cards = 'block_pricing_cards',
+	block_related_service = 'block_related_service',
+	block_related_service_services = 'block_related_service_services',
 	block_richtext = 'block_richtext',
 	block_text_image = 'block_text_image',
 	form_fields = 'form_fields',

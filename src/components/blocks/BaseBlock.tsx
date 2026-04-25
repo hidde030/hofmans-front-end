@@ -7,6 +7,8 @@ import Gallery from '@/components/blocks/Gallery';
 import Pricing from '@/components/blocks/Pricing';
 import Posts from '@/components/blocks/Posts';
 import Form from '@/components/blocks/Form';
+import ButtonGroup from '@/components/blocks/ButtonGroup';
+import RelatedServices from '@/components/blocks/RelatedServices';
 
 interface BaseBlockProps {
 	block: {
@@ -25,6 +27,8 @@ const BaseBlock = ({ block }: BaseBlockProps) => {
 		block_posts: Posts,
 		block_form: Form,
 		block_text_image: TextWithImage,
+		block_button_group: ButtonGroup,
+		block_related_service: RelatedServices,
 	};
 
 	const Component = components[block.collection];
