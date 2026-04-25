@@ -53,6 +53,7 @@ export default function VisualEditingLayout({
 	footerNavigation,
 	globals,
 	children,
+	showHeader = true,
 }: VisualEditingLayoutProps) {
 	const navRef = useRef<HTMLElement>(null);
 	const footerRef = useRef<HTMLElement>(null);
@@ -65,7 +66,7 @@ export default function VisualEditingLayout({
 			{children}
 			<Footer ref={footerRef} navigation={footerNavigation} globals={globals} />
 			<Suspense fallback={null}>
-				<VisualEditingControls navRef={navRef} footerRef={footerRef} />
+				<VisualEditingControls navRef={navRef} footerRef={footerRef} showHeader={showHeader} />
 			</Suspense>
 		</>
 	);
