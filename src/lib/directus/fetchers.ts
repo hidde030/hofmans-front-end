@@ -361,6 +361,7 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
  */
 export const fetchNavigation = async (id: string) => {
 	const { directus } = useDirectus();
+
 	return await directus.request(
 		readItem('navigation', id, {
 			fields: [
