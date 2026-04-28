@@ -1,15 +1,14 @@
-
 export interface ExtensionSeoMetadata {
-    title?: string;
-    meta_description?: string;
-    og_image?: string;
-    additional_fields?: Record<string, unknown>;
-    sitemap?: {
-        change_frequency: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
-        priority: string;
-    };
-    no_index?: boolean;
-    no_follow?: boolean;
+	title?: string;
+	meta_description?: string;
+	og_image?: string;
+	additional_fields?: Record<string, unknown>;
+	sitemap?: {
+		change_frequency: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
+		priority: string;
+	};
+	no_index?: boolean;
+	no_follow?: boolean;
 }
 
 export interface AiPrompt {
@@ -115,6 +114,10 @@ export interface BlockGalleryItem {
 	user_updated?: DirectusUser | string | null;
 	title?: string | null;
 	content?: string | null;
+	/** @description Bepaal de kleur van de tekst. Je kunt een Hex-code gebruiken (bijv. #ffffff), een CSS-kleurnaam (bijv. white, red) of orange voor de oranje huisstijlkleur. Laat leeg voor de standaardkleur (oranje op foto's, wit op grijze vlakken) */
+	overlay_text_color?: string | null;
+	/** @description Schakel dit in om de titel van het item in de afbeelding/het vlak te tonen in plaats van eronder. */
+	overlay_text?: boolean | null;
 }
 
 export interface BlockHero {
@@ -329,7 +332,10 @@ export interface Globals {
 	/** @primaryKey */
 	id: string;
 	/** @description Social media profile URLs */
-	social_links?: Array<{ url: string; service: 'facebook' | 'instagram' | 'linkedin' | 'x' | 'vimeo' | 'youtube' | 'github' | 'discord' | 'docker' }> | null;
+	social_links?: Array<{
+		url: string;
+		service: 'facebook' | 'instagram' | 'linkedin' | 'x' | 'vimeo' | 'youtube' | 'github' | 'discord' | 'docker';
+	}> | null;
 	/** @description Short phrase describing the site. */
 	tagline?: string | null;
 	/** @description Main site title */
@@ -407,7 +413,16 @@ export interface PageBlock {
 	/** @description The id of the page that this block belongs to. */
 	page?: Page | string | null;
 	/** @description The data for the block. */
-	item?: BlockHero | BlockRichtext | BlockForm | BlockPost | BlockGallery | BlockPricing | BlockTextImage | string | null;
+	item?:
+		| BlockHero
+		| BlockRichtext
+		| BlockForm
+		| BlockPost
+		| BlockGallery
+		| BlockPricing
+		| BlockTextImage
+		| string
+		| null;
 	/** @description The collection (type of block). */
 	collection?: string | null;
 	/** @description Temporarily hide this block on the website without having to remove it from your page. */
@@ -437,13 +452,20 @@ export interface Page {
 	user_created?: DirectusUser | string | null;
 	date_updated?: string | null;
 	user_updated?: DirectusUser | string | null;
+	header_navigation?: Navigation | string | null;
+	header_background_color?: string | null;
+	header_logo?: any | string | null;
+	hide_home_link?: boolean | null;
 	/** @description Create and arrange different content blocks (like text, images, or videos) to build your page. */
 	blocks?: PageBlock[] | string[];
-	header_navigation?: string | null;
-	header_background_color?: string | null;
-	header_logo?: DirectusFile | string | null;
-	hide_home_link?: boolean | null;
-	custom_navigation?: any;
+}
+
+export interface PagesHeaderLogo {
+	/** @primaryKey */
+	id: number;
+	pages_id?: string | null;
+	item?: string | null;
+	collection?: string | null;
 }
 
 export interface Post {
@@ -473,6 +495,23 @@ export interface Post {
 	user_updated?: DirectusUser | string | null;
 }
 
+export interface Project {
+	/** @primaryKey */
+	id: string;
+	status?: 'published' | 'draft' | 'archived';
+	sort?: number | null;
+	user_created?: DirectusUser | string | null;
+	date_created?: string | null;
+	user_updated?: DirectusUser | string | null;
+	date_updated?: string | null;
+	/** @required */
+	title: string;
+	description?: string | null;
+	image?: DirectusFile | string | null;
+	slug?: string | null;
+	seo?: 'json' | null;
+}
+
 export interface Redirect {
 	/** @primaryKey */
 	id: string;
@@ -493,7 +532,20 @@ export interface ServiceBlock {
 	/** @primaryKey */
 	id: string;
 	service_id?: Service | string | null;
-	item?: BlockHero | BlockRichtext | BlockForm | BlockPost | BlockGallery | BlockPricing | BlockTextImage | BlockButtonGroup | BlockGalleryItem | BlockButton | BlockRelatedService | string | null;
+	item?:
+		| BlockHero
+		| BlockRichtext
+		| BlockForm
+		| BlockPost
+		| BlockGallery
+		| BlockPricing
+		| BlockTextImage
+		| BlockButtonGroup
+		| BlockGalleryItem
+		| BlockButton
+		| BlockRelatedService
+		| string
+		| null;
 	collection?: string | null;
 	sort?: number | null;
 }
@@ -751,12 +803,31 @@ export interface DirectusSettings {
 	public_background?: DirectusFile | string | null;
 	public_note?: string | null;
 	auth_login_attempts?: number | null;
-	auth_password_policy?: null | `/^.{8,}$/` | `/(?=^.{8,}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{';'?>.<,])(?!.*\\s).*$/` | null;
+	auth_password_policy?:
+		| null
+		| `/^.{8,}$/`
+		| `/(?=^.{8,}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{';'?>.<,])(?!.*\\s).*$/`
+		| null;
 	storage_asset_transform?: 'all' | 'none' | 'presets' | null;
-	storage_asset_presets?: Array<{ key: string; fit: 'contain' | 'cover' | 'inside' | 'outside'; width: number; height: number; quality: number; withoutEnlargement: boolean; format: 'auto' | 'jpeg' | 'png' | 'webp' | 'tiff' | 'avif'; transforms: 'json' }> | null;
+	storage_asset_presets?: Array<{
+		key: string;
+		fit: 'contain' | 'cover' | 'inside' | 'outside';
+		width: number;
+		height: number;
+		quality: number;
+		withoutEnlargement: boolean;
+		format: 'auto' | 'jpeg' | 'png' | 'webp' | 'tiff' | 'avif';
+		transforms: 'json';
+	}> | null;
 	custom_css?: string | null;
 	storage_default_folder?: DirectusFolder | string | null;
-	basemaps?: Array<{ name: string; type: 'raster' | 'tile' | 'style'; url: string; tileSize: number; attribution: string }> | null;
+	basemaps?: Array<{
+		name: string;
+		type: 'raster' | 'tile' | 'style';
+		url: string;
+		tileSize: number;
+		attribution: string;
+	}> | null;
 	mapbox_key?: string | null;
 	module_bar?: 'json' | null;
 	project_descriptor?: string | null;
@@ -796,12 +867,44 @@ export interface DirectusSettings {
 	ai_openai_compatible_api_key?: string | null;
 	ai_openai_compatible_base_url?: string | null;
 	ai_openai_compatible_name?: string | null;
-	ai_openai_compatible_models?: Array<{ id: string; name: string; context: number; output: number; attachment: boolean; reasoning: boolean; providerOptions: Record<string, any> }> | null;
+	ai_openai_compatible_models?: Array<{
+		id: string;
+		name: string;
+		context: number;
+		output: number;
+		attachment: boolean;
+		reasoning: boolean;
+		providerOptions: Record<string, any>;
+	}> | null;
 	ai_openai_compatible_headers?: Array<{ header: string; value: string }> | null;
-	ai_openai_allowed_models?: Array<`gpt-4o-mini` | `gpt-4.1-nano` | `gpt-4.1-mini` | `gpt-4.1` | `gpt-5-nano` | `gpt-5-mini` | `gpt-5` | `gpt-5.2` | `gpt-5.2-chat-latest` | `gpt-5.2-pro` | `gpt-5.4` | `gpt-5.4-pro`> | null;
-	ai_anthropic_allowed_models?: Array<`claude-haiku-4-5` | `claude-sonnet-4-5` | `claude-opus-4-5` | `claude-sonnet-4-6` | `claude-opus-4-6`> | null;
-	ai_google_allowed_models?: Array<`gemini-3-pro-preview` | `gemini-3-flash-preview` | `gemini-2.5-pro` | `gemini-2.5-flash` | `gemini-3.1-pro-preview` | `gemini-3.1-flash-lite-preview` | `gemini-2.5-flash-lite`> | null;
+	ai_openai_allowed_models?: Array<
+		| `gpt-4o-mini`
+		| `gpt-4.1-nano`
+		| `gpt-4.1-mini`
+		| `gpt-4.1`
+		| `gpt-5-nano`
+		| `gpt-5-mini`
+		| `gpt-5`
+		| `gpt-5.2`
+		| `gpt-5.2-chat-latest`
+		| `gpt-5.2-pro`
+		| `gpt-5.4`
+		| `gpt-5.4-pro`
+	> | null;
+	ai_anthropic_allowed_models?: Array<
+		`claude-haiku-4-5` | `claude-sonnet-4-5` | `claude-opus-4-5` | `claude-sonnet-4-6` | `claude-opus-4-6`
+	> | null;
+	ai_google_allowed_models?: Array<
+		| `gemini-3-pro-preview`
+		| `gemini-3-flash-preview`
+		| `gemini-2.5-pro`
+		| `gemini-2.5-flash`
+		| `gemini-3.1-pro-preview`
+		| `gemini-3.1-flash-lite-preview`
+		| `gemini-2.5-flash-lite`
+	> | null;
 	collaborative_editing_enabled?: boolean;
+	collaborative_editing_settings?: Record<string, any> | null;
 }
 
 export interface DirectusUser {
@@ -1041,7 +1144,9 @@ export interface Schema {
 	navigation_items: NavigationItem[];
 	page_blocks: PageBlock[];
 	pages: Page[];
+	pages_header_logo: PagesHeaderLogo[];
 	posts: Post[];
+	projects: Project[];
 	redirects: Redirect[];
 	service_blocks: ServiceBlock[];
 	services: Service[];
@@ -1101,7 +1206,9 @@ export enum CollectionNames {
 	navigation_items = 'navigation_items',
 	page_blocks = 'page_blocks',
 	pages = 'pages',
+	pages_header_logo = 'pages_header_logo',
 	posts = 'posts',
+	projects = 'projects',
 	redirects = 'redirects',
 	service_blocks = 'service_blocks',
 	services = 'services',
@@ -1134,5 +1241,5 @@ export enum CollectionNames {
 	directus_deployments = 'directus_deployments',
 	directus_deployment_projects = 'directus_deployment_projects',
 	directus_deployment_runs = 'directus_deployment_runs',
-	directus_sync_id_map = 'directus_sync_id_map'
+	directus_sync_id_map = 'directus_sync_id_map',
 }

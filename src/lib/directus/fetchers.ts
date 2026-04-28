@@ -27,7 +27,7 @@ export const fetchServiceData = async (slug: string) => {
 								item: {
 									block_richtext: ['id', 'tagline', 'headline', 'content', 'alignment'],
 									block_text_image: ['id', 'tagline', 'headline', 'content', 'image', 'image_position'],
-									block_gallery: ['id', 'tagline', 'headline', 'display_type', 'disable_lightbox', { items: ['id', 'directus_file', 'sort', 'title', 'content'] as any }],
+									block_gallery: ['*', { items: ['*'] }] as any,
 									block_pricing: [
 										'id',
 										'tagline',
@@ -86,15 +86,7 @@ export const fetchServiceData = async (slug: string) => {
 									block_button_group: [
 										'id',
 										{
-											buttons: [
-												'id',
-												'label',
-												'variant',
-												'url',
-												'type',
-												{ page: ['permalink'] },
-												{ post: ['slug'] },
-											],
+											buttons: ['id', 'label', 'variant', 'url', 'type', { page: ['permalink'] }, { post: ['slug'] }],
 										},
 									],
 									block_related_service: [
@@ -102,7 +94,7 @@ export const fetchServiceData = async (slug: string) => {
 										'headline',
 										{
 											services: [{ services_id: ['id', 'title', 'slug', 'image'] }],
-										}
+										},
 									],
 									block_form: [
 										'id',
@@ -143,7 +135,7 @@ export const fetchServiceData = async (slug: string) => {
 				deep: {
 					blocks: { _sort: ['sort'] },
 				},
-			})
+			}),
 		);
 
 		if (!serviceData.length) {
@@ -188,7 +180,7 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 								item: {
 									block_richtext: ['id', 'tagline', 'headline', 'content', 'alignment'],
 									block_text_image: ['id', 'tagline', 'headline', 'content', 'image', 'image_position'],
-									block_gallery: ['id', 'tagline', 'headline', 'display_type', 'disable_lightbox', 'alignment', { items: ['id', 'directus_file', 'sort', 'title', 'content'] as any }],
+									block_gallery: ['*', { items: ['*'] }] as any,
 									block_pricing: [
 										'id',
 										'tagline',
@@ -247,15 +239,7 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 									block_button_group: [
 										'id',
 										{
-											buttons: [
-												'id',
-												'label',
-												'variant',
-												'url',
-												'type',
-												{ page: ['permalink'] },
-												{ post: ['slug'] },
-											],
+											buttons: ['id', 'label', 'variant', 'url', 'type', { page: ['permalink'] }, { post: ['slug'] }],
 										},
 									],
 									block_related_service: [
@@ -263,7 +247,7 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 										'headline',
 										{
 											services: [{ services_id: ['id', 'title', 'slug', 'image'] }],
-										}
+										},
 									],
 									block_form: [
 										'id',

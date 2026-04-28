@@ -107,11 +107,11 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 					data-directus={
 						navigation
 							? setAttr({
-								collection: 'navigation',
-								item: navigation.id ?? null,
-								fields: ['items'],
-								mode: 'modal',
-							})
+									collection: 'navigation',
+									item: navigation.id ?? null,
+									fields: ['items'],
+									mode: 'modal',
+								})
 							: undefined
 					}
 				>
@@ -184,7 +184,8 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 				</nav>
 			</header>
 		);
-	});
+	},
+);
 
 NavigationBar.displayName = 'NavigationBar';
 export default NavigationBar;

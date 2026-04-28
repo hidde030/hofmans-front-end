@@ -21,7 +21,7 @@ const PageBuilder = ({ sections }: PageBuilderProps) => {
 				const Wrapper = isFullWidth ? React.Fragment : Container;
 
 				return (
-					<div key={block.id} data-background={block.background} className={isFullWidth ? undefined : "py-16"}>
+					<div key={block.id} data-background={block.background} className={isFullWidth ? undefined : 'py-16'}>
 						<Wrapper>
 							<BaseBlock
 								block={{

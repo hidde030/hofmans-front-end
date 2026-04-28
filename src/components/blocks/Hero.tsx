@@ -72,7 +72,7 @@ export default function Hero({ data }: HeroProps) {
 					headline={headline}
 					className={cn(
 						'text-3xl sm:text-4xl md:text-5xl lg:text-7xl break-words',
-						layout === 'image_cover' && 'text-white'
+						layout === 'image_cover' && 'text-white',
 					)}
 					data-directus={setAttr({
 						collection: 'block_hero',
@@ -84,8 +84,8 @@ export default function Hero({ data }: HeroProps) {
 				{subtitle && (
 					<div
 						className={cn(
-							"text-lg font-medium tracking-tight text-foreground",
-							layout === 'image_cover' && 'text-white/90'
+							'text-lg font-medium tracking-tight text-foreground',
+							layout === 'image_cover' && 'text-white/90',
 						)}
 						data-directus={setAttr({
 							collection: 'block_hero',
@@ -100,10 +100,7 @@ export default function Hero({ data }: HeroProps) {
 				{description && (
 					<BaseText
 						content={description}
-						className={cn(
-							'text-base md:text-lg max-w-2xl',
-							layout === 'image_cover' && 'prose-invert text-white'
-						)}
+						className={cn('text-base md:text-lg max-w-2xl', layout === 'image_cover' && 'prose-invert text-white')}
 						data-directus={setAttr({
 							collection: 'block_hero',
 							item: id,
@@ -118,8 +115,8 @@ export default function Hero({ data }: HeroProps) {
 							<a
 								href={`tel:${phone.replace(/\s+/g, '')}`}
 								className={cn(
-									"text-base font-bold hover:text-accent transition-colors",
-									layout === 'image_cover' && 'text-white'
+									'text-base font-bold hover:text-accent transition-colors',
+									layout === 'image_cover' && 'text-white',
 								)}
 								data-directus={setAttr({
 									collection: 'block_hero',
@@ -135,8 +132,8 @@ export default function Hero({ data }: HeroProps) {
 							<a
 								href={`mailto:${email}`}
 								className={cn(
-									"text-base font-bold hover:text-accent transition-colors",
-									layout === 'image_cover' && 'text-white'
+									'text-base font-bold hover:text-accent transition-colors',
+									layout === 'image_cover' && 'text-white',
 								)}
 								data-directus={setAttr({
 									collection: 'block_hero',
@@ -154,7 +151,7 @@ export default function Hero({ data }: HeroProps) {
 					<div
 						className={cn(
 							'mt-8 w-full sm:w-auto',
-							(layout === 'image_center' || layout === 'image_cover') && 'flex justify-center'
+							(layout === 'image_center' || layout === 'image_cover') && 'flex justify-center',
 						)}
 						data-directus={setAttr({
 							collection: 'block_button_group',
@@ -172,7 +169,9 @@ export default function Hero({ data }: HeroProps) {
 					className={cn(
 						layout === 'image_cover' ? 'absolute inset-0 z-0' : 'relative w-full',
 						layout !== 'image_cover' &&
-						(layout === 'image_center' ? 'h-[300px] md:h-[400px] mt-8' : 'aspect-square md:aspect-auto md:w-1/2 h-auto md:h-[562px]'),
+							(layout === 'image_center'
+								? 'h-[300px] md:h-[400px] mt-8'
+								: 'aspect-square md:aspect-auto md:w-1/2 h-auto md:h-[562px]'),
 					)}
 					data-directus={setAttr({
 						collection: 'block_hero',
@@ -186,10 +185,7 @@ export default function Hero({ data }: HeroProps) {
 						alt={tagline || headline || 'Hero Image'}
 						fill
 						sizes={layout === 'image_center' || layout === 'image_cover' ? '100vw' : '(max-width: 768px) 100vw, 50vw'}
-						className={cn(
-							'rounded-2xl',
-							layout === 'image_cover' ? 'object-cover rounded-none' : 'object-cover'
-						)}
+						className={cn('rounded-2xl', layout === 'image_cover' ? 'object-cover rounded-none' : 'object-cover')}
 					/>
 					{layout === 'image_cover' && <div className="absolute inset-0 bg-black/50" />}
 				</div>
