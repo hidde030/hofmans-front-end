@@ -252,9 +252,9 @@ const Gallery = ({ data }: GalleryProps) => {
 										</CarouselItem>
 									))}
 								</CarouselContent>
-								<div className="flex justify-center gap-4 mt-8 md:absolute md:top-0 md:w-full md:aspect-[3/1] md:pointer-events-none">
-									<CarouselPrevious className="static md:absolute md:left-0 lg:-left-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
-									<CarouselNext className="static md:absolute md:right-0 lg:-right-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
+								<div className="absolute top-0 left-0 w-full aspect-[1.5/1] sm:aspect-[2/1] md:aspect-[3/1] pointer-events-none">
+									<CarouselPrevious className="absolute left-4 md:-left-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
+									<CarouselNext className="absolute right-4 md:-right-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
 								</div>
 							</div>
 						</Carousel>
