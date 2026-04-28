@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { setAttr } from '@directus/visual-editing';
 import { useVisualEditing } from '@/hooks/useVisualEditing';
@@ -11,6 +11,7 @@ import ShareDialog from '@/components/ui/ShareDialog';
 import Link from 'next/link';
 import Headline from '@/components/ui/Headline';
 import Container from '@/components/ui/container';
+import NavigationBar from '@/components/layout/NavigationBar';
 import { Post, DirectusUser } from '@/types/directus-schema';
 
 interface BlogPostClientProps {
@@ -20,6 +21,8 @@ interface BlogPostClientProps {
 	authorName: string;
 	postUrl: string;
 	isDraft?: boolean;
+	headerNavigation: any;
+	globals: any;
 }
 
 export default function BlogPostClient({
@@ -29,7 +32,10 @@ export default function BlogPostClient({
 	authorName,
 	postUrl,
 	isDraft,
+	headerNavigation,
+	globals,
 }: BlogPostClientProps) {
+	const navRef = useRef<HTMLElement>(null);
 	const { isVisualEditingEnabled, apply } = useVisualEditing();
 	const router = useRouter();
 
@@ -40,12 +46,23 @@ export default function BlogPostClient({
 					router.refresh();
 				},
 			});
+
+			if (navRef.current) {
+				apply({
+					elements: [navRef.current],
+					onSaved: () => {
+						router.refresh();
+					},
+				});
+			}
 		}
 	}, [isVisualEditingEnabled, apply, router]);
 
 	return (
-		<>
-			{isDraft && <p>(Draft Mode)</p>}
+		<div className="flex flex-col min-h-screen">
+			<NavigationBar ref={navRef} navigation={headerNavigation} globals={globals} />
+			<main className="flex-grow">
+				{isDraft && <p>(Draft Mode)</p>}
 
 			<Container className="py-12">
 				{post.image && (
@@ -165,6 +182,7 @@ export default function BlogPostClient({
 					</aside>
 				</div>
 			</Container>
-		</>
+		</main>
+	</div>
 	);
 }

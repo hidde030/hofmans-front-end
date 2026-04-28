@@ -172,6 +172,10 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 					'title',
 					'seo',
 					'id',
+					'header_navigation',
+					'header_background_color',
+					'header_logo',
+					'hide_home_link',
 					{
 						blocks: [
 							'id',
@@ -310,6 +314,16 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 		console.log(`[DEBUG] Successfully fetched page: "${pageData[0].title}" (ID: ${pageData[0].id})`);
 		const page = pageData[0];
 
+		// If a custom header navigation is selected, fetch its items
+		if (page.header_navigation) {
+			try {
+				const customNav = await fetchNavigation(page.header_navigation);
+				(page as any).custom_navigation = customNav;
+			} catch (err) {
+				console.error(`Error fetching custom navigation "${page.header_navigation}":`, err);
+			}
+		}
+
 		const textImageBlocks = (page.blocks as any[])?.filter((b: any) => b.collection === 'block_text_image');
 
 		if (Array.isArray(page.blocks)) {
@@ -343,6 +357,33 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 };
 
 /**
+ * Fetches site-wide navigation by ID/Slug.
+ */
+export const fetchNavigation = async (id: string) => {
+	const { directus } = useDirectus();
+
+	return await directus.request(
+		readItem('navigation', id, {
+			fields: [
+				'id',
+				'title',
+				{
+					items: [
+						'id',
+						'title',
+						{
+							page: ['permalink'],
+							children: ['id', 'title', 'url', { page: ['permalink'] }],
+						},
+					],
+				},
+			],
+			deep: { items: { _sort: ['sort'] } },
+		}),
+	);
+};
+
+/**
  * Fetches global site data, header navigation, and footer navigation.
  */
 export const fetchSiteData = async () => {
@@ -352,28 +393,24 @@ export const fetchSiteData = async () => {
 		const [globals, headerNavigation, footerNavigation] = await Promise.all([
 			directus.request(
 				readSingleton('globals', {
-					fields: ['id', 'title', 'description', 'logo', 'logo_dark_mode', 'social_links', 'accent_color', 'favicon', 'address', 'zip_code', 'city', 'phone', 'email'],
-				}),
-			),
-			directus.request(
-				readItem('navigation', 'main', {
 					fields: [
 						'id',
 						'title',
-						{
-							items: [
-								'id',
-								'title',
-								{
-									page: ['permalink'],
-									children: ['id', 'title', 'url', { page: ['permalink'] }],
-								},
-							],
-						},
+						'description',
+						'logo',
+						'logo_dark_mode',
+						'social_links',
+						'accent_color',
+						'favicon',
+						'address',
+						'zip_code',
+						'city',
+						'phone',
+						'email',
 					],
-					deep: { items: { _sort: ['sort'] } },
 				}),
 			),
+			fetchNavigation('main'),
 			directus.request(
 				readItem('navigation', 'footer', {
 					fields: [

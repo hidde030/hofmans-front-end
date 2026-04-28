@@ -40,7 +40,7 @@ export default function Hero({ data }: HeroProps) {
 	return (
 		<section
 			className={cn(
-				'relative w-full mx-auto flex flex-col gap-8 md:gap-12 px-8 md:px-0',
+				'relative w-full mx-auto flex flex-col gap-8 md:gap-12 px-8',
 				layout === 'image_center'
 					? 'items-center text-center'
 					: layout === 'image_cover'
@@ -71,7 +71,7 @@ export default function Hero({ data }: HeroProps) {
 				<Headline
 					headline={headline}
 					className={cn(
-						'text-4xl md:text-5xl lg:text-7xl break-words',
+						'text-3xl sm:text-4xl md:text-5xl lg:text-7xl break-words',
 						layout === 'image_cover' && 'text-white'
 					)}
 					data-directus={setAttr({

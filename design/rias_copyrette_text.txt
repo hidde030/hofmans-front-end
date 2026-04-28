@@ -1,0 +1,83 @@
+RIA'S COPYRETTE
+
+Menu:
+- Diensten
+- Projecten
+- Ria's copyrette
+- Over ons
+
+Hero:
+OPVALLEND ONOPVALLEND
+
+Buttons:
+- projecten
+- offerte aanvragen
+- contact opnemen
+
+Sectie: Hofmans de Allesdrukker
+Hofmans maakt een mooi product. Een opvallend, onopvallend product. Een product dat iedereen kent en herkent, maar waarvan nooit iemand spontaan zal zeggen: "hè dat is er een van jullie!" Dat hoort ook zo, wij staan op de achtergrond. Wij maken een kwalitatief topproduct wat communiceert wat de klant wil. Het gaat om het product, niet om ons.
+
+En daar zijn we trots op!
+Button: meer info
+
+Sectie: Printwerk
+- digitaal
+- zeefdruk
+- offset
+- sign
+- drukwerk
+- maatwerk
+
+Sectie: Meer weten?
+Frank is al ruim 25 jaar een vertrouwd gezicht binnen de drukkerij. Met zijn jarenlange ervaring kent hij het vak door en door en weet hij precies wat er nodig is voor een goed eindresultaat. Hij denkt praktisch mee, houdt het overzicht en zorgt ervoor dat elke opdracht soepel en volgens afspraak verloopt. Betrouwbaarheid en vakmanschap staan daarbij altijd voorop.
+
+Meer weten of een vraag over jouw printwerk? Laat het ons weten. We helpen je graag met advies en een oplossing die bij je past.
+
+Button: Contact
+
+Sectie: Aanleverspecificaties
+Je bestanden aanleveren is super simpel. Upload ze meteen bij je bestelling, of stuur ze achteraf naar ons toe. En omdat we snappen dat dit niet dagelijks werk is, doen we altijd gratis een bestandscontrole voordat we jouw bestelling gaan produceren. Just to be sure
+
+Hoe moeten je bestanden worden aangeleverd?
+1) Je bestand aanleveren in een .PDF, .JPG, .TIFF
+Heb je een ander bestand? Neem dan even contact met ons op.
+
+2) Zorg er bij JPG bestanden voor dat je bestand 300 DPI is en dat je afbeeldingen zijn opgebouwd uit CMYK. Is je JPG kleiner dan 300 DPI, neem dan contact op.
+
+3) Lever je bestand aan met 3 mm afloop rondom. Dit is de extra marge die we nodig hebben om je drukwerk goed te kunnen snijden. Gebruik je een kader in je ontwerp? Houd er dan rekening mee dat er door het snijden een kleine afwijking kan ontstaan. Daarom nemen we altijd even contact met je op voordat we gaan produceren.
+
+4) Zet alle lettertypes in je bestand om naar lettercontouren.
+Tip: Het beste is als je tekst 3-5 mm van de rand afstaat. Zo krijgt je drukwerk het beste resultaat
+
+Voor al ons drukwerk kun je bestanden aanleveren in zowel PC als Mac formaat.
+
+Sectie: Vakwoorden uitgelegd
+Moeilijke woorden? Wij leggen ze graag aan je uit
+
+Wat betekent afloop?
+Afloop (ook 'bleed' genoemd) betekent dat jouw achtergrond aan alle kanten 3mm groter is dan het eindresultaat. Deze 3mm zullen we er af snijden om witte randen te voorkomen (Bijvoorbeeld: Je bestelt een A5 flyer, het formaat hiervan is 148x210mm. Een correct aangeleverd A5 document is dan: 154x216mm.). Lukt je dit niet? Dan kun je er ook voor zorgen dat de tekst 10mm van de randen staat, zodat wij het ontwerp iets voor je kunnen vergroten.
+
+Wat betekent CMYK (Fullcolor)?
+Bij professionele designprogramma's kun je ervoor kiezen om het document op te bouwen uit CMYK. Dit is een andere kleuropbouw dan jouw beeldschermkleuren (RGB). Wanneer een RGB bestand omgezet wordt naar CMYK kan er kleurverandering ontstaan. Meer informatie vind je hier. Lukt dit niet? Geen probleem: we nemen altijd nog even contact met je op als de kleurverschillen heel opvallend zijn.
+
+Wat betekent DPI/Resolutie?
+DPI(resolutie) staat voor 'Dots per inch'. Het is een term waarmee de kwaliteit en scherpte van een beeld wordt uitgedrukt. Hoe Hoger de DPI(resolutie), hoe meer beeldpunten er zijn en hoe scherper de afbeelding zal zijn. De resolutie van internet afbeeldingen zijn vaak 72 dpi, de resolutie van een te drukken bestand dient ongeveer 300 dpi te zijn. Je kunt dit zelf controleren door het bestand in te zoomen op 200%. (bij een visitekaartje 600%)
+
+Footer:
+- Lage dijk - noord 10, 3401 VA IJsselstein, Utrecht
+- 030 - 6880970
+- info@deallesdrukker.nl
+
+Diensten:
+- Zeefdruk
+- Offset
+- Signing
+- Print
+- Digitaal
+
+Hofmans:
+- Leveringsvoorwaarde
+- Aanlever specificaties
+- Geschiedenis
+- Over ons
+- Contact

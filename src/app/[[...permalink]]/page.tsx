@@ -1,4 +1,4 @@
-import { fetchPageData } from '@/lib/directus/fetchers';
+import { fetchPageData, fetchSiteData } from '@/lib/directus/fetchers';
 import { PageBlock } from '@/types/directus-schema';
 import { notFound } from 'next/navigation';
 import PageClient from './PageClient';
@@ -36,7 +36,10 @@ export default async function Page({ params }: { params: Promise<{ permalink?: s
 	const resolvedPermalink = `/${permalinkSegments.join('/')}`.replace(/\/$/, '') || '/';
 
 	try {
-		const page = await fetchPageData(resolvedPermalink);
+		const [page, { globals, headerNavigation }] = await Promise.all([
+			fetchPageData(resolvedPermalink),
+			fetchSiteData(),
+		]);
 
 		if (!page || !page.blocks) {
 			notFound();
@@ -46,7 +49,18 @@ export default async function Page({ params }: { params: Promise<{ permalink?: s
 			(block: any): block is PageBlock => typeof block === 'object' && block.collection,
 		);
 
-		return <PageClient sections={blocks} pageId={page.id} />;
+		return (
+			<PageClient
+				sections={blocks}
+				pageId={page.id}
+				customNavigation={page.custom_navigation}
+				headerNavigation={headerNavigation}
+				globals={globals}
+				headerBackgroundColor={page.header_background_color}
+				headerLogo={page.header_logo}
+				hideHomeLink={page.hide_home_link ?? false}
+			/>
+		);
 	} catch (error) {
 		console.error('Error loading page:', error);
 		notFound();

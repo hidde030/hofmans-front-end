@@ -40,7 +40,7 @@ const Pricing = ({ data }: PricingProps) => {
 	}
 
 	return (
-		<section className="px-8 md:px-0">
+		<section className="px-8">
 			{tagline && (
 				<Tagline
 					tagline={tagline}
