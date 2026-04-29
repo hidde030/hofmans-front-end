@@ -49,7 +49,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
 		return (
 			<>
-				<NavigationBar navigation={headerNavigation} globals={globals} />
+				<NavigationBar navigation={headerNavigation as any} globals={globals} />
 				<main className="flex-grow">
 					<PageBuilder sections={blocks} />
 				</main>
