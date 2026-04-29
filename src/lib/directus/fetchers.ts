@@ -319,8 +319,11 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 		// If a custom header navigation is selected, fetch its items
 		if (page.header_navigation) {
 			try {
-				const customNav = await fetchNavigation(page.header_navigation);
-				(page as any).custom_navigation = customNav;
+				const navId = typeof page.header_navigation === 'string' ? page.header_navigation : (page.header_navigation as any).id;
+				if (navId) {
+					const customNav = await fetchNavigation(navId);
+					(page as any).custom_navigation = customNav;
+				}
 			} catch (err) {
 				console.error(`Error fetching custom navigation "${page.header_navigation}":`, err);
 			}
