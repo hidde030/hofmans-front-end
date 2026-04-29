@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import DirectusImage from '@/components/shared/DirectusImage';
-import { BlockRelatedProjects as BlockRelatedProjectsType } from '@/types/directus-schema';
+import { BlockRelatedProjects as BlockRelatedProjectsType } from '@/types/custom-blocks';
 
 interface Project {
 	id: string;

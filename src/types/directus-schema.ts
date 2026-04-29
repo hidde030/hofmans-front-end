@@ -213,43 +213,6 @@ export interface BlockRelatedServiceService {
 	sort?: number | null;
 }
 
-export interface BlockAllServices {
-	/** @primaryKey */
-	id: string;
-	headline?: string | null;
-}
-
-export interface BlockRelatedProjects {
-	/** @primaryKey */
-	id: string;
-	headline?: string | null;
-	projects?: BlockRelatedProjectsProject[] | string[];
-}
-
-export interface BlockRelatedProjectsProject {
-	/** @primaryKey */
-	id: string;
-	block_related_projects_id?: BlockRelatedProjects | string | null;
-	projects_id?: Project | string | null;
-	sort?: number | null;
-}
-
-export interface Project {
-	/** @primaryKey */
-	id: string;
-	status?: 'published' | 'draft' | 'archived';
-	sort?: number | null;
-	user_created?: DirectusUser | string | null;
-	date_created?: string | null;
-	user_updated?: DirectusUser | string | null;
-	date_updated?: string | null;
-	/** @required */
-	title: string;
-	description?: string | null;
-	image?: DirectusFile | string | null;
-	slug?: string | null;
-	seo?: ExtensionSeoMetadata | null;
-}
 
 export interface BlockRichtext {
 	/** @description Rich text content for this block. */
@@ -1063,9 +1026,6 @@ export interface Schema {
 	block_pricing_cards: BlockPricingCard[];
 	block_related_service: BlockRelatedService[];
 	block_related_service_services: BlockRelatedServiceService[];
-	block_all_services: BlockAllServices[];
-	block_related_projects: BlockRelatedProjects[];
-	block_related_projects_projects: BlockRelatedProjectsProject[];
 	block_richtext: BlockRichtext[];
 	block_text_image: BlockTextImage[];
 	form_fields: FormField[];
@@ -1081,7 +1041,6 @@ export interface Schema {
 	redirects: Redirect[];
 	service_blocks: ServiceBlock[];
 	services: Service[];
-	projects: Project[];
 	directus_access: DirectusAccess[];
 	directus_activity: DirectusActivity[];
 	directus_collections: DirectusCollection[];
@@ -1127,9 +1086,6 @@ export enum CollectionNames {
 	block_pricing_cards = 'block_pricing_cards',
 	block_related_service = 'block_related_service',
 	block_related_service_services = 'block_related_service_services',
-	block_all_services = 'block_all_services',
-	block_related_projects = 'block_related_projects',
-	block_related_projects_projects = 'block_related_projects_projects',
 	block_richtext = 'block_richtext',
 	block_text_image = 'block_text_image',
 	form_fields = 'form_fields',
@@ -1145,7 +1101,6 @@ export enum CollectionNames {
 	redirects = 'redirects',
 	service_blocks = 'service_blocks',
 	services = 'services',
-	projects = 'projects',
 	directus_access = 'directus_access',
 	directus_activity = 'directus_activity',
 	directus_collections = 'directus_collections',

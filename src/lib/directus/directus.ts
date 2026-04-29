@@ -12,6 +12,7 @@ import {
 import type { RestClient } from '@directus/sdk';
 import Queue from 'p-queue';
 import type { Schema } from '@/types/directus-schema';
+import type { ExtendedSchema } from '@/types/custom-blocks';
 
 // Helper for retrying fetch requests
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -32,14 +33,14 @@ const queue = new Queue({ intervalCap: 10, interval: 500, carryoverConcurrencyCo
 
 const directusUrl = process.env.NEXT_PUBLIC_DIRECTUS_URL as string;
 
-const directus = createDirectus<Schema>(directusUrl, {
+const directus = createDirectus<ExtendedSchema>(directusUrl, {
 	globals: {
 		fetch: (...args) => queue.add(() => fetchRetry(0, ...args)),
 	},
 }).with(rest());
 
 export const useDirectus = () => ({
-	directus: directus as RestClient<Schema>,
+	directus: directus as RestClient<ExtendedSchema>,
 	readItems,
 	readItem,
 	readSingleton,

@@ -1,4 +1,5 @@
-import { BlockAllServices, BlockPost, PageBlock, Post, Redirect, Schema } from '@/types/directus-schema';
+import { BlockPost, PageBlock, Post, Redirect, Schema } from '@/types/directus-schema';
+import { BlockAllServices } from '@/types/custom-blocks';
 import { useDirectus } from './directus';
 import { readItems, aggregate, readItem, readSingleton, withToken, QueryFilter } from '@directus/sdk';
 import { RedirectError } from '../redirects';

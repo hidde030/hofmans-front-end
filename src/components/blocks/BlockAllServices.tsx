@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import DirectusImage from '@/components/shared/DirectusImage';
-import { BlockAllServices as BlockAllServicesType } from '@/types/directus-schema';
+import { BlockAllServices as BlockAllServicesType } from '@/types/custom-blocks';
 
 interface Service {
 	id: string;
