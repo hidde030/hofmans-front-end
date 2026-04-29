@@ -1,4 +1,4 @@
-import { BlockPost, PageBlock, Post, Redirect, Schema } from '@/types/directus-schema';
+import { BlockPost, PageBlock, Post, Redirect, Schema, Service } from '@/types/directus-schema';
 import { useDirectus } from './directus';
 import { readItems, aggregate, readItem, readSingleton, withToken, QueryFilter } from '@directus/sdk';
 import { RedirectError } from '../redirects';
@@ -104,6 +104,7 @@ export const fetchServiceData = async (slug: string) => {
 											services: [{ services_id: ['id', 'title', 'slug', 'image'] }],
 										}
 									],
+									block_services_grid: ['id', 'tagline', 'headline'],
 									block_form: [
 										'id',
 										'tagline',
@@ -265,6 +266,7 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 											services: [{ services_id: ['id', 'title', 'slug', 'image'] }],
 										}
 									],
+									block_services_grid: ['id', 'tagline', 'headline'],
 									block_form: [
 										'id',
 										'tagline',
@@ -317,8 +319,11 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 		// If a custom header navigation is selected, fetch its items
 		if (page.header_navigation) {
 			try {
-				const customNav = await fetchNavigation(page.header_navigation);
-				(page as any).custom_navigation = customNav;
+				const navId = typeof page.header_navigation === 'string' ? page.header_navigation : (page.header_navigation as any).id;
+				if (navId) {
+					const customNav = await fetchNavigation(navId);
+					(page as any).custom_navigation = customNav;
+				}
 			} catch (err) {
 				console.error(`Error fetching custom navigation "${page.header_navigation}":`, err);
 			}
@@ -330,6 +335,7 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 			for (const block of page.blocks as PageBlock[]) {
 				if (
 					block.collection === 'block_posts' &&
+					block.item &&
 					typeof block.item === 'object' &&
 					(block.item as BlockPost).collection === 'posts'
 				) {
@@ -345,6 +351,16 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 					);
 
 					(block.item as BlockPost & { posts: Post[] }).posts = posts;
+				} else if (block.collection === 'block_services_grid' && block.item && typeof block.item === 'object') {
+					const services = await directus.request<Service[]>(
+						readItems('services', {
+							fields: ['id', 'title', 'slug', 'image'],
+							filter: { status: { _eq: 'published' } },
+							sort: ['sort'],
+						}),
+					);
+
+					(block.item as any).services = services;
 				}
 			}
 		}

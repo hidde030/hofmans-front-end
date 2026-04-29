@@ -53,7 +53,7 @@ export default async function Page({ params }: { params: Promise<{ permalink?: s
 			<PageClient
 				sections={blocks}
 				pageId={page.id}
-				customNavigation={page.custom_navigation}
+				customNavigation={(page as any).custom_navigation}
 				headerNavigation={headerNavigation}
 				globals={globals}
 				headerBackgroundColor={page.header_background_color}
