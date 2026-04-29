@@ -24,7 +24,7 @@ interface ServicesGridProps {
 
 export default function ServicesGrid({ data }: ServicesGridProps) {
 	const { id, headline, tagline, services = [] } = data;
-	console.log("diensten", JSON.stringify(data));
+
 	return (
 		<section>
 			{tagline && (
