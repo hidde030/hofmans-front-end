@@ -60,7 +60,7 @@ const ServicesGrid = ({ data }: ServicesGridProps) => {
 						mode: 'popover',
 					})}
 				>
-					{services.map((service) => {
+					{services.filter((service) => service.slug).map((service) => {
 						const imageId =
 							service.image
 								? typeof service.image === 'string'
