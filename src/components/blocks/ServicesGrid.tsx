@@ -8,7 +8,7 @@ interface ServiceItem {
 	id: string;
 	title: string;
 	slug?: string | null;
-	image?: string | null;
+	image?: string | { id: string } | null;
 }
 
 interface ServicesGridData {
@@ -51,15 +51,19 @@ export default function ServicesGrid({ data }: ServicesGridProps) {
 			)}
 
 			<div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-				{services.map((service) => (
+				{services.map((service) => {
+				if (!service.slug) return null;
+				const imageUuid = typeof service.image === 'string' ? service.image : service.image?.id;
+
+				return (
 					<Link
 						key={service.id}
 						href={`/diensten/${service.slug}`}
 						className="relative aspect-square flex items-center justify-center overflow-hidden group bg-gray-500"
 					>
-						{service.image && (
+						{imageUuid && (
 							<DirectusImage
-								uuid={typeof service.image === 'string' ? service.image : (service.image as any)?.id}
+								uuid={imageUuid}
 								alt={service.title}
 								fill
 								sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -71,7 +75,8 @@ export default function ServicesGrid({ data }: ServicesGridProps) {
 							{service.title}
 						</h3>
 					</Link>
-				))}
+				);
+			})}
 			</div>
 		</section>
 	);
