@@ -332,6 +332,7 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 			for (const block of page.blocks as PageBlock[]) {
 				if (
 					block.collection === 'block_posts' &&
+					block.item &&
 					typeof block.item === 'object' &&
 					(block.item as BlockPost).collection === 'posts'
 				) {
@@ -347,7 +348,7 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 					);
 
 					(block.item as BlockPost & { posts: Post[] }).posts = posts;
-				} else if (block.collection === 'block_services_grid' && typeof block.item === 'object') {
+				} else if (block.collection === 'block_services_grid' && block.item && typeof block.item === 'object') {
 					const services = await directus.request<Service[]>(
 						readItems('services', {
 							fields: ['id', 'title', 'slug', 'image'],

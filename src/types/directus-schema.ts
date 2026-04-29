@@ -115,6 +115,10 @@ export interface BlockGalleryItem {
 	user_updated?: DirectusUser | string | null;
 	title?: string | null;
 	content?: string | null;
+	/** @description Bepaal de kleur van de tekst. Je kunt een Hex-code gebruiken (bijv. #ffffff), een CSS-kleurnaam (bijv. white, red) of orange voor de oranje huisstijlkleur. Laat leeg voor de standaardkleur (oranje op foto's, wit op grijze vlakken) */
+	overlay_text_color?: string | null;
+	/** @description Schakel dit in om de titel van het item in de afbeelding/het vlak te tonen in plaats van eronder. */
+	overlay_text?: boolean | null;
 }
 
 export interface BlockHero {
@@ -228,6 +232,15 @@ export interface BlockRichtext {
 	user_created?: DirectusUser | string | null;
 	date_updated?: string | null;
 	user_updated?: DirectusUser | string | null;
+}
+
+export interface BlockServicesGrid {
+	/** @primaryKey */
+	id: string;
+	/** @description Optional headline for the services grid */
+	headline?: string | null;
+	/** @description Optional tagline/subtitle for the services grid */
+	tagline?: string | null;
 }
 
 export interface BlockTextImage {
@@ -407,7 +420,7 @@ export interface PageBlock {
 	/** @description The id of the page that this block belongs to. */
 	page?: Page | string | null;
 	/** @description The data for the block. */
-	item?: BlockHero | BlockRichtext | BlockForm | BlockPost | BlockGallery | BlockPricing | BlockTextImage | string | null;
+	item?: BlockHero | BlockRichtext | BlockForm | BlockPost | BlockGallery | BlockPricing | BlockTextImage | BlockServicesGrid | string | null;
 	/** @description The collection (type of block). */
 	collection?: string | null;
 	/** @description Temporarily hide this block on the website without having to remove it from your page. */
@@ -437,13 +450,20 @@ export interface Page {
 	user_created?: DirectusUser | string | null;
 	date_updated?: string | null;
 	user_updated?: DirectusUser | string | null;
+	header_navigation?: Navigation | string | null;
+	header_background_color?: string | null;
+	header_logo?: any | string | null;
+	hide_home_link?: boolean | null;
 	/** @description Create and arrange different content blocks (like text, images, or videos) to build your page. */
 	blocks?: PageBlock[] | string[];
-	header_navigation?: string | null;
-	header_background_color?: string | null;
-	header_logo?: DirectusFile | string | null;
-	hide_home_link?: boolean | null;
-	custom_navigation?: any;
+}
+
+export interface PagesHeaderLogo {
+	/** @primaryKey */
+	id: number;
+	pages_id?: string | null;
+	item?: string | null;
+	collection?: string | null;
 }
 
 export interface Post {
@@ -471,6 +491,23 @@ export interface Post {
 	user_created?: DirectusUser | string | null;
 	date_updated?: string | null;
 	user_updated?: DirectusUser | string | null;
+}
+
+export interface Project {
+	/** @primaryKey */
+	id: string;
+	status?: 'published' | 'draft' | 'archived';
+	sort?: number | null;
+	user_created?: DirectusUser | string | null;
+	date_created?: string | null;
+	user_updated?: DirectusUser | string | null;
+	date_updated?: string | null;
+	/** @required */
+	title: string;
+	description?: string | null;
+	image?: DirectusFile | string | null;
+	slug?: string | null;
+	seo?: 'json' | null;
 }
 
 export interface Redirect {
@@ -802,6 +839,7 @@ export interface DirectusSettings {
 	ai_anthropic_allowed_models?: Array<`claude-haiku-4-5` | `claude-sonnet-4-5` | `claude-opus-4-5` | `claude-sonnet-4-6` | `claude-opus-4-6`> | null;
 	ai_google_allowed_models?: Array<`gemini-3-pro-preview` | `gemini-3-flash-preview` | `gemini-2.5-pro` | `gemini-2.5-flash` | `gemini-3.1-pro-preview` | `gemini-3.1-flash-lite-preview` | `gemini-2.5-flash-lite`> | null;
 	collaborative_editing_enabled?: boolean;
+	collaborative_editing_settings?: Record<string, any> | null;
 }
 
 export interface DirectusUser {
@@ -1031,6 +1069,7 @@ export interface Schema {
 	block_related_service: BlockRelatedService[];
 	block_related_service_services: BlockRelatedServiceService[];
 	block_richtext: BlockRichtext[];
+	block_services_grid: BlockServicesGrid[];
 	block_text_image: BlockTextImage[];
 	form_fields: FormField[];
 	forms: Form[];
@@ -1041,7 +1080,9 @@ export interface Schema {
 	navigation_items: NavigationItem[];
 	page_blocks: PageBlock[];
 	pages: Page[];
+	pages_header_logo: PagesHeaderLogo[];
 	posts: Post[];
+	projects: Project[];
 	redirects: Redirect[];
 	service_blocks: ServiceBlock[];
 	services: Service[];
@@ -1091,6 +1132,7 @@ export enum CollectionNames {
 	block_related_service = 'block_related_service',
 	block_related_service_services = 'block_related_service_services',
 	block_richtext = 'block_richtext',
+	block_services_grid = 'block_services_grid',
 	block_text_image = 'block_text_image',
 	form_fields = 'form_fields',
 	forms = 'forms',
@@ -1101,7 +1143,9 @@ export enum CollectionNames {
 	navigation_items = 'navigation_items',
 	page_blocks = 'page_blocks',
 	pages = 'pages',
+	pages_header_logo = 'pages_header_logo',
 	posts = 'posts',
+	projects = 'projects',
 	redirects = 'redirects',
 	service_blocks = 'service_blocks',
 	services = 'services',

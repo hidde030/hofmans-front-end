@@ -24,7 +24,7 @@ interface ServicesGridProps {
 
 export default function ServicesGrid({ data }: ServicesGridProps) {
 	const { id, headline, tagline, services = [] } = data;
-
+	console.log("diensten", JSON.stringify(data));
 	return (
 		<section>
 			{tagline && (
@@ -52,31 +52,31 @@ export default function ServicesGrid({ data }: ServicesGridProps) {
 
 			<div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 				{services.map((service) => {
-				if (!service.slug) return null;
-				const imageUuid = typeof service.image === 'string' ? service.image : service.image?.id;
+					if (!service.slug) return null;
+					const imageUuid = typeof service.image === 'string' ? service.image : service.image?.id;
 
-				return (
-					<Link
-						key={service.id}
-						href={`/diensten/${service.slug}`}
-						className="relative aspect-square flex items-center justify-center overflow-hidden group bg-gray-500"
-					>
-						{imageUuid && (
-							<DirectusImage
-								uuid={imageUuid}
-								alt={service.title}
-								fill
-								sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-								className="object-cover transition-transform duration-300 group-hover:scale-105"
-							/>
-						)}
-						<div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300" />
-						<h3 className="relative z-10 text-white text-2xl md:text-3xl font-bold text-center px-4">
-							{service.title}
-						</h3>
-					</Link>
-				);
-			})}
+					return (
+						<Link
+							key={service.id}
+							href={`/diensten/${service.slug}`}
+							className="relative aspect-square flex items-center justify-center overflow-hidden group bg-gray-500"
+						>
+							{imageUuid && (
+								<DirectusImage
+									uuid={imageUuid}
+									alt={service.title}
+									fill
+									sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+									className="object-cover transition-transform duration-300 group-hover:scale-105"
+								/>
+							)}
+							<div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300" />
+							<h3 className="relative z-10 text-white text-2xl md:text-3xl font-bold text-center px-4">
+								{service.title}
+							</h3>
+						</Link>
+					);
+				})}
 			</div>
 		</section>
 	);
