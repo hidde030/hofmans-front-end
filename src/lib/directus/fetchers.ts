@@ -1,4 +1,4 @@
-import { BlockPost, PageBlock, Post, Redirect, Schema } from '@/types/directus-schema';
+import { BlockPost, PageBlock, Post, Redirect, Schema, Service } from '@/types/directus-schema';
 import { useDirectus } from './directus';
 import { readItems, aggregate, readItem, readSingleton, withToken, QueryFilter } from '@directus/sdk';
 import { RedirectError } from '../redirects';
@@ -265,6 +265,7 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 											services: [{ services_id: ['id', 'title', 'slug', 'image'] }],
 										}
 									],
+									block_services_grid: ['id', 'tagline', 'headline'],
 									block_form: [
 										'id',
 										'tagline',
@@ -327,6 +328,8 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 		const textImageBlocks = (page.blocks as any[])?.filter((b: any) => b.collection === 'block_text_image');
 
 		if (Array.isArray(page.blocks)) {
+			let allServices: Service[] | null = null;
+
 			for (const block of page.blocks as PageBlock[]) {
 				if (
 					block.collection === 'block_posts' &&
@@ -345,6 +348,13 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 					);
 
 					(block.item as BlockPost & { posts: Post[] }).posts = posts;
+				}
+
+				if (block.collection === 'block_services_grid' && typeof block.item === 'object') {
+					if (!allServices) {
+						allServices = await fetchAllServices();
+					}
+					(block.item as any).services = allServices;
 				}
 			}
 		}
@@ -539,6 +549,29 @@ export const fetchTotalPostCount = async (): Promise<number> => {
 		console.error('Error fetching total post count:', error);
 
 		return 0;
+	}
+};
+
+/**
+ * Fetches all published services.
+ */
+export const fetchAllServices = async (): Promise<Service[]> => {
+	const { directus } = useDirectus();
+
+	try {
+		const services = await directus.request(
+			readItems('services', {
+				fields: ['id', 'title', 'slug', 'image'],
+				filter: { status: { _eq: 'published' } },
+				sort: ['sort'],
+				limit: -1,
+			}),
+		);
+
+		return services as Service[];
+	} catch (error) {
+		console.error('Error fetching all services:', error);
+		return [];
 	}
 };
 
