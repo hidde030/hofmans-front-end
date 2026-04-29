@@ -1,7 +1,8 @@
-import { fetchServiceData } from '@/lib/directus/fetchers';
+import { fetchServiceData, fetchSiteData } from '@/lib/directus/fetchers';
 import { PageBlock } from '@/types/directus-schema';
 import { notFound } from 'next/navigation';
 import PageBuilder from '@/components/layout/PageBuilder';
+import NavigationBar from '@/components/layout/NavigationBar';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
 	const { slug } = await params;
@@ -32,7 +33,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 	const { slug } = await params;
 
 	try {
-		const service = await fetchServiceData(slug);
+		const [service, { globals, headerNavigation }] = await Promise.all([
+			fetchServiceData(slug),
+			fetchSiteData(),
+		]);
 
 		if (!service || !service.blocks) {
 			notFound();
@@ -44,9 +48,12 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 		);
 
 		return (
-			<main>
-				<PageBuilder sections={blocks} />
-			</main>
+			<>
+				<NavigationBar navigation={headerNavigation} globals={globals} />
+				<main className="flex-grow">
+					<PageBuilder sections={blocks} />
+				</main>
+			</>
 		);
 	} catch (error) {
 		console.error('Error loading service:', error);
