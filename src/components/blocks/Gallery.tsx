@@ -115,7 +115,7 @@ const Gallery = ({ data }: GalleryProps) => {
 					{item.directus_file ? (
 						<>
 							<DirectusImage
-								uuid={typeof item.directus_file === 'string' ? item.directus_file : item.directus_file!.id}
+								uuid={typeof item.directus_file === 'string' ? item.directus_file : item.directus_file?.id ?? ''}
 								alt={item.title || `Gallery item ${item.id}`}
 								fill
 								sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
