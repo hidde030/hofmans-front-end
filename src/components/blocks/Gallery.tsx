@@ -9,10 +9,11 @@ import { ArrowLeft, ArrowRight, ZoomIn, X } from 'lucide-react';
 import { setAttr } from '@directus/visual-editing';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
+import type { DirectusFile } from '@/types/directus-schema';
 
 interface GalleryItem {
 	id: string;
-	directus_file: string;
+	directus_file?: DirectusFile | string | null;
 	sort?: number;
 	title?: string;
 	content?: string;
@@ -114,7 +115,7 @@ const Gallery = ({ data }: GalleryProps) => {
 					{item.directus_file ? (
 						<>
 							<DirectusImage
-								uuid={item.directus_file}
+								uuid={typeof item.directus_file === 'string' ? item.directus_file : item.directus_file!.id}
 								alt={item.title || `Gallery item ${item.id}`}
 								fill
 								sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -279,7 +280,7 @@ const Gallery = ({ data }: GalleryProps) => {
 
 						<div className="relative flex justify-center items-center w-[90vw] h-[90vh]">
 							<DirectusImage
-								uuid={sortedItems[currentIndex].directus_file}
+								uuid={typeof sortedItems[currentIndex].directus_file === 'string' ? sortedItems[currentIndex].directus_file : sortedItems[currentIndex].directus_file?.id ?? ''}
 								alt={`Gallery item ${sortedItems[currentIndex].id}`}
 								width={1200}
 								height={800}
