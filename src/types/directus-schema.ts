@@ -454,7 +454,7 @@ export interface Page {
 	user_updated?: DirectusUser | string | null;
 	header_navigation?: Navigation | string | null;
 	header_background_color?: string | null;
-	header_logo?: any | string | null;
+	header_logo?: DirectusFile | string | null;
 	hide_home_link?: boolean | null;
 	/** @description Create and arrange different content blocks (like text, images, or videos) to build your page. */
 	blocks?: PageBlock[] | string[];
