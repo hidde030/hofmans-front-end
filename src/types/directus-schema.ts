@@ -233,6 +233,15 @@ export interface BlockRichtext {
 	user_updated?: DirectusUser | string | null;
 }
 
+export interface BlockServicesGrid {
+	/** @primaryKey */
+	id: string;
+	/** @description Optional headline for the services grid */
+	headline?: string | null;
+	/** @description Optional tagline/subtitle for the services grid */
+	tagline?: string | null;
+}
+
 export interface BlockTextImage {
 	/** @primaryKey */
 	id: string;
@@ -413,16 +422,7 @@ export interface PageBlock {
 	/** @description The id of the page that this block belongs to. */
 	page?: Page | string | null;
 	/** @description The data for the block. */
-	item?:
-		| BlockHero
-		| BlockRichtext
-		| BlockForm
-		| BlockPost
-		| BlockGallery
-		| BlockPricing
-		| BlockTextImage
-		| string
-		| null;
+	item?: BlockHero | BlockRichtext | BlockForm | BlockPost | BlockGallery | BlockPricing | BlockTextImage | BlockServicesGrid | string | null;
 	/** @description The collection (type of block). */
 	collection?: string | null;
 	/** @description Temporarily hide this block on the website without having to remove it from your page. */
@@ -1134,6 +1134,7 @@ export interface Schema {
 	block_related_service: BlockRelatedService[];
 	block_related_service_services: BlockRelatedServiceService[];
 	block_richtext: BlockRichtext[];
+	block_services_grid: BlockServicesGrid[];
 	block_text_image: BlockTextImage[];
 	form_fields: FormField[];
 	forms: Form[];
@@ -1196,6 +1197,7 @@ export enum CollectionNames {
 	block_related_service = 'block_related_service',
 	block_related_service_services = 'block_related_service_services',
 	block_richtext = 'block_richtext',
+	block_services_grid = 'block_services_grid',
 	block_text_image = 'block_text_image',
 	form_fields = 'form_fields',
 	forms = 'forms',
