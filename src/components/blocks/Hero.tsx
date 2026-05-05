@@ -17,7 +17,9 @@ interface HeroProps {
 		description?: string | null;
 		phone?: string | null;
 		email?: string | null;
-		layout: 'image_left' | 'image_center' | 'image_right' | 'image_cover';
+		layout: 'image_left' | 'image_center' | 'image_right' | 'image_cover' | 'no_image';
+		alignment?: 'left' | 'center' | 'right' | null;
+		full_width?: boolean | null;
 		image?: string | null;
 		button_group?: {
 			id: string;
@@ -35,16 +37,25 @@ interface HeroProps {
 }
 
 export default function Hero({ data }: HeroProps) {
-	const { id, layout, tagline, headline, subtitle, description, phone, email, image, button_group } = data;
+	const { id, layout, tagline, headline, subtitle, description, phone, email, image, button_group, alignment, full_width } = data;
+
+	const alignmentClasses = {
+		left: 'text-left items-start',
+		center: 'text-center items-center',
+		right: 'text-right items-end',
+	};
+
+	const currentAlignment =
+		alignment || (layout === 'image_center' || layout === 'image_cover' || layout === 'no_image' ? 'center' : 'left');
 
 	return (
 		<section
 			className={cn(
 				'relative w-full mx-auto flex flex-col gap-8 md:gap-12 px-8',
-				layout === 'image_center'
-					? 'items-center text-center'
+				layout === 'image_center' || layout === 'no_image'
+					? cn('items-center', alignmentClasses[currentAlignment])
 					: layout === 'image_cover'
-						? 'items-center justify-center text-center min-h-[60vh] md:min-h-[70vh] overflow-hidden'
+						? cn('items-center justify-center min-h-[60vh] md:min-h-[70vh] overflow-hidden', alignmentClasses[currentAlignment])
 						: layout === 'image_left'
 							? 'md:flex-row-reverse items-center text-center md:text-left'
 							: 'md:flex-row items-center text-center md:text-left',
@@ -53,9 +64,11 @@ export default function Hero({ data }: HeroProps) {
 			<div
 				className={cn(
 					'flex flex-col gap-4 w-full relative z-10',
-					layout === 'image_center' || layout === 'image_cover'
-						? 'md:w-3/4 xl:w-2/3 items-center'
-						: 'md:w-1/2 items-center md:items-start',
+					full_width || layout === 'no_image'
+						? cn('w-full', alignmentClasses[currentAlignment])
+						: layout === 'image_center' || layout === 'image_cover'
+							? cn('md:w-3/4 xl:w-2/3', alignmentClasses[currentAlignment])
+							: 'md:w-1/2 items-center md:items-start',
 				)}
 			>
 				<Tagline
@@ -77,7 +90,7 @@ export default function Hero({ data }: HeroProps) {
 					data-directus={setAttr({
 						collection: 'block_hero',
 						item: id,
-						fields: 'headline',
+						fields: ['headline', 'alignment', 'full_width'],
 						mode: 'popover',
 					})}
 				/>
@@ -100,7 +113,11 @@ export default function Hero({ data }: HeroProps) {
 				{description && (
 					<BaseText
 						content={description}
-						className={cn('text-base md:text-lg max-w-2xl', layout === 'image_cover' && 'prose-invert text-white')}
+						className={cn(
+							'text-base md:text-lg',
+							!full_width && layout !== 'no_image' ? 'max-w-2xl' : 'max-w-none',
+							layout === 'image_cover' && 'prose-invert text-white',
+						)}
 						data-directus={setAttr({
 							collection: 'block_hero',
 							item: id,
@@ -110,7 +127,13 @@ export default function Hero({ data }: HeroProps) {
 					/>
 				)}
 				{(phone || email) && (
-					<div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 mt-6 md:mt-8">
+					<div
+						className={cn(
+							'flex flex-col sm:flex-row items-center gap-4 sm:gap-8 mt-6 md:mt-8',
+							currentAlignment === 'center' && 'justify-center',
+							currentAlignment === 'right' && 'justify-end',
+						)}
+					>
 						{phone && (
 							<a
 								href={`tel:${phone.replace(/\s+/g, '')}`}
@@ -151,7 +174,8 @@ export default function Hero({ data }: HeroProps) {
 					<div
 						className={cn(
 							'mt-8 w-full sm:w-auto',
-							(layout === 'image_center' || layout === 'image_cover') && 'flex justify-center',
+							currentAlignment === 'center' && 'flex justify-center',
+							currentAlignment === 'right' && 'flex justify-end',
 						)}
 						data-directus={setAttr({
 							collection: 'block_button_group',
@@ -160,18 +184,25 @@ export default function Hero({ data }: HeroProps) {
 							mode: 'modal',
 						})}
 					>
-						<ButtonGroup buttons={button_group.buttons} className="justify-center md:justify-start" />
+						<ButtonGroup
+							buttons={button_group.buttons}
+							className={cn(
+								currentAlignment === 'center' && 'justify-center',
+								currentAlignment === 'right' && 'justify-end',
+								currentAlignment === 'left' && 'justify-start',
+							)}
+						/>
 					</div>
 				)}
 			</div>
-			{image && (
+			{image && layout !== 'no_image' && (
 				<div
 					className={cn(
 						layout === 'image_cover' ? 'absolute inset-0 z-0' : 'relative w-full',
 						layout !== 'image_cover' &&
-							(layout === 'image_center'
-								? 'h-[300px] md:h-[400px] mt-8'
-								: 'aspect-square md:aspect-auto md:w-1/2 h-auto md:h-[562px]'),
+						(layout === 'image_center'
+							? 'h-[300px] md:h-[400px] mt-8'
+							: 'aspect-square md:aspect-auto md:w-1/2 h-auto md:h-[562px]'),
 					)}
 					data-directus={setAttr({
 						collection: 'block_hero',

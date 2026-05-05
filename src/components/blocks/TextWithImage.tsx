@@ -5,6 +5,7 @@ import Tagline from '@/components/ui/Tagline';
 import Headline from '@/components/ui/Headline';
 import Text from '@/components/ui/Text';
 import DirectusImage from '@/components/shared/DirectusImage';
+import ButtonGroup from '@/components/blocks/ButtonGroup';
 import { setAttr } from '@directus/visual-editing';
 
 interface TextWithImageProps {
@@ -16,12 +17,16 @@ interface TextWithImageProps {
 		image?: string;
 		image_position?: 'left' | 'right';
 		border?: 'none' | 'top' | 'bottom' | 'both';
+		button_group?: {
+			id: string;
+			buttons: any[];
+		} | null;
 	};
 	className?: string;
 }
 
 const TextWithImage = ({ data, className }: TextWithImageProps) => {
-	const { id, tagline, headline, content, image, image_position = 'right' } = data;
+	const { id, tagline, headline, content, image, image_position = 'right', button_group } = data;
 
 	return (
 		<div
@@ -48,7 +53,7 @@ const TextWithImage = ({ data, className }: TextWithImageProps) => {
 						data-directus={setAttr({
 							collection: 'block_text_image',
 							item: id,
-							fields: 'headline',
+						fields: ['headline', 'button_group', 'border'],
 							mode: 'popover',
 						})}
 					/>
@@ -64,6 +69,19 @@ const TextWithImage = ({ data, className }: TextWithImageProps) => {
 							mode: 'drawer',
 						})}
 					/>
+				)}
+				{button_group && button_group.buttons?.length > 0 && (
+					<div
+						className="mt-8 flex justify-center md:justify-start"
+						data-directus={setAttr({
+							collection: 'block_button_group',
+							item: button_group.id,
+							fields: 'buttons',
+							mode: 'modal',
+						})}
+					>
+						<ButtonGroup buttons={button_group.buttons} className="justify-center md:justify-start" />
+					</div>
 				)}
 			</div>
 			{image && (

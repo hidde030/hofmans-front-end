@@ -98,6 +98,7 @@ export interface BlockGallery {
 	alignment?: 'left' | 'center' | 'right' | null;
 	/** @description Images to include in the image gallery. */
 	items?: BlockGalleryItem[] | string[];
+	button_group?: BlockButtonGroup | string | null;
 }
 
 export interface BlockGalleryItem {
@@ -134,7 +135,7 @@ export interface BlockHero {
 	/** @description Smaller copy shown above the headline to label a section or add extra context. */
 	tagline?: string | null;
 	/** @description The layout for the component. You can set the image to display left, right, or in the center of page.. */
-	layout?: 'image_cover' | 'image_left' | 'image_center' | 'image_right' | null;
+	layout?: 'image_cover' | 'image_left' | 'image_center' | 'image_right' | 'no_image' | null;
 	date_created?: string | null;
 	user_created?: DirectusUser | string | null;
 	date_updated?: string | null;
@@ -142,6 +143,8 @@ export interface BlockHero {
 	subtitle?: string | null;
 	phone?: string | null;
 	email?: string | null;
+	alignment?: 'left' | 'center' | 'right' | null;
+	full_width?: boolean | null;
 }
 
 export interface BlockPost {
@@ -251,6 +254,7 @@ export interface BlockTextImage {
 	image?: DirectusFile | string | null;
 	image_position?: 'left' | 'right' | null;
 	border?: 'none' | 'top' | 'bottom' | 'both' | null;
+	button_group?: BlockButtonGroup | string | null;
 }
 
 export interface FormField {

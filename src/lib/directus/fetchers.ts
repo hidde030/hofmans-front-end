@@ -26,8 +26,56 @@ export const fetchServiceData = async (slug: string) => {
 							{
 								item: {
 									block_richtext: ['id', 'tagline', 'headline', 'content', 'alignment'],
-									block_text_image: ['id', 'tagline', 'headline', 'content', 'image', 'image_position', 'border'],
-									block_gallery: ['*', { items: ['*'] }] as any,
+									block_text_image: [
+										'id',
+										'tagline',
+										'headline',
+										'content',
+										'image',
+										'image_position',
+										'border',
+										{
+											button_group: [
+												'id',
+												{
+													buttons: [
+														'id',
+														'label',
+														'variant',
+														'url',
+														'type',
+														{ page: ['permalink'] },
+														{ post: ['slug'] },
+													],
+												},
+											],
+										},
+									],
+									block_gallery: [
+										'id',
+										'tagline',
+										'headline',
+										'display_type',
+										'disable_lightbox',
+										'alignment',
+										{ items: ['*'] },
+										{
+											button_group: [
+												'id',
+												{
+													buttons: [
+														'id',
+														'label',
+														'variant',
+														'url',
+														'type',
+														{ page: ['permalink'] },
+														{ post: ['slug'] },
+													],
+												},
+											],
+										},
+									] as any,
 									block_pricing: [
 										'id',
 										'tagline',
@@ -180,8 +228,56 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 							{
 								item: {
 									block_richtext: ['id', 'tagline', 'headline', 'content', 'alignment'],
-									block_text_image: ['id', 'tagline', 'headline', 'content', 'image', 'image_position', 'border'],
-									block_gallery: ['*', { items: ['*'] }] as any,
+									block_text_image: [
+										'id',
+										'tagline',
+										'headline',
+										'content',
+										'image',
+										'image_position',
+										'border',
+										{
+											button_group: [
+												'id',
+												{
+													buttons: [
+														'id',
+														'label',
+														'variant',
+														'url',
+														'type',
+														{ page: ['permalink'] },
+														{ post: ['slug'] },
+													],
+												},
+											],
+										},
+									],
+									block_gallery: [
+										'id',
+										'tagline',
+										'headline',
+										'display_type',
+										'disable_lightbox',
+										'alignment',
+										{ items: ['*'] },
+										{
+											button_group: [
+												'id',
+												{
+													buttons: [
+														'id',
+														'label',
+														'variant',
+														'url',
+														'type',
+														{ page: ['permalink'] },
+														{ post: ['slug'] },
+													],
+												},
+											],
+										},
+									] as any,
 									block_pricing: [
 										'id',
 										'tagline',
@@ -218,6 +314,8 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 										'phone',
 										'email',
 										'layout',
+										'alignment',
+										'full_width',
 										'image',
 										{
 											button_group: [

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import DirectusImage from '@/components/shared/DirectusImage';
 import Tagline from '../ui/Tagline';
 import Headline from '@/components/ui/Headline';
+import ButtonGroup from '@/components/blocks/ButtonGroup';
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogClose } from '@/components/ui/dialog';
 import { ArrowLeft, ArrowRight, ZoomIn, X } from 'lucide-react';
 import { setAttr } from '@directus/visual-editing';
@@ -29,6 +30,10 @@ interface GalleryData {
 	display_type?: 'grid' | 'carousel' | null;
 	disable_lightbox?: boolean | null;
 	alignment?: 'left' | 'center' | 'right' | null;
+	button_group?: {
+		id: string;
+		buttons: any[];
+	} | null;
 }
 
 interface GalleryProps {
@@ -36,7 +41,7 @@ interface GalleryProps {
 }
 
 const Gallery = ({ data }: GalleryProps) => {
-	const { tagline, headline, items, id, display_type, disable_lightbox, alignment } = data;
+	const { tagline, headline, items, id, display_type, disable_lightbox, alignment, button_group } = data;
 
 	const [isLightboxOpen, setLightboxOpen] = useState(false);
 	const [currentIndex, setCurrentIndex] = useState(0);
@@ -221,7 +226,7 @@ const Gallery = ({ data }: GalleryProps) => {
 					data-directus={setAttr({
 						collection: 'block_gallery',
 						item: id,
-						fields: ['headline', 'alignment'],
+						fields: ['headline', 'alignment', 'tagline', 'button_group'],
 						mode: 'popover',
 					})}
 				/>
@@ -235,7 +240,7 @@ const Gallery = ({ data }: GalleryProps) => {
 						fields: 'items',
 						mode: 'modal',
 					})}
-					className="mt-8 px-8"
+					className="mt-8 px-16 lg:px-24"
 				>
 					{display_type === 'carousel' ? (
 						<Carousel
@@ -246,16 +251,16 @@ const Gallery = ({ data }: GalleryProps) => {
 							className="w-full max-w-6xl mx-auto"
 						>
 							<div className="relative">
-								<CarouselContent className="-ml-4">
+								<CarouselContent className="-ml-8">
 									{sortedItems.map((item, index) => (
-										<CarouselItem key={item.id} className="pl-4 basis-[66.6%] sm:basis-1/2 md:basis-1/3">
+										<CarouselItem key={item.id} className="pl-8 basis-[66.6%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
 											{renderGalleryItem(item, index)}
 										</CarouselItem>
 									))}
 								</CarouselContent>
-								<div className="absolute top-0 left-0 w-full aspect-[1.5/1] sm:aspect-[2/1] md:aspect-[3/1] pointer-events-none">
-									<CarouselPrevious className="absolute left-4 md:-left-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
-									<CarouselNext className="absolute right-4 md:-right-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
+								<div className="absolute top-0 left-0 w-full aspect-[1.5/1] sm:aspect-[2/1] md:aspect-[3/1] lg:aspect-[4/1] pointer-events-none">
+									<CarouselPrevious className="absolute left-0 lg:-left-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
+									<CarouselNext className="absolute right-0 lg:-right-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
 								</div>
 							</div>
 						</Carousel>
@@ -264,6 +269,31 @@ const Gallery = ({ data }: GalleryProps) => {
 							{sortedItems.map((item, index) => renderGalleryItem(item, index))}
 						</div>
 					)}
+				</div>
+			)}
+
+			{button_group && button_group.buttons?.length > 0 && (
+				<div
+					className={cn(
+						'mt-12 px-16 lg:px-24',
+						alignment === 'center' && 'flex justify-center',
+						alignment === 'right' && 'flex justify-end',
+					)}
+					data-directus={setAttr({
+						collection: 'block_button_group',
+						item: button_group.id,
+						fields: 'buttons',
+						mode: 'modal',
+					})}
+				>
+					<ButtonGroup
+						buttons={button_group.buttons}
+						className={cn(
+							alignment === 'center' && 'justify-center',
+							alignment === 'right' && 'justify-end',
+							alignment === 'left' && 'justify-start',
+						)}
+					/>
 				</div>
 			)}
 
