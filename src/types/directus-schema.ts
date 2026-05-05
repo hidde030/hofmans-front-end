@@ -250,6 +250,7 @@ export interface BlockTextImage {
 	content?: string | null;
 	image?: DirectusFile | string | null;
 	image_position?: 'left' | 'right' | null;
+	border?: 'none' | 'top' | 'bottom' | 'both' | null;
 }
 
 export interface FormField {

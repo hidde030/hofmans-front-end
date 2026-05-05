@@ -26,7 +26,7 @@ export const fetchServiceData = async (slug: string) => {
 							{
 								item: {
 									block_richtext: ['id', 'tagline', 'headline', 'content', 'alignment'],
-									block_text_image: ['id', 'tagline', 'headline', 'content', 'image', 'image_position'],
+									block_text_image: ['id', 'tagline', 'headline', 'content', 'image', 'image_position', 'border'],
 									block_gallery: ['*', { items: ['*'] }] as any,
 									block_pricing: [
 										'id',
@@ -180,7 +180,7 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 							{
 								item: {
 									block_richtext: ['id', 'tagline', 'headline', 'content', 'alignment'],
-									block_text_image: ['id', 'tagline', 'headline', 'content', 'image', 'image_position'],
+									block_text_image: ['id', 'tagline', 'headline', 'content', 'image', 'image_position', 'border'],
 									block_gallery: ['*', { items: ['*'] }] as any,
 									block_pricing: [
 										'id',

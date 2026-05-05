@@ -15,6 +15,7 @@ interface TextWithImageProps {
 		content?: string;
 		image?: string;
 		image_position?: 'left' | 'right';
+		border?: 'none' | 'top' | 'bottom' | 'both';
 	};
 	className?: string;
 }
