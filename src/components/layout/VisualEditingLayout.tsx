@@ -60,9 +60,7 @@ export default function VisualEditingLayout({
 
 	return (
 		<>
-			{showHeader && headerNavigation && (
-				<NavigationBar ref={navRef} navigation={headerNavigation} globals={globals} />
-			)}
+			{showHeader && headerNavigation && <NavigationBar ref={navRef} navigation={headerNavigation} globals={globals} />}
 			{children}
 			<Footer ref={footerRef} navigation={footerNavigation} globals={globals} />
 			<Suspense fallback={null}>

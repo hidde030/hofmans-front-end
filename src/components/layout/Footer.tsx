@@ -33,7 +33,6 @@ interface FooterProps {
 	};
 }
 
-
 const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, ref) => {
 	const directusURL = process.env.NEXT_PUBLIC_DIRECTUS_URL;
 	const logoUrl = globals?.logo ? `${directusURL}/assets/${globals.logo}` : '/images/logo-white.svg';

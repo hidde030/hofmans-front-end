@@ -9,13 +9,16 @@ import { ArrowLeft, ArrowRight, ZoomIn, X } from 'lucide-react';
 import { setAttr } from '@directus/visual-editing';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
+import type { DirectusFile } from '@/types/directus-schema';
 
 interface GalleryItem {
 	id: string;
-	directus_file: string;
+	directus_file?: DirectusFile | string | null;
 	sort?: number;
 	title?: string;
 	content?: string;
+	overlay_text?: boolean | null;
+	overlay_text_color?: string | null;
 }
 
 interface GalleryData {
@@ -83,67 +86,113 @@ const Gallery = ({ data }: GalleryProps) => {
 		return () => window.removeEventListener('keydown', handleKeyDown);
 	}, [isLightboxOpen]);
 
-	const renderGalleryItem = (item: GalleryItem, index: number) => (
-		<div
-			key={item.id}
-			className={cn('group', !disable_lightbox && 'cursor-pointer')}
-			onClick={() => handleOpenLightbox(index)}
-			aria-label={`Gallery item ${item.id}`}
-		>
-			<div className="relative aspect-square overflow-hidden rounded-xl shadow-md transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1">
-				{item.directus_file ? (
-					<DirectusImage
-						uuid={item.directus_file}
-						alt={item.title || `Gallery item ${item.id}`}
-						fill
-						sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-						className="size-full object-cover"
-					/>
-				) : (
-					<div className="flex items-center justify-center h-full bg-gray-100 text-sm text-gray-500">
-						Image not available
-					</div>
-				)}
-				{!disable_lightbox && (
-					<div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 flex justify-center items-center transition-opacity duration-300">
-						<div className="bg-white/90 p-3 rounded-full shadow-lg transform scale-90 group-hover:scale-100 transition-transform duration-300">
-							<ZoomIn className="size-6 text-gray-800" />
+	const renderGalleryItem = (item: GalleryItem, index: number) => {
+		const isOverlay = item.overlay_text;
+		const textColor = item.overlay_text_color;
+
+		// Determine text color style
+		let colorStyle = {};
+		if (textColor) {
+			if (textColor.toLowerCase() === 'orange') {
+				colorStyle = { color: 'var(--accent-color)' };
+			} else {
+				colorStyle = { color: textColor };
+			}
+		} else {
+			colorStyle = {
+				color: item.directus_file ? 'var(--accent-color)' : '#ffffff',
+			};
+		}
+
+		return (
+			<div
+				key={item.id}
+				className={cn('group', !disable_lightbox && 'cursor-pointer')}
+				onClick={() => handleOpenLightbox(index)}
+				aria-label={`Gallery item ${item.id}`}
+			>
+				<div className="relative aspect-square overflow-hidden rounded-xl shadow-md transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1">
+					{item.directus_file ? (
+						<>
+							<DirectusImage
+								uuid={typeof item.directus_file === 'string' ? item.directus_file : item.directus_file?.id ?? ''}
+								alt={item.title || `Gallery item ${item.id}`}
+								fill
+								sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+								className="size-full object-cover"
+							/>
+							{isOverlay && <div className="absolute inset-0 bg-black/10" />}
+						</>
+					) : (
+						<div
+							className={cn(
+								'flex items-center justify-center h-full text-sm',
+								isOverlay ? 'bg-[#6B6564]' : 'bg-gray-100 text-gray-500',
+							)}
+						>
+							{!isOverlay && 'Image not available'}
 						</div>
+					)}
+
+					{isOverlay && item.title && (
+						<div className="absolute inset-0 flex items-center justify-center p-4">
+							<h3
+								className="text-xl md:text-2xl font-bold font-heading tracking-wide"
+								style={colorStyle}
+								data-directus={setAttr({
+									collection: 'block_gallery_items',
+									item: item.id,
+									fields: 'title',
+									mode: 'popover',
+								})}
+							>
+								{item.title}
+							</h3>
+						</div>
+					)}
+
+					{!disable_lightbox && (
+						<div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 flex justify-center items-center transition-opacity duration-300">
+							<div className="bg-white/90 p-3 rounded-full shadow-lg transform scale-90 group-hover:scale-100 transition-transform duration-300">
+								<ZoomIn className="size-6 text-gray-800" />
+							</div>
+						</div>
+					)}
+				</div>
+
+				{!isOverlay && (item.title || item.content) && (
+					<div className="mt-4 text-center">
+						{item.title && (
+							<h3
+								className="text-lg font-bold text-[#42566E] font-heading line-clamp-1"
+								data-directus={setAttr({
+									collection: 'block_gallery_items',
+									item: item.id,
+									fields: 'title',
+									mode: 'popover',
+								})}
+							>
+								{item.title}
+							</h3>
+						)}
+						{item.content && (
+							<p
+								className="text-sm text-[#42566E]/70 line-clamp-2 mt-1"
+								data-directus={setAttr({
+									collection: 'block_gallery_items',
+									item: item.id,
+									fields: 'content',
+									mode: 'popover',
+								})}
+							>
+								{item.content}
+							</p>
+						)}
 					</div>
 				)}
 			</div>
-			{(item.title || item.content) && (
-				<div className="mt-4 text-center">
-					{item.title && (
-						<h3
-							className="text-lg font-bold text-[#42566E] font-heading line-clamp-1"
-							data-directus={setAttr({
-								collection: 'block_gallery_items',
-								item: item.id,
-								fields: 'title',
-								mode: 'popover',
-							})}
-						>
-							{item.title}
-						</h3>
-					)}
-					{item.content && (
-						<p
-							className="text-sm text-[#42566E]/70 line-clamp-2 mt-1"
-							data-directus={setAttr({
-								collection: 'block_gallery_items',
-								item: item.id,
-								fields: 'content',
-								mode: 'popover',
-							})}
-						>
-							{item.content}
-						</p>
-					)}
-				</div>
-			)}
-		</div>
-	);
+		);
+	};
 
 	const alignmentClasses = {
 		left: 'text-left',
@@ -204,9 +253,9 @@ const Gallery = ({ data }: GalleryProps) => {
 										</CarouselItem>
 									))}
 								</CarouselContent>
-								<div className="flex justify-center gap-4 mt-8 md:absolute md:top-0 md:w-full md:aspect-[3/1] md:pointer-events-none">
-									<CarouselPrevious className="static md:absolute md:left-0 lg:-left-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
-									<CarouselNext className="static md:absolute md:right-0 lg:-right-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
+								<div className="absolute top-0 left-0 w-full aspect-[1.5/1] sm:aspect-[2/1] md:aspect-[3/1] pointer-events-none">
+									<CarouselPrevious className="absolute left-4 md:-left-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
+									<CarouselNext className="absolute right-4 md:-right-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
 								</div>
 							</div>
 						</Carousel>
@@ -231,7 +280,7 @@ const Gallery = ({ data }: GalleryProps) => {
 
 						<div className="relative flex justify-center items-center w-[90vw] h-[90vh]">
 							<DirectusImage
-								uuid={sortedItems[currentIndex].directus_file}
+								uuid={typeof sortedItems[currentIndex].directus_file === 'string' ? sortedItems[currentIndex].directus_file : sortedItems[currentIndex].directus_file?.id ?? ''}
 								alt={`Gallery item ${sortedItems[currentIndex].id}`}
 								width={1200}
 								height={800}
