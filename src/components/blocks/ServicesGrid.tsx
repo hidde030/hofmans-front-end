@@ -27,28 +27,30 @@ export default function ServicesGrid({ data }: ServicesGridProps) {
 
 	return (
 		<section className="px-4 ">
-			{tagline && (
-				<Tagline
-					tagline={tagline}
-					data-directus={setAttr({
-						collection: 'block_services_grid',
-						item: id,
-						fields: 'tagline',
-						mode: 'popover',
-					})}
-				/>
-			)}
-			{headline && (
-				<Headline
-					headline={headline}
-					data-directus={setAttr({
-						collection: 'block_services_grid',
-						item: id,
-						fields: 'headline',
-						mode: 'popover',
-					})}
-				/>
-			)}
+			<div className="text-center">
+				{tagline && (
+					<Tagline
+						tagline={tagline}
+						data-directus={setAttr({
+							collection: 'block_services_grid',
+							item: id,
+							fields: 'tagline',
+							mode: 'popover',
+						})}
+					/>
+				)}
+				{headline && (
+					<Headline
+						headline={headline}
+						data-directus={setAttr({
+							collection: 'block_services_grid',
+							item: id,
+							fields: 'headline',
+							mode: 'popover',
+						})}
+					/>
+				)}
+			</div>
 
 			<div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 				{services.map((service) => {
