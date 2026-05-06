@@ -1,14 +1,15 @@
+
 export interface ExtensionSeoMetadata {
-	title?: string;
-	meta_description?: string;
-	og_image?: string;
-	additional_fields?: Record<string, unknown>;
-	sitemap?: {
-		change_frequency: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
-		priority: string;
-	};
-	no_index?: boolean;
-	no_follow?: boolean;
+    title?: string;
+    meta_description?: string;
+    og_image?: string;
+    additional_fields?: Record<string, unknown>;
+    sitemap?: {
+        change_frequency: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
+        priority: string;
+    };
+    no_index?: boolean;
+    no_follow?: boolean;
 }
 
 export interface AiPrompt {
@@ -96,6 +97,7 @@ export interface BlockGallery {
 	display_type?: 'grid' | 'carousel' | null;
 	disable_lightbox?: boolean | null;
 	alignment?: 'left' | 'center' | 'right' | null;
+	button_group?: BlockButtonGroup | string | null;
 	/** @description Images to include in the image gallery. */
 	items?: BlockGalleryItem[] | string[];
 }
@@ -134,7 +136,7 @@ export interface BlockHero {
 	/** @description Smaller copy shown above the headline to label a section or add extra context. */
 	tagline?: string | null;
 	/** @description The layout for the component. You can set the image to display left, right, or in the center of page.. */
-	layout?: 'image_cover' | 'image_left' | 'image_center' | 'image_right' | null;
+	layout?: 'image_cover' | 'image_left' | 'image_center' | 'image_right' | 'no_image' | null;
 	date_created?: string | null;
 	user_created?: DirectusUser | string | null;
 	date_updated?: string | null;
@@ -142,6 +144,8 @@ export interface BlockHero {
 	subtitle?: string | null;
 	phone?: string | null;
 	email?: string | null;
+	alignment?: 'left' | 'center' | 'right' | null;
+	full_width?: boolean | null;
 }
 
 export interface BlockPost {
@@ -250,6 +254,8 @@ export interface BlockTextImage {
 	content?: string | null;
 	image?: DirectusFile | string | null;
 	image_position?: 'left' | 'right' | null;
+	border?: 'none' | 'top' | 'bottom' | 'both' | null;
+	button_group?: BlockButtonGroup | string | null;
 }
 
 export interface FormField {
@@ -341,10 +347,7 @@ export interface Globals {
 	/** @primaryKey */
 	id: string;
 	/** @description Social media profile URLs */
-	social_links?: Array<{
-		url: string;
-		service: 'facebook' | 'instagram' | 'linkedin' | 'x' | 'vimeo' | 'youtube' | 'github' | 'discord' | 'docker';
-	}> | null;
+	social_links?: Array<{ url: string; service: 'facebook' | 'instagram' | 'linkedin' | 'x' | 'vimeo' | 'youtube' | 'github' | 'discord' | 'docker' }> | null;
 	/** @description Short phrase describing the site. */
 	tagline?: string | null;
 	/** @description Main site title */
@@ -454,7 +457,7 @@ export interface Page {
 	user_updated?: DirectusUser | string | null;
 	header_navigation?: Navigation | string | null;
 	header_background_color?: string | null;
-	header_logo?: DirectusFile | string | null;
+	header_logo?: any | string | null;
 	hide_home_link?: boolean | null;
 	/** @description Create and arrange different content blocks (like text, images, or videos) to build your page. */
 	blocks?: PageBlock[] | string[];
@@ -532,20 +535,7 @@ export interface ServiceBlock {
 	/** @primaryKey */
 	id: string;
 	service_id?: Service | string | null;
-	item?:
-		| BlockHero
-		| BlockRichtext
-		| BlockForm
-		| BlockPost
-		| BlockGallery
-		| BlockPricing
-		| BlockTextImage
-		| BlockButtonGroup
-		| BlockGalleryItem
-		| BlockButton
-		| BlockRelatedService
-		| string
-		| null;
+	item?: BlockHero | BlockRichtext | BlockForm | BlockPost | BlockGallery | BlockPricing | BlockTextImage | BlockButtonGroup | BlockGalleryItem | BlockButton | BlockRelatedService | string | null;
 	collection?: string | null;
 	sort?: number | null;
 }
@@ -803,31 +793,12 @@ export interface DirectusSettings {
 	public_background?: DirectusFile | string | null;
 	public_note?: string | null;
 	auth_login_attempts?: number | null;
-	auth_password_policy?:
-		| null
-		| `/^.{8,}$/`
-		| `/(?=^.{8,}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{';'?>.<,])(?!.*\\s).*$/`
-		| null;
+	auth_password_policy?: null | `/^.{8,}$/` | `/(?=^.{8,}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{';'?>.<,])(?!.*\\s).*$/` | null;
 	storage_asset_transform?: 'all' | 'none' | 'presets' | null;
-	storage_asset_presets?: Array<{
-		key: string;
-		fit: 'contain' | 'cover' | 'inside' | 'outside';
-		width: number;
-		height: number;
-		quality: number;
-		withoutEnlargement: boolean;
-		format: 'auto' | 'jpeg' | 'png' | 'webp' | 'tiff' | 'avif';
-		transforms: 'json';
-	}> | null;
+	storage_asset_presets?: Array<{ key: string; fit: 'contain' | 'cover' | 'inside' | 'outside'; width: number; height: number; quality: number; withoutEnlargement: boolean; format: 'auto' | 'jpeg' | 'png' | 'webp' | 'tiff' | 'avif'; transforms: 'json' }> | null;
 	custom_css?: string | null;
 	storage_default_folder?: DirectusFolder | string | null;
-	basemaps?: Array<{
-		name: string;
-		type: 'raster' | 'tile' | 'style';
-		url: string;
-		tileSize: number;
-		attribution: string;
-	}> | null;
+	basemaps?: Array<{ name: string; type: 'raster' | 'tile' | 'style'; url: string; tileSize: number; attribution: string }> | null;
 	mapbox_key?: string | null;
 	module_bar?: 'json' | null;
 	project_descriptor?: string | null;
@@ -867,42 +838,11 @@ export interface DirectusSettings {
 	ai_openai_compatible_api_key?: string | null;
 	ai_openai_compatible_base_url?: string | null;
 	ai_openai_compatible_name?: string | null;
-	ai_openai_compatible_models?: Array<{
-		id: string;
-		name: string;
-		context: number;
-		output: number;
-		attachment: boolean;
-		reasoning: boolean;
-		providerOptions: Record<string, any>;
-	}> | null;
+	ai_openai_compatible_models?: Array<{ id: string; name: string; context: number; output: number; attachment: boolean; reasoning: boolean; providerOptions: Record<string, any> }> | null;
 	ai_openai_compatible_headers?: Array<{ header: string; value: string }> | null;
-	ai_openai_allowed_models?: Array<
-		| `gpt-4o-mini`
-		| `gpt-4.1-nano`
-		| `gpt-4.1-mini`
-		| `gpt-4.1`
-		| `gpt-5-nano`
-		| `gpt-5-mini`
-		| `gpt-5`
-		| `gpt-5.2`
-		| `gpt-5.2-chat-latest`
-		| `gpt-5.2-pro`
-		| `gpt-5.4`
-		| `gpt-5.4-pro`
-	> | null;
-	ai_anthropic_allowed_models?: Array<
-		`claude-haiku-4-5` | `claude-sonnet-4-5` | `claude-opus-4-5` | `claude-sonnet-4-6` | `claude-opus-4-6`
-	> | null;
-	ai_google_allowed_models?: Array<
-		| `gemini-3-pro-preview`
-		| `gemini-3-flash-preview`
-		| `gemini-2.5-pro`
-		| `gemini-2.5-flash`
-		| `gemini-3.1-pro-preview`
-		| `gemini-3.1-flash-lite-preview`
-		| `gemini-2.5-flash-lite`
-	> | null;
+	ai_openai_allowed_models?: Array<`gpt-4o-mini` | `gpt-4.1-nano` | `gpt-4.1-mini` | `gpt-4.1` | `gpt-5-nano` | `gpt-5-mini` | `gpt-5` | `gpt-5.2` | `gpt-5.2-chat-latest` | `gpt-5.2-pro` | `gpt-5.4` | `gpt-5.4-pro`> | null;
+	ai_anthropic_allowed_models?: Array<`claude-haiku-4-5` | `claude-sonnet-4-5` | `claude-opus-4-5` | `claude-sonnet-4-6` | `claude-opus-4-6`> | null;
+	ai_google_allowed_models?: Array<`gemini-3-pro-preview` | `gemini-3-flash-preview` | `gemini-2.5-pro` | `gemini-2.5-flash` | `gemini-3.1-pro-preview` | `gemini-3.1-flash-lite-preview` | `gemini-2.5-flash-lite`> | null;
 	collaborative_editing_enabled?: boolean;
 	collaborative_editing_settings?: Record<string, any> | null;
 }
@@ -1243,5 +1183,5 @@ export enum CollectionNames {
 	directus_deployments = 'directus_deployments',
 	directus_deployment_projects = 'directus_deployment_projects',
 	directus_deployment_runs = 'directus_deployment_runs',
-	directus_sync_id_map = 'directus_sync_id_map',
+	directus_sync_id_map = 'directus_sync_id_map'
 }

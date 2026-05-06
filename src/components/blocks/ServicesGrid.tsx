@@ -26,7 +26,7 @@ export default function ServicesGrid({ data }: ServicesGridProps) {
 	const { id, headline, tagline, services = [] } = data;
 
 	return (
-		<section>
+		<section className="px-4 ">
 			{tagline && (
 				<Tagline
 					tagline={tagline}

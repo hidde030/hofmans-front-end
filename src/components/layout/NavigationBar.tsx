@@ -29,8 +29,9 @@ interface NavigationBarProps {
 const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 	({ navigation, globals, customBackgroundColor, customLogo, hideHomeLink, pageId }, ref) => {
 		const [menuOpen, setMenuOpen] = useState(false);
-
 		const headerBgColor = customBackgroundColor || globals?.accent_color || '#f0972a';
+
+		const hasCustomHeaderSettings = Boolean(customBackgroundColor || customLogo || hideHomeLink);
 		const logoToUse = customLogo || globals?.logo;
 		const logoUrl = logoToUse ? getDirectusAssetURL(logoToUse) : '/images/logo-white.svg';
 
@@ -45,7 +46,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 					className="py-3 md:py-10 px-8 md:px-6"
 					style={{ backgroundColor: headerBgColor }}
 					data-directus={
-						pageId && (customBackgroundColor !== undefined || customLogo !== undefined || hideHomeLink !== undefined)
+						pageId && hasCustomHeaderSettings
 							? setAttr({
 									collection: 'pages',
 									item: pageId,
@@ -91,7 +92,10 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 						<button
 							onClick={() => setMenuOpen(!menuOpen)}
 							aria-label={menuOpen ? 'Sluit menu' : 'Open menu'}
-							className="md:hidden text-white hover:text-white/80 transition-colors p-2"
+							className={cn(
+								'md:hidden transition-colors p-2',
+								hasCustomHeaderSettings ? 'text-orange-300 hover:text-orange-300/80' : 'text-white hover:text-white/80',
+							)}
 						>
 							{menuOpen ? <X size={28} /> : <Menu size={28} />}
 						</button>
