@@ -89,15 +89,8 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 								/>
 							</div>
 						) : (
-							<Link href="/" aria-label="Naar homepagina" className="flex-shrink-0" onClick={handleLinkClick}>
-								<Image
-									src={logoUrl}
-									alt={globals?.title || 'Hofmans'}
-									width={180}
-									height={50}
-									className="h-8 md:h-12 w-auto transition-all"
-									priority
-								/>
+							<Link href="/" className="inline-flex text-4xl text-white  md:text-5xl " onClick={handleLinkClick}>
+								Hofmans
 							</Link>
 						)}
 
