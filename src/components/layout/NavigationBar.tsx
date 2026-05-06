@@ -101,7 +101,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 				{/* Witte navigatiebalk - Verborgen op mobile als dropdown dicht is */}
 				<nav
 					className={cn(
-						'bg-white border-b border-t border-t-2 border-b-2 border-black transition-all duration-300 ease-in-out',
+						'bg-white border-t-2 border-b-2 border-black transition-all duration-300 ease-in-out',
 						menuOpen ? 'block' : 'hidden md:block',
 					)}
 					data-directus={
