@@ -42,7 +42,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 			<header ref={ref} className="w-full z-50 relative shadow-sm">
 				{/* Oranje topbalk met logo - Op mobile gecombineerd met menu */}
 				<div
-					className="py-3 md:py-5 px-8 md:px-6"
+					className="py-3 md:py-10 px-8 md:px-6"
 					style={{ backgroundColor: headerBgColor }}
 					data-directus={
 						pageId && (customBackgroundColor !== undefined || customLogo !== undefined || hideHomeLink !== undefined)
@@ -75,7 +75,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 								/>
 							</div>
 						) : (
-							<Link href="/" aria-label="Naar homepagina" className="flex-shrink-0">
+							<Link href="/" aria-label="Naar homepagina" className="flex-shrink-0" onClick={handleLinkClick}>
 								<Image
 									src={logoUrl}
 									alt={globals?.title || 'Hofmans'}
