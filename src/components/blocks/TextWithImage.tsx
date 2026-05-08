@@ -7,6 +7,7 @@ import Text from '@/components/ui/Text';
 import DirectusImage from '@/components/shared/DirectusImage';
 import ButtonGroup from '@/components/blocks/ButtonGroup';
 import { setAttr } from '@directus/visual-editing';
+import type { ButtonProps } from '@/components/blocks/Button';
 
 interface TextWithImageProps {
 	data: {
@@ -19,7 +20,7 @@ interface TextWithImageProps {
 		border?: 'none' | 'top' | 'bottom' | 'both';
 		button_group?: {
 			id: string;
-			buttons: any[];
+			buttons: ButtonProps[];
 		} | null;
 	};
 	className?: string;
@@ -53,7 +54,7 @@ const TextWithImage = ({ data, className }: TextWithImageProps) => {
 						data-directus={setAttr({
 							collection: 'block_text_image',
 							item: id,
-						fields: ['headline', 'button_group', 'border'],
+							fields: ['headline', 'button_group', 'border'],
 							mode: 'popover',
 						})}
 					/>

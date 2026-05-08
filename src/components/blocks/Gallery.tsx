@@ -5,6 +5,7 @@ import DirectusImage from '@/components/shared/DirectusImage';
 import Tagline from '../ui/Tagline';
 import Headline from '@/components/ui/Headline';
 import ButtonGroup from '@/components/blocks/ButtonGroup';
+import type { ButtonProps } from '@/components/blocks/Button';
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogClose } from '@/components/ui/dialog';
 import { ArrowLeft, ArrowRight, ZoomIn, X } from 'lucide-react';
 import { setAttr } from '@directus/visual-editing';
@@ -32,7 +33,7 @@ interface GalleryData {
 	alignment?: 'left' | 'center' | 'right' | null;
 	button_group?: {
 		id: string;
-		buttons: any[];
+		buttons: ButtonProps[];
 	} | null;
 }
 
@@ -120,7 +121,7 @@ const Gallery = ({ data }: GalleryProps) => {
 					{item.directus_file ? (
 						<>
 							<DirectusImage
-								uuid={typeof item.directus_file === 'string' ? item.directus_file : item.directus_file?.id ?? ''}
+								uuid={typeof item.directus_file === 'string' ? item.directus_file : (item.directus_file?.id ?? '')}
 								alt={item.title || `Gallery item ${item.id}`}
 								fill
 								sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -310,7 +311,11 @@ const Gallery = ({ data }: GalleryProps) => {
 
 						<div className="relative flex justify-center items-center w-[90vw] h-[90vh]">
 							<DirectusImage
-								uuid={typeof sortedItems[currentIndex].directus_file === 'string' ? sortedItems[currentIndex].directus_file : sortedItems[currentIndex].directus_file?.id ?? ''}
+								uuid={
+									typeof sortedItems[currentIndex].directus_file === 'string'
+										? sortedItems[currentIndex].directus_file
+										: (sortedItems[currentIndex].directus_file?.id ?? '')
+								}
 								alt={`Gallery item ${sortedItems[currentIndex].id}`}
 								width={1200}
 								height={800}
