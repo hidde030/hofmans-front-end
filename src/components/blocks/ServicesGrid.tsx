@@ -61,7 +61,7 @@ export default function ServicesGrid({ data }: ServicesGridProps) {
 						<Link
 							key={service.id}
 							href={`/diensten/${service.slug}`}
-							className="relative aspect-square flex items-center justify-center overflow-hidden group bg-gray-500"
+							className="relative aspect-square flex items-center justify-center overflow-hidden group bg-gray-400 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer "
 						>
 							{imageUuid && (
 								<DirectusImage
@@ -72,8 +72,8 @@ export default function ServicesGrid({ data }: ServicesGridProps) {
 									className="object-cover transition-transform duration-300 group-hover:scale-105"
 								/>
 							)}
-							<div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors duration-300" />
-							<h3 className="relative z-10 text-white text-2xl md:text-3xl font-bold text-center px-4">
+							<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent group-hover:from-black/50 group-hover:via-black/20 transition-colors duration-300" />
+							<h3 className="relative z-10 text-white text-2xl md:text-3xl font-bold text-center px-4 drop-shadow-lg">
 								{service.title}
 							</h3>
 						</Link>
