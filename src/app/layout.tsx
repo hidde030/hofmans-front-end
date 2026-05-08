@@ -30,7 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
-	const { globals, headerNavigation, footerNavigation } = await fetchSiteData();
+	const { globals, footerNavigation } = await fetchSiteData();
 	const accentColor = globals?.accent_color || '#6644ff';
 
 	return (
