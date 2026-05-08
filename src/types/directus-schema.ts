@@ -100,7 +100,6 @@ export interface BlockGallery {
 	button_group?: BlockButtonGroup | string | null;
 	/** @description Images to include in the image gallery. */
 	items?: BlockGalleryItem[] | string[];
-	button_group?: BlockButtonGroup | string | null;
 }
 
 export interface BlockGalleryItem {
