@@ -22,7 +22,8 @@ const PageBuilder = ({ sections }: PageBuilderProps) => {
 				const isFullWidth = isHero && (block.item as any).layout === 'image_cover';
 				const Wrapper = isFullWidth ? React.Fragment : Container;
 
-				const borderPosition = (block.item as any).border;
+				const borderPosition =
+					block.collection === 'block_text_image' ? (block.item as any).border : undefined;
 
 				return (
 					<div
