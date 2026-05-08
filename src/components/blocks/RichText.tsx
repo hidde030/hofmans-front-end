@@ -56,7 +56,7 @@ const RichText = ({ data, className }: RichTextProps) => {
 	return (
 		<div
 			className={cn(
-				'mx-auto container space-y-6 px-8 [&_.prose]:text-inherit',
+				'w-full space-y-6 px-8 [&_.prose]:text-inherit',
 				alignment === 'center'
 					? 'text-center flex flex-col items-center'
 					: alignment === 'right'
@@ -90,6 +90,7 @@ const RichText = ({ data, className }: RichTextProps) => {
 			{content && (
 				<Text
 					content={content}
+					className="max-w-none"
 					data-directus={setAttr({
 						collection: 'block_richtext',
 						item: id,
