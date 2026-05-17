@@ -19,6 +19,9 @@ const ContentSecurityPolicy = `
 `;
 
 const nextConfig: NextConfig = {
+
+	turbopack: {},
+
 	webpack: (config) => {
 		config.cache = false;
 
