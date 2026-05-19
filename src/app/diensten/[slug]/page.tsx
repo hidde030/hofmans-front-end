@@ -33,10 +33,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 	const { slug } = await params;
 
 	try {
-		const [service, { globals, headerNavigation }] = await Promise.all([
-			fetchServiceData(slug),
-			fetchSiteData(),
-		]);
+		const [service, { globals, headerNavigation }] = await Promise.all([fetchServiceData(slug), fetchSiteData()]);
 
 		if (!service || !service.blocks) {
 			notFound();
