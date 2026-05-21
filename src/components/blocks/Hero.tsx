@@ -37,7 +37,20 @@ interface HeroProps {
 }
 
 export default function Hero({ data }: HeroProps) {
-	const { id, layout, tagline, headline, subtitle, description, phone, email, image, button_group, alignment, full_width } = data;
+	const {
+		id,
+		layout,
+		tagline,
+		headline,
+		subtitle,
+		description,
+		phone,
+		email,
+		image,
+		button_group,
+		alignment,
+		full_width,
+	} = data;
 
 	const alignmentClasses = {
 		left: 'text-left items-start',
@@ -55,7 +68,10 @@ export default function Hero({ data }: HeroProps) {
 				layout === 'image_center' || layout === 'no_image'
 					? cn('items-center', alignmentClasses[currentAlignment])
 					: layout === 'image_cover'
-						? cn('items-center justify-center min-h-[60vh] md:min-h-[70vh] overflow-hidden', alignmentClasses[currentAlignment])
+						? cn(
+								'items-center justify-center min-h-[60vh] md:min-h-[70vh] overflow-hidden',
+								alignmentClasses[currentAlignment],
+							)
 						: layout === 'image_left'
 							? 'md:flex-row-reverse items-center text-center md:text-left'
 							: 'md:flex-row items-center text-center md:text-left',
@@ -200,9 +216,9 @@ export default function Hero({ data }: HeroProps) {
 					className={cn(
 						layout === 'image_cover' ? 'absolute inset-0 z-0' : 'relative w-full',
 						layout !== 'image_cover' &&
-						(layout === 'image_center'
-							? 'h-[300px] md:h-[400px] mt-8'
-							: 'aspect-square md:aspect-auto md:w-1/2 h-auto md:h-[562px]'),
+							(layout === 'image_center'
+								? 'h-[300px] md:h-[400px] mt-8'
+								: 'aspect-square md:aspect-auto md:w-1/2 h-auto md:h-[562px]'),
 					)}
 					data-directus={setAttr({
 						collection: 'block_hero',

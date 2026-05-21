@@ -46,7 +46,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 
 		const hasCustomHeaderSettings = Boolean(customBackgroundColor || customLogo || hideHomeLink);
 		const logoToUse = customLogo || globals?.logo;
-		const logoUrl = logoToUse ? getDirectusAssetURL(logoToUse) : '/images/logo-white.svg';
+		const logoUrl = logoToUse ? getDirectusAssetURL(logoToUse) : '/images/Logo.png';
 
 		const handleLinkClick = () => {
 			setMenuOpen(false);
@@ -61,18 +61,18 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 					data-directus={
 						pageId && hasCustomHeaderSettings
 							? setAttr({
-									collection: 'pages',
-									item: pageId,
-									fields: ['header_background_color', 'header_logo', 'hide_home_link'],
-									mode: 'modal',
-								})
+								collection: 'pages',
+								item: pageId,
+								fields: ['header_background_color', 'header_logo', 'hide_home_link'],
+								mode: 'modal',
+							})
 							: globals
 								? setAttr({
-										collection: 'globals',
-										item: globals.id ?? null,
-										fields: ['logo', 'accent_color'],
-										mode: 'modal',
-									})
+									collection: 'globals',
+									item: globals.id ?? null,
+									fields: ['logo', 'accent_color'],
+									mode: 'modal',
+								})
 								: undefined
 					}
 				>
@@ -89,8 +89,15 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 								/>
 							</div>
 						) : (
-							<Link href="/" className="inline-flex text-4xl text-white  md:text-5xl " onClick={handleLinkClick}>
-								Hofmans
+							<Link href="/" className="flex-shrink-0" onClick={handleLinkClick}>
+								<Image
+									src={logoUrl}
+									alt={globals?.title || 'Hofmans'}
+									width={180}
+									height={50}
+									className="h-8 md:h-12 w-auto transition-all"
+									priority
+								/>
 							</Link>
 						)}
 
@@ -136,11 +143,11 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 					data-directus={
 						navigation
 							? setAttr({
-									collection: 'navigation',
-									item: navigation.id ?? null,
-									fields: ['items'],
-									mode: 'modal',
-								})
+								collection: 'navigation',
+								item: navigation.id ?? null,
+								fields: ['items'],
+								mode: 'modal',
+							})
 							: undefined
 					}
 				>
