@@ -84,7 +84,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 									alt={globals?.title || 'Hofmans'}
 									width={180}
 									height={50}
-									className="h-8 md:h-12 w-auto transition-all"
+									className="h-8 md:h-40 w-auto transition-all"
 									priority
 								/>
 							</div>
@@ -95,7 +95,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 									alt={globals?.title || 'Hofmans'}
 									width={180}
 									height={50}
-									className="h-8 md:h-12 w-auto transition-all"
+									className="h-8 md:h-40 w-auto transition-all"
 									priority
 								/>
 							</Link>
