@@ -47,7 +47,6 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 		const hasCustomHeaderSettings = Boolean(customBackgroundColor || customLogo || hideHomeLink);
 		const logoToUse = customLogo || globals?.logo;
 		const logoUrl = logoToUse ? getDirectusAssetURL(logoToUse) : '/images/Logo.png';
-
 		const handleLinkClick = () => {
 			setMenuOpen(false);
 		};
@@ -61,18 +60,18 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 					data-directus={
 						pageId && hasCustomHeaderSettings
 							? setAttr({
-								collection: 'pages',
-								item: pageId,
-								fields: ['header_background_color', 'header_logo', 'hide_home_link'],
-								mode: 'modal',
-							})
-							: globals
-								? setAttr({
-									collection: 'globals',
-									item: globals.id ?? null,
-									fields: ['logo', 'accent_color'],
+									collection: 'pages',
+									item: pageId,
+									fields: ['header_background_color', 'header_logo', 'hide_home_link'],
 									mode: 'modal',
 								})
+							: globals
+								? setAttr({
+										collection: 'globals',
+										item: globals.id ?? null,
+										fields: ['logo', 'accent_color'],
+										mode: 'modal',
+									})
 								: undefined
 					}
 				>
@@ -143,11 +142,11 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 					data-directus={
 						navigation
 							? setAttr({
-								collection: 'navigation',
-								item: navigation.id ?? null,
-								fields: ['items'],
-								mode: 'modal',
-							})
+									collection: 'navigation',
+									item: navigation.id ?? null,
+									fields: ['items'],
+									mode: 'modal',
+								})
 							: undefined
 					}
 				>
