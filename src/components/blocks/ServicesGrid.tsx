@@ -61,7 +61,8 @@ export default function ServicesGrid({ data }: ServicesGridProps) {
 						<Link
 							key={service.id}
 							href={`/diensten/${service.slug}`}
-							className="group relative flex aspect-square cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-gray-400 shadow-lg transition-all duration-300 hover:shadow-2xl"
+							aria-label={`Bekijk ${service.title}`}
+							className="group relative flex aspect-square transform-gpu cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-gray-400 shadow-lg transition-transform duration-300 hover:shadow-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-white/20"
 						>
 							{imageUuid && (
 								<DirectusImage
@@ -72,10 +73,30 @@ export default function ServicesGrid({ data }: ServicesGridProps) {
 									className="object-cover transition-transform duration-300 group-hover:scale-105"
 								/>
 							)}
+
 							<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent transition-colors duration-300 group-hover:from-black/50 group-hover:via-black/20" />
+
 							<h3 className="relative z-10 px-4 text-center text-2xl font-bold text-white drop-shadow-lg md:text-3xl">
 								{service.title}
 							</h3>
+
+							<div className="absolute bottom-4 z-20 flex translate-y-2 items-center gap-3 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+								<span className="rounded-full bg-white/10 px-3 py-1 text-sm font-medium text-white backdrop-blur-sm">
+									Lees meer
+								</span>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									className="h-5 w-5 text-white transition-transform duration-300 group-hover:translate-x-1"
+									aria-hidden
+								>
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h14M13 5l7 7-7 7" />
+								</svg>
+							</div>
+
+							<div className="pointer-events-none absolute inset-0 rounded-xl border border-transparent transition-opacity duration-300 group-hover:border-white/10" />
 						</Link>
 					);
 				})}
