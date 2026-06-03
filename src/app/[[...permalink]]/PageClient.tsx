@@ -71,7 +71,7 @@ export default function PageClient({
 	const navigationToUse = customNavigation || headerNavigation;
 
 	return (
-		<div className="relative flex flex-col min-h-screen">
+		<div className="relative flex min-h-screen flex-col">
 			<NavigationBar
 				ref={navRef}
 				navigation={navigationToUse}
@@ -85,7 +85,7 @@ export default function PageClient({
 				<PageBuilder sections={sections} />
 			</main>
 			{isVisualEditingEnabled && pageId && (
-				<div className="fixed z-50 w-full bottom-4 inset-x-0 p-4 flex justify-center items-center gap-2">
+				<div className="fixed inset-x-0 bottom-4 z-50 flex w-full items-center justify-center gap-2 p-4">
 					{/* If you're not using the visual editor it's safe to remove this element. Just a helper to let editors add edit / add new blocks to a page. */}
 					<Button
 						id="visual-editing-button"
@@ -98,7 +98,7 @@ export default function PageClient({
 							mode: 'modal',
 						})}
 					>
-						<Pencil className="size-4 mr-2" />
+						<Pencil className="mr-2 size-4" />
 						Edit All Blocks
 					</Button>
 				</div>

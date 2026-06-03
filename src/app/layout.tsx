@@ -35,7 +35,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 
 	return (
 		<html lang="en" style={{ '--accent-color': accentColor } as React.CSSProperties} suppressHydrationWarning>
-			<body className="antialiased font-sans flex flex-col min-h-screen">
+			<body className="flex min-h-screen flex-col font-sans antialiased">
 				<ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
 					<VisualEditingLayout footerNavigation={footerNavigation} globals={globals} showHeader={false}>
 						{children}

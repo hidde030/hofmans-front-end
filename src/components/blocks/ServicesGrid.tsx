@@ -26,7 +26,7 @@ export default function ServicesGrid({ data }: ServicesGridProps) {
 	const { id, headline, tagline, services = [] } = data;
 
 	return (
-		<section className="px-4 ">
+		<section className="px-4">
 			<div className="text-center">
 				{tagline && (
 					<Tagline
@@ -52,7 +52,7 @@ export default function ServicesGrid({ data }: ServicesGridProps) {
 				)}
 			</div>
 
-			<div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+			<div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
 				{services.map((service) => {
 					if (!service.slug) return null;
 					const imageUuid = typeof service.image === 'string' ? service.image : service.image?.id;
@@ -61,7 +61,7 @@ export default function ServicesGrid({ data }: ServicesGridProps) {
 						<Link
 							key={service.id}
 							href={`/diensten/${service.slug}`}
-							className="relative aspect-square flex items-center justify-center overflow-hidden group bg-gray-400 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer "
+							className="group relative flex aspect-square cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-gray-400 shadow-lg transition-all duration-300 hover:shadow-2xl"
 						>
 							{imageUuid && (
 								<DirectusImage
@@ -72,8 +72,8 @@ export default function ServicesGrid({ data }: ServicesGridProps) {
 									className="object-cover transition-transform duration-300 group-hover:scale-105"
 								/>
 							)}
-							<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent group-hover:from-black/50 group-hover:via-black/20 transition-colors duration-300" />
-							<h3 className="relative z-10 text-white text-2xl md:text-3xl font-bold text-center px-4 drop-shadow-lg">
+							<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent transition-colors duration-300 group-hover:from-black/50 group-hover:via-black/20" />
+							<h3 className="relative z-10 px-4 text-center text-2xl font-bold text-white drop-shadow-lg md:text-3xl">
 								{service.title}
 							</h3>
 						</Link>

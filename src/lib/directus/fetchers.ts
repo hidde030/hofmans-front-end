@@ -1,7 +1,6 @@
 import { BlockPost, PageBlock, Post, Redirect, Schema, Service } from '@/types/directus-schema';
 import { useDirectus } from './directus';
 import { readItems, aggregate, readItem, readSingleton, withToken, QueryFilter } from '@directus/sdk';
-import { RedirectError } from '../redirects';
 
 export const fetchServiceData = async (slug: string) => {
 	const { directus, readItems } = useDirectus();

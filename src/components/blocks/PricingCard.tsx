@@ -27,13 +27,13 @@ export interface PricingCardProps {
 const PricingCard = ({ card }: PricingCardProps) => {
 	return (
 		<div
-			className={`flex flex-col max-w-[600px] md:min-h-[424px] border rounded-lg p-6 ${
+			className={`flex max-w-[600px] flex-col rounded-lg border p-6 md:min-h-[424px] ${
 				card.is_highlighted ? 'border-accent' : 'border-input'
 			}`}
 		>
-			<div className="flex justify-between items-start gap-2 mb-4">
+			<div className="mb-4 flex items-start justify-between gap-2">
 				<h3
-					className="text-xl font-heading text-foreground"
+					className="font-heading text-xl text-foreground"
 					data-directus={setAttr({
 						collection: 'block_pricing_cards',
 						item: card.id,
@@ -62,7 +62,7 @@ const PricingCard = ({ card }: PricingCardProps) => {
 			</div>
 			{card.price && (
 				<p
-					className="text-h2 mt-2 font-semibold"
+					className="mt-2 text-h2 font-semibold"
 					data-directus={setAttr({
 						collection: 'block_pricing_cards',
 						item: card.id,
@@ -75,7 +75,7 @@ const PricingCard = ({ card }: PricingCardProps) => {
 			)}
 			{card.description && (
 				<p
-					className="text-description mt-2 line-clamp-2"
+					className="mt-2 line-clamp-2 text-description"
 					data-directus={setAttr({
 						collection: 'block_pricing_cards',
 						item: card.id,

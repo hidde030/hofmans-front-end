@@ -25,7 +25,7 @@ export default async function BlogPostPage({
 		]);
 
 		if (!post) {
-			return <div className="text-center text-xl mt-[20%]">404 - Post Not Found</div>;
+			return <div className="mt-[20%] text-center text-xl">404 - Post Not Found</div>;
 		}
 
 		const author = post.author as DirectusUser | null;
@@ -47,6 +47,6 @@ export default async function BlogPostPage({
 	} catch (error) {
 		console.error('Error loading blog post:', error);
 
-		return <div className="text-center text-xl mt-[20%]">404 - Post Not Found</div>;
+		return <div className="mt-[20%] text-center text-xl">404 - Post Not Found</div>;
 	}
 }

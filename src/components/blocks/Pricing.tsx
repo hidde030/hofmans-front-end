@@ -56,7 +56,7 @@ const Pricing = ({ data }: PricingProps) => {
 			{headline && (
 				<Headline
 					headline={headline}
-					className="text-center md:text-left text-3xl md:text-4xl lg:text-5xl"
+					className="text-center text-3xl md:text-left md:text-4xl lg:text-5xl"
 					data-directus={setAttr({
 						collection: 'block_pricing',
 						item: id,
@@ -66,7 +66,7 @@ const Pricing = ({ data }: PricingProps) => {
 				/>
 			)}
 			<div
-				className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-12"
+				className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-3"
 				data-directus={setAttr({
 					collection: 'block_pricing',
 					item: id,

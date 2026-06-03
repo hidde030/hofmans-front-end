@@ -125,7 +125,7 @@ const Posts = ({ data }: PostsProps) => {
 			)}
 
 			<div
-				className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+				className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3"
 				data-directus={setAttr({
 					collection: 'block_posts',
 					item: id,
@@ -136,22 +136,22 @@ const Posts = ({ data }: PostsProps) => {
 				{paginatedPosts.length > 0 ? (
 					paginatedPosts.map((post) => (
 						<Link key={post.id} href={`/blog/${post.slug}`} className="group block overflow-hidden rounded-lg">
-							<div className="relative w-full h-64 rounded-lg overflow-hidden">
+							<div className="relative h-64 w-full overflow-hidden rounded-lg">
 								{post.image && (
 									<DirectusImage
 										uuid={typeof post.image === 'string' ? post.image : post.image?.id}
 										alt={post.title}
 										fill
 										sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-										className="w-full h-auto object-cover rounded-lg transition-transform duration-300 group-hover:scale-110"
+										className="h-auto w-full rounded-lg object-cover transition-transform duration-300 group-hover:scale-110"
 									/>
 								)}
 							</div>
 							<div className="p-4">
-								<h3 className="text-xl group-hover:text-accent font-heading transition-colors duration-300">
+								<h3 className="font-heading text-xl transition-colors duration-300 group-hover:text-accent">
 									{post.title}
 								</h3>
-								{post.description && <p className="text-sm text-foreground mt-2">{post.description}</p>}
+								{post.description && <p className="mt-2 text-sm text-foreground">{post.description}</p>}
 							</div>
 						</Link>
 					))
