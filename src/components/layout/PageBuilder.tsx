@@ -32,7 +32,7 @@ const PageBuilder = ({ sections }: PageBuilderProps) => {
 							isFullWidth ? undefined : 'py-16',
 							borderPosition === 'top' && 'border-t-2 border-black',
 							borderPosition === 'bottom' && 'border-b-2 border-black',
-							borderPosition === 'both' && 'border-t-2 border-b-2 border-black',
+							borderPosition === 'both' && 'border-b-2 border-t-2 border-black',
 						)}
 						{...(block.collection === 'block_text_image' && {
 							'data-directus': setAttr({

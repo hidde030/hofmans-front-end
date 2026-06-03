@@ -64,27 +64,27 @@ export default function Hero({ data }: HeroProps) {
 	return (
 		<section
 			className={cn(
-				'relative w-full mx-auto flex flex-col gap-8 md:gap-12 px-8',
+				'relative mx-auto flex w-full flex-col gap-8 px-8 md:gap-12',
 				layout === 'image_center' || layout === 'no_image'
 					? cn('items-center', alignmentClasses[currentAlignment])
 					: layout === 'image_cover'
 						? cn(
-								'items-center justify-center min-h-[60vh] md:min-h-[70vh] overflow-hidden',
+								'min-h-[60vh] items-center justify-center overflow-hidden md:min-h-[70vh]',
 								alignmentClasses[currentAlignment],
 							)
 						: layout === 'image_left'
-							? 'md:flex-row-reverse items-center text-center md:text-left'
-							: 'md:flex-row items-center text-center md:text-left',
+							? 'items-center text-center md:flex-row-reverse md:text-left'
+							: 'items-center text-center md:flex-row md:text-left',
 			)}
 		>
 			<div
 				className={cn(
-					'flex flex-col gap-4 w-full relative z-10',
+					'relative z-10 flex w-full flex-col gap-4',
 					full_width || layout === 'no_image'
 						? cn('w-full', alignmentClasses[currentAlignment])
 						: layout === 'image_center' || layout === 'image_cover'
 							? cn('md:w-3/4 xl:w-2/3', alignmentClasses[currentAlignment])
-							: 'md:w-1/2 items-center md:items-start',
+							: 'items-center md:w-1/2 md:items-start',
 				)}
 			>
 				<Tagline
@@ -100,7 +100,7 @@ export default function Hero({ data }: HeroProps) {
 				<Headline
 					headline={headline}
 					className={cn(
-						'text-3xl sm:text-4xl md:text-5xl lg:text-7xl break-words',
+						'break-words text-3xl sm:text-4xl md:text-5xl lg:text-7xl',
 						layout === 'image_cover' && 'text-white',
 					)}
 					data-directus={setAttr({
@@ -145,7 +145,7 @@ export default function Hero({ data }: HeroProps) {
 				{(phone || email) && (
 					<div
 						className={cn(
-							'flex flex-col sm:flex-row items-center gap-4 sm:gap-8 mt-6 md:mt-8',
+							'mt-6 flex flex-col items-center gap-4 sm:flex-row sm:gap-8 md:mt-8',
 							currentAlignment === 'center' && 'justify-center',
 							currentAlignment === 'right' && 'justify-end',
 						)}
@@ -154,7 +154,7 @@ export default function Hero({ data }: HeroProps) {
 							<a
 								href={`tel:${phone.replace(/\s+/g, '')}`}
 								className={cn(
-									'text-base font-bold hover:text-accent transition-colors',
+									'text-base font-bold transition-colors hover:text-accent',
 									layout === 'image_cover' && 'text-white',
 								)}
 								data-directus={setAttr({
@@ -171,7 +171,7 @@ export default function Hero({ data }: HeroProps) {
 							<a
 								href={`mailto:${email}`}
 								className={cn(
-									'text-base font-bold hover:text-accent transition-colors',
+									'text-base font-bold transition-colors hover:text-accent',
 									layout === 'image_cover' && 'text-white',
 								)}
 								data-directus={setAttr({
@@ -217,8 +217,8 @@ export default function Hero({ data }: HeroProps) {
 						layout === 'image_cover' ? 'absolute inset-0 z-0' : 'relative w-full',
 						layout !== 'image_cover' &&
 							(layout === 'image_center'
-								? 'h-[300px] md:h-[400px] mt-8'
-								: 'aspect-square md:aspect-auto md:w-1/2 h-auto md:h-[562px]'),
+								? 'mt-8 h-[300px] md:h-[400px]'
+								: 'aspect-square h-auto md:aspect-auto md:h-[562px] md:w-1/2'),
 					)}
 					data-directus={setAttr({
 						collection: 'block_hero',
@@ -232,7 +232,7 @@ export default function Hero({ data }: HeroProps) {
 						alt={tagline || headline || 'Hero Image'}
 						fill
 						sizes={layout === 'image_center' || layout === 'image_cover' ? '100vw' : '(max-width: 768px) 100vw, 50vw'}
-						className={cn('rounded-2xl', layout === 'image_cover' ? 'object-cover rounded-none' : 'object-cover')}
+						className={cn('rounded-2xl', layout === 'image_cover' ? 'rounded-none object-cover' : 'object-cover')}
 					/>
 					{layout === 'image_cover' && <div className="absolute inset-0 bg-black/50" />}
 				</div>

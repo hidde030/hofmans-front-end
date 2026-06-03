@@ -52,10 +52,10 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 		};
 
 		return (
-			<header ref={ref} className="w-full z-50 sticky top-0 shadow-sm">
+			<header ref={ref} className="sticky top-0 z-50 w-full shadow-sm">
 				{/* Oranje topbalk met logo - Op mobile gecombineerd met menu */}
 				<div
-					className="py-3 md:py-10 px-8 md:px-6"
+					className="px-8 py-3 md:px-6 md:py-10"
 					style={{ backgroundColor: headerBgColor }}
 					data-directus={
 						pageId && hasCustomHeaderSettings
@@ -75,7 +75,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 								: undefined
 					}
 				>
-					<div className="max-w-7xl mx-auto flex items-center justify-between md:justify-center">
+					<div className="mx-auto flex max-w-7xl items-center justify-between md:justify-center">
 						{hideHomeLink ? (
 							<div className="flex-shrink-0">
 								<Image
@@ -83,7 +83,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 									alt={globals?.title || 'Hofmans'}
 									width={180}
 									height={50}
-									className="h-8 md:h-12 w-auto transition-all"
+									className="h-8 w-auto transition-all md:h-12"
 									priority
 								/>
 							</div>
@@ -94,7 +94,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 									alt={globals?.title || 'Hofmans'}
 									width={180}
 									height={50}
-									className="h-8 md:h-12 w-auto transition-all"
+									className="h-8 w-auto transition-all md:h-12"
 									priority
 								/>
 							</Link>
@@ -105,7 +105,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 							onClick={() => setMenuOpen(!menuOpen)}
 							aria-label={menuOpen ? 'Sluit menu' : 'Open menu'}
 							className={cn(
-								'md:hidden transition-all duration-300 p-2 relative size-10 flex items-center justify-center',
+								'relative flex size-10 items-center justify-center p-2 transition-all duration-300 md:hidden',
 								hasCustomHeaderSettings ? 'text-orange-300' : 'text-white',
 							)}
 						>
@@ -113,15 +113,15 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 								<X
 									size={28}
 									className={cn(
-										'absolute inset-0 transition-all duration-300 ease-in-out transform',
-										menuOpen ? 'rotate-0 opacity-100 scale-100' : '-rotate-45 opacity-0 scale-90',
+										'absolute inset-0 transform transition-all duration-300 ease-in-out',
+										menuOpen ? 'rotate-0 scale-100 opacity-100' : '-rotate-45 scale-90 opacity-0',
 									)}
 								/>
 								<Menu
 									size={28}
 									className={cn(
-										'absolute inset-0 transition-all duration-300 ease-in-out transform',
-										menuOpen ? 'rotate-45 opacity-0 scale-90' : 'rotate-0 opacity-100 scale-100',
+										'absolute inset-0 transform transition-all duration-300 ease-in-out',
+										menuOpen ? 'rotate-45 scale-90 opacity-0' : 'rotate-0 scale-100 opacity-100',
 									)}
 								/>
 							</div>
@@ -132,12 +132,12 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 				{/* Witte navigatiebalk - Verborgen op mobile als dropdown dicht is */}
 				<nav
 					className={cn(
-						'bg-white/95 backdrop-blur-md border-t-2 border-b-2 border-black transition-all duration-300 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]',
-						'md:static md:w-auto md:h-auto md:overflow-visible md:opacity-100 md:visible md:translate-y-0 md:scale-100 md:bg-white md:backdrop-blur-none',
-						'absolute top-full left-0 w-full h-[calc(100dvh-4rem)] overflow-y-auto',
+						'border-b-2 border-t-2 border-black bg-white/95 backdrop-blur-md transition-all duration-300 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]',
+						'md:visible md:static md:h-auto md:w-auto md:translate-y-0 md:scale-100 md:overflow-visible md:bg-white md:opacity-100 md:backdrop-blur-none',
+						'absolute left-0 top-full h-[calc(100dvh-4rem)] w-full overflow-y-auto',
 						menuOpen
-							? 'opacity-100 visible translate-y-0 scale-100'
-							: 'opacity-0 invisible -translate-y-2 scale-[0.98] pointer-events-none md:pointer-events-auto',
+							? 'visible translate-y-0 scale-100 opacity-100'
+							: 'pointer-events-none invisible -translate-y-2 scale-[0.98] opacity-0 md:pointer-events-auto',
 					)}
 					data-directus={
 						navigation
@@ -151,17 +151,17 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 					}
 				>
 					{/* Desktop navigatie */}
-					<div className="max-w-7xl mx-auto px-6 hidden md:flex items-center justify-between py-3">
+					<div className="mx-auto hidden max-w-7xl items-center justify-between px-6 py-3 md:flex">
 						{/* Links (links uitgelijnd) */}
 						<ul className="flex items-center gap-8">
 							{navigation?.items?.slice(0, Math.ceil((navigation?.items?.length || 0) - 1)).map((item) => (
 								<li key={item.id}>
 									<Link
 										href={item.page?.permalink || item.url || '#'}
-										className="text-[#42566E] text-[15px] font-semibold hover:text-[#f0972a] transition-all relative group py-1"
+										className="group relative py-1 text-[15px] font-semibold text-[#42566E] transition-all hover:text-[#f0972a]"
 									>
 										{item.title}
-										<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#f0972a] transition-all group-hover:w-full" />
+										<span className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#f0972a] transition-all group-hover:w-full" />
 									</Link>
 								</li>
 							))}
@@ -173,10 +173,10 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 								<li key={item.id}>
 									<Link
 										href={item.page?.permalink || item.url || '#'}
-										className="text-[#42566E] text-[15px] font-semibold hover:text-[#f0972a] transition-all relative group py-1"
+										className="group relative py-1 text-[15px] font-semibold text-[#42566E] transition-all hover:text-[#f0972a]"
 									>
 										{item.title}
-										<span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#f0972a] transition-all group-hover:w-full" />
+										<span className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#f0972a] transition-all group-hover:w-full" />
 									</Link>
 								</li>
 							))}
@@ -184,28 +184,28 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 					</div>
 
 					{/* Mobile dropdown content */}
-					<div className="md:hidden p-8 flex flex-col gap-2 shadow-inner min-h-full pb-32">
+					<div className="flex min-h-full flex-col gap-2 p-8 pb-32 shadow-inner md:hidden">
 						{navigation?.items?.map((item, index) => (
 							<div
 								key={item.id}
 								className={cn(
-									'w-full transition-all duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] transform',
+									'w-full transform transition-all duration-500 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]',
 									menuOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',
 								)}
 								style={{ transitionDelay: `${index * 30}ms` }}
 							>
 								{item.children && item.children.length > 0 ? (
 									<Collapsible>
-										<CollapsibleTrigger className="flex items-center justify-between text-[#42566E] text-2xl font-bold hover:text-[#f0972a] hover:bg-orange-50/50 transition-all w-full text-left p-4 rounded-xl">
+										<CollapsibleTrigger className="flex w-full items-center justify-between rounded-xl p-4 text-left text-2xl font-bold text-[#42566E] transition-all hover:bg-orange-50/50 hover:text-[#f0972a]">
 											<span>{item.title}</span>
 											<ChevronDown size={24} className="text-gray-400" />
 										</CollapsibleTrigger>
-										<CollapsibleContent className="px-6 py-2 flex flex-col gap-4 border-l-4 border-[#f0972a]/20 ml-6 mt-1">
+										<CollapsibleContent className="ml-6 mt-1 flex flex-col gap-4 border-l-4 border-[#f0972a]/20 px-6 py-2">
 											{item.children.map((child) => (
 												<Link
 													key={child.id}
 													href={child.page?.permalink || child.url || '#'}
-													className="text-[#42566E] text-lg font-medium hover:text-[#f0972a] transition-colors py-1"
+													className="py-1 text-lg font-medium text-[#42566E] transition-colors hover:text-[#f0972a]"
 													onClick={handleLinkClick}
 												>
 													{child.title}
@@ -216,7 +216,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 								) : (
 									<Link
 										href={item.page?.permalink || item.url || '#'}
-										className="text-[#42566E] text-2xl font-bold hover:text-[#f0972a] hover:bg-orange-50/50 transition-all flex items-center justify-between p-4 rounded-xl"
+										className="flex items-center justify-between rounded-xl p-4 text-2xl font-bold text-[#42566E] transition-all hover:bg-orange-50/50 hover:text-[#f0972a]"
 										onClick={handleLinkClick}
 									>
 										<span>{item.title}</span>

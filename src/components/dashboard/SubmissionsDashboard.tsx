@@ -88,7 +88,7 @@ export default function SubmissionsDashboard({
 			<div className="mx-auto flex min-h-screen max-w-[1600px]">
 				<aside className="hidden w-72 shrink-0 border-r border-slate-200/80 bg-slate-950 px-6 py-8 text-white lg:flex lg:flex-col">
 					<div>
-						<p className="text-xs uppercase  text-white/45">Dashboard</p>
+						<p className="text-xs uppercase text-white/45">Dashboard</p>
 						<h1 className="mt-3 text-2xl font-semibold tracking-tight">Hofmans</h1>
 					</div>
 

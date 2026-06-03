@@ -117,7 +117,7 @@ const Gallery = ({ data }: GalleryProps) => {
 				onClick={() => handleOpenLightbox(index)}
 				aria-label={`Gallery item ${item.id}`}
 			>
-				<div className="relative aspect-square overflow-hidden rounded-xl shadow-md transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1">
+				<div className="relative aspect-square overflow-hidden rounded-xl shadow-md transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
 					{item.directus_file ? (
 						<>
 							<DirectusImage
@@ -132,7 +132,7 @@ const Gallery = ({ data }: GalleryProps) => {
 					) : (
 						<div
 							className={cn(
-								'flex items-center justify-center h-full text-sm',
+								'flex h-full items-center justify-center text-sm',
 								isOverlay ? 'bg-[#6B6564]' : 'bg-gray-100 text-gray-500',
 							)}
 						>
@@ -143,7 +143,7 @@ const Gallery = ({ data }: GalleryProps) => {
 					{isOverlay && item.title && (
 						<div className="absolute inset-0 flex items-center justify-center p-4">
 							<h3
-								className="text-xl md:text-2xl font-bold font-heading tracking-wide"
+								className="font-heading text-xl font-bold tracking-wide md:text-2xl"
 								style={colorStyle}
 								data-directus={setAttr({
 									collection: 'block_gallery_items',
@@ -158,8 +158,8 @@ const Gallery = ({ data }: GalleryProps) => {
 					)}
 
 					{!disable_lightbox && (
-						<div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 flex justify-center items-center transition-opacity duration-300">
-							<div className="bg-white/90 p-3 rounded-full shadow-lg transform scale-90 group-hover:scale-100 transition-transform duration-300">
+						<div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+							<div className="scale-90 transform rounded-full bg-white/90 p-3 shadow-lg transition-transform duration-300 group-hover:scale-100">
 								<ZoomIn className="size-6 text-gray-800" />
 							</div>
 						</div>
@@ -170,7 +170,7 @@ const Gallery = ({ data }: GalleryProps) => {
 					<div className="mt-4 text-center">
 						{item.title && (
 							<h3
-								className="text-lg font-bold text-[#42566E] font-heading line-clamp-1"
+								className="line-clamp-1 font-heading text-lg font-bold text-[#42566E]"
 								data-directus={setAttr({
 									collection: 'block_gallery_items',
 									item: item.id,
@@ -183,7 +183,7 @@ const Gallery = ({ data }: GalleryProps) => {
 						)}
 						{item.content && (
 							<p
-								className="text-sm text-[#42566E]/70 line-clamp-2 mt-1"
+								className="mt-1 line-clamp-2 text-sm text-[#42566E]/70"
 								data-directus={setAttr({
 									collection: 'block_gallery_items',
 									item: item.id,
@@ -249,24 +249,24 @@ const Gallery = ({ data }: GalleryProps) => {
 								align: 'center',
 								loop: true,
 							}}
-							className="w-full max-w-6xl mx-auto"
+							className="mx-auto w-full max-w-6xl"
 						>
 							<div className="relative">
 								<CarouselContent className="-ml-8">
 									{sortedItems.map((item, index) => (
-										<CarouselItem key={item.id} className="pl-8 basis-[66.6%] sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
+										<CarouselItem key={item.id} className="basis-[66.6%] pl-8 sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
 											{renderGalleryItem(item, index)}
 										</CarouselItem>
 									))}
 								</CarouselContent>
-								<div className="absolute top-0 left-0 w-full aspect-[1.5/1] sm:aspect-[2/1] md:aspect-[3/1] lg:aspect-[4/1] pointer-events-none">
-									<CarouselPrevious className="absolute left-0 lg:-left-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
-									<CarouselNext className="absolute right-0 lg:-right-12 hover:bg-[#42566E] hover:text-white transition-colors pointer-events-auto" />
+								<div className="pointer-events-none absolute left-0 top-0 aspect-[1.5/1] w-full sm:aspect-[2/1] md:aspect-[3/1] lg:aspect-[4/1]">
+									<CarouselPrevious className="pointer-events-auto absolute left-0 transition-colors hover:bg-[#42566E] hover:text-white lg:-left-12" />
+									<CarouselNext className="pointer-events-auto absolute right-0 transition-colors hover:bg-[#42566E] hover:text-white lg:-right-12" />
 								</div>
 							</div>
 						</Carousel>
 					) : (
-						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+						<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
 							{sortedItems.map((item, index) => renderGalleryItem(item, index))}
 						</div>
 					)}
@@ -301,7 +301,7 @@ const Gallery = ({ data }: GalleryProps) => {
 			{!disable_lightbox && isLightboxOpen && isValidIndex && (
 				<Dialog open={isLightboxOpen} onOpenChange={setLightboxOpen}>
 					<DialogContent
-						className="flex max-w-full max-h-full items-center justify-center p-2 bg-transparent border-none z-50"
+						className="z-50 flex max-h-full max-w-full items-center justify-center border-none bg-transparent p-2"
 						hideCloseButton
 					>
 						<DialogTitle className="sr-only">Gallery Image</DialogTitle>
@@ -309,7 +309,7 @@ const Gallery = ({ data }: GalleryProps) => {
 							Viewing image {currentIndex + 1} of {sortedItems.length}.
 						</DialogDescription>
 
-						<div className="relative flex justify-center items-center w-[90vw] h-[90vh]">
+						<div className="relative flex h-[90vh] w-[90vw] items-center justify-center">
 							<DirectusImage
 								uuid={
 									typeof sortedItems[currentIndex].directus_file === 'string'
@@ -322,9 +322,9 @@ const Gallery = ({ data }: GalleryProps) => {
 								className="size-full object-contain"
 							/>
 						</div>
-						<div className="absolute bottom-4 inset-x-0 flex justify-between items-center px-4">
+						<div className="absolute inset-x-0 bottom-4 flex items-center justify-between px-4">
 							<button
-								className="flex items-center gap-2 text-white bg-black bg-opacity-70 rounded-full px-4 py-2 hover:bg-opacity-90"
+								className="flex items-center gap-2 rounded-full bg-black bg-opacity-70 px-4 py-2 text-white hover:bg-opacity-90"
 								onClick={handlePrev}
 								aria-label="Previous"
 							>
@@ -332,7 +332,7 @@ const Gallery = ({ data }: GalleryProps) => {
 								<span>Prev</span>
 							</button>
 							<button
-								className="flex items-center gap-2 text-white bg-black bg-opacity-70 rounded-full px-4 py-2 hover:bg-opacity-90"
+								className="flex items-center gap-2 rounded-full bg-black bg-opacity-70 px-4 py-2 text-white hover:bg-opacity-90"
 								onClick={handleNext}
 								aria-label="Next"
 							>
@@ -342,7 +342,7 @@ const Gallery = ({ data }: GalleryProps) => {
 						</div>
 						<DialogClose asChild>
 							<button
-								className="absolute top-4 right-4 text-white bg-black bg-opacity-70 rounded-full p-2 hover:bg-opacity-90"
+								className="absolute right-4 top-4 rounded-full bg-black bg-opacity-70 p-2 text-white hover:bg-opacity-90"
 								aria-label="Close"
 							>
 								<X className="size-8" />

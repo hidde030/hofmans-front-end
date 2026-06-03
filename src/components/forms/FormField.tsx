@@ -65,7 +65,7 @@ const Field = ({ field, form }: FieldProps) => {
 						<FormLabel
 							htmlFor={field.name!}
 							className={cn(
-								'text-sm font-medium flex items-center justify-between',
+								'flex items-center justify-between text-sm font-medium',
 								field.type === 'checkbox' || field.type === 'radio' ? 'space-x-2' : '',
 							)}
 						>
@@ -76,7 +76,7 @@ const Field = ({ field, form }: FieldProps) => {
 									<TooltipProvider>
 										<Tooltip>
 											<TooltipTrigger asChild>
-												<Info className="size-4 text-gray-500 cursor-pointer" />
+												<Info className="size-4 cursor-pointer text-gray-500" />
 											</TooltipTrigger>
 											<TooltipContent>{field.help}</TooltipContent>
 										</Tooltip>
@@ -86,7 +86,7 @@ const Field = ({ field, form }: FieldProps) => {
 							{field.required && <span className="text-sm text-gray-400">*Verplicht</span>}
 						</FormLabel>
 						<FormControl>{fieldElement}</FormControl>
-						<FormMessage className="text-red-500 italic text-sm" />
+						<FormMessage className="text-sm italic text-red-500" />
 					</FormItem>
 				)}
 			/>

@@ -59,7 +59,7 @@ export default function BlogPostClient({
 	}, [isVisualEditingEnabled, apply, router]);
 
 	return (
-		<div className="flex flex-col min-h-screen">
+		<div className="flex min-h-screen flex-col">
 			<NavigationBar ref={navRef} navigation={headerNavigation} globals={globals} />
 			<main className="flex-grow">
 				{isDraft && <p>(Draft Mode)</p>}
@@ -68,7 +68,7 @@ export default function BlogPostClient({
 					{post.image && (
 						<div className="mb-8">
 							<div
-								className="relative w-full h-[400px] overflow-hidden rounded-lg"
+								className="relative h-[400px] w-full overflow-hidden rounded-lg"
 								data-directus={setAttr({
 									collection: 'posts',
 									item: post.id,
@@ -89,7 +89,7 @@ export default function BlogPostClient({
 					<Headline
 						as="h2"
 						headline={post.title}
-						className="!text-accent mb-4"
+						className="mb-4 !text-accent"
 						data-directus={setAttr({
 							collection: 'posts',
 							item: post.id,
@@ -99,7 +99,7 @@ export default function BlogPostClient({
 					/>
 					<Separator className="mb-8" />
 
-					<div className="grid grid-cols-1 lg:grid-cols-[minmax(0,_2fr)_400px] gap-12">
+					<div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,_2fr)_400px]">
 						<main className="text-left">
 							<BaseText
 								content={post.content || ''}
@@ -112,7 +112,7 @@ export default function BlogPostClient({
 							/>
 						</main>
 
-						<aside className="space-y-6 p-6 rounded-lg max-w-[496px] h-fit bg-background-muted">
+						<aside className="h-fit max-w-[496px] space-y-6 rounded-lg bg-background-muted p-6">
 							{author && (
 								<div
 									className="flex items-center space-x-4"
@@ -127,7 +127,7 @@ export default function BlogPostClient({
 										<DirectusImage
 											uuid={typeof author.avatar === 'string' ? author.avatar : author.avatar.id}
 											alt={authorName || 'author avatar'}
-											className="rounded-full object-cover size-[48px]"
+											className="size-[48px] rounded-full object-cover"
 											width={48}
 											height={48}
 										/>
@@ -155,16 +155,16 @@ export default function BlogPostClient({
 
 							<div>
 								<Separator className="my-4" />
-								<h3 className="font-bold mb-4">Related Posts</h3>
+								<h3 className="mb-4 font-bold">Related Posts</h3>
 								<div className="space-y-4">
 									{relatedPosts.map((relatedPost) => (
 										<Link
 											key={relatedPost.id}
 											href={`/blog/${relatedPost.slug}`}
-											className="flex items-center space-x-4 hover:text-accent group"
+											className="group flex items-center space-x-4 hover:text-accent"
 										>
 											{relatedPost.image && (
-												<div className="relative shrink-0 w-[150px] h-[100px] overflow-hidden rounded-lg">
+												<div className="relative h-[100px] w-[150px] shrink-0 overflow-hidden rounded-lg">
 													<DirectusImage
 														uuid={relatedPost.image as string}
 														alt={relatedPost.title || 'related posts'}

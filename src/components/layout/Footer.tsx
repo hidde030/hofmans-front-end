@@ -53,11 +53,11 @@ const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, re
 		>
 			{/* Onderste sectie: adres + links + logo */}
 			<div className="bg-[#F5F8FB]">
-				<div className="max-w-7xl mx-auto px-8 py-12 md:py-16 flex flex-col md:flex-row justify-between items-center md:items-start gap-12 text-center md:text-left">
+				<div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-12 px-8 py-12 text-center md:flex-row md:items-start md:py-16 md:text-left">
 					{/* Linkerkant: Adresgegevens + Logo */}
-					<div className="flex flex-col items-center md:items-start gap-8 md:gap-12">
+					<div className="flex flex-col items-center gap-8 md:items-start md:gap-12">
 						<div
-							className="text-[#42566E] text-[15px] leading-loose"
+							className="text-[15px] leading-loose text-[#42566E]"
 							data-directus={setAttr({
 								collection: 'globals',
 								item: globals.id,
@@ -71,7 +71,7 @@ const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, re
 									? `${globals.zip_code} ${globals.city}`
 									: '3401 VA IJsselstein, Utrecht'}
 							</p>
-							<p className="text-accent font-bold mt-2 md:mt-0">{globals.phone || '030 - 6880970'}</p>
+							<p className="mt-2 font-bold text-accent md:mt-0">{globals.phone || '030 - 6880970'}</p>
 							<p>{globals.email || 'info@deallesdrukker.nl'}</p>
 						</div>
 
@@ -91,18 +91,18 @@ const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, re
 									alt="Hofmans"
 									width={150}
 									height={42}
-									className="h-10 w-auto opacity-70 hover:opacity-100 transition-opacity"
+									className="h-10 w-auto opacity-70 transition-opacity hover:opacity-100"
 								/>
 							</Link>
 						</div>
 					</div>
 
 					{/* Rechterkant: Dynamische navigatie uit Directus */}
-					<div className="flex flex-col sm:flex-row flex-wrap justify-center md:justify-start gap-12 md:gap-24">
+					<div className="flex flex-col flex-wrap justify-center gap-12 sm:flex-row md:justify-start md:gap-24">
 						{navigation?.items?.map((column) => (
 							<div key={column.id} className="min-w-[150px]">
 								<h4
-									className="text-[#42566E] font-bold text-xl md:text-2xl mb-4 md:mb-8 font-heading"
+									className="mb-4 font-heading text-xl font-bold text-[#42566E] md:mb-8 md:text-2xl"
 									data-directus={setAttr({
 										collection: 'navigation_item',
 										item: column.id,
@@ -118,7 +118,7 @@ const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, re
 											<li key={item.id}>
 												<Link
 													href={item.page?.permalink || item.url || '#'}
-													className="text-[#42566E] text-base hover:text-[#f0972a] transition-colors"
+													className="text-base text-[#42566E] transition-colors hover:text-[#f0972a]"
 												>
 													{item.title}
 												</Link>

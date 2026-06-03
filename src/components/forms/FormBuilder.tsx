@@ -61,11 +61,11 @@ const FormBuilder = ({ form, className }: FormBuilderProps) => {
 	}
 
 	return (
-		<div className={cn('space-y-6 border border-input p-8 rounded-lg', className)}>
-			{form.title && <h3 className="text-xl font-semibold mb-4">{form.title}</h3>}
+		<div className={cn('space-y-6 rounded-lg border border-input p-8', className)}>
+			{form.title && <h3 className="mb-4 text-xl font-semibold">{form.title}</h3>}
 
 			{error && (
-				<div className="p-4 text-red-500 bg-red-100 rounded-md">
+				<div className="rounded-md bg-red-100 p-4 text-red-500">
 					<strong>Error:</strong> {error}
 				</div>
 			)}

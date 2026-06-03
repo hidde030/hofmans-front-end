@@ -31,7 +31,7 @@ const TextWithImage = ({ data, className }: TextWithImageProps) => {
 
 	return (
 		<div
-			className={cn('mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center px-8', className)}
+			className={cn('mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-8 md:grid-cols-2 md:gap-16', className)}
 		>
 			<div
 				className={cn('space-y-6 text-center md:text-left', image_position === 'left' ? 'md:order-2' : 'md:order-1')}
@@ -62,7 +62,7 @@ const TextWithImage = ({ data, className }: TextWithImageProps) => {
 				{content && (
 					<Text
 						content={content}
-						className="text-base md:text-lg leading-relaxed"
+						className="text-base leading-relaxed md:text-lg"
 						data-directus={setAttr({
 							collection: 'block_text_image',
 							item: id,
@@ -88,7 +88,7 @@ const TextWithImage = ({ data, className }: TextWithImageProps) => {
 			{image && (
 				<div
 					className={cn(
-						'relative w-full aspect-[4/3] md:aspect-square lg:aspect-[4/3] min-h-[250px] md:min-h-[400px]',
+						'relative aspect-[4/3] min-h-[250px] w-full md:aspect-square md:min-h-[400px] lg:aspect-[4/3]',
 						image_position === 'left' ? 'md:order-1' : 'md:order-2',
 					)}
 					data-directus={setAttr({
@@ -98,7 +98,7 @@ const TextWithImage = ({ data, className }: TextWithImageProps) => {
 						mode: 'popover',
 					})}
 				>
-					<DirectusImage uuid={image} alt={headline || 'Image'} fill className="object-contain rounded-xl" />
+					<DirectusImage uuid={image} alt={headline || 'Image'} fill className="rounded-xl object-contain" />
 				</div>
 			)}
 		</div>

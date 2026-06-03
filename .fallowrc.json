@@ -1,0 +1,12 @@
+{
+	"$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
+	"entry": ["src/app/**/*.{ts,tsx,js,jsx}"],
+	"duplicates": {
+		"minOccurrences": 3,
+		"mode": "semantic",
+		"ignore": ["src/components/ui/*.{ts,tsx,js,jsx}"]
+	},
+	"rules": {
+		"unused-dependencies": "warn"
+	}
+}
