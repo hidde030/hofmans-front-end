@@ -10,12 +10,11 @@ export default function RelatedServices({ data }: RelatedServicesProps) {
 	const services = Array.isArray(data.services)
 		? data.services.map((relation: any) => relation.services_id).filter(Boolean)
 		: [];
-	console.log({ services });
 
 	if (!services.length) return null;
 
 	return (
-		<section className="py-16 md:py-24">
+		<section>
 			<div className="container mx-auto px-4">
 				{data.headline && (
 					<h2 className="lg:text-5x l mb-12 text-center text-3xl font-bold text-gray-800 md:mb-20 md:text-4xl">

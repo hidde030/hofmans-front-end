@@ -10,6 +10,7 @@ import Form from '@/components/blocks/Form';
 import ButtonGroup from '@/components/blocks/ButtonGroup';
 import RelatedServices from '@/components/blocks/RelatedServices';
 import ServicesGrid from '@/components/blocks/ServicesGrid';
+import BackToServices from '@/components/blocks/BackToServices';
 
 interface BaseBlockProps {
 	block: {
@@ -31,6 +32,7 @@ const BaseBlock = ({ block }: BaseBlockProps) => {
 		block_button_group: ButtonGroup,
 		block_related_service: RelatedServices,
 		block_services_grid: ServicesGrid,
+		block_back_to_services: BackToServices,
 	};
 
 	const Component = components[block.collection];

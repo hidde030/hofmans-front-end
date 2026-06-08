@@ -144,6 +144,7 @@ export const fetchServiceData = async (slug: string) => {
 										},
 									],
 									block_services_grid: ['id', 'tagline', 'headline'],
+									block_back_to_services: ['id'],
 									block_form: [
 										'id',
 										'tagline',
@@ -348,6 +349,7 @@ export const fetchPageData = async (permalink: string, postPage = 1) => {
 										},
 									],
 									block_services_grid: ['id', 'tagline', 'headline'],
+									block_back_to_services: ['id'],
 									block_form: [
 										'id',
 										'tagline',
