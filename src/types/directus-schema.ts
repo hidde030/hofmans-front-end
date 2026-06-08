@@ -32,11 +32,6 @@ export interface AiPrompt {
 	user_updated?: DirectusUser | string | null;
 }
 
-export interface BlockBackToService {
-	/** @primaryKey */
-	id: number;
-}
-
 export interface BlockButton {
 	/** @primaryKey */
 	id: string;
@@ -540,7 +535,7 @@ export interface ServiceBlock {
 	/** @primaryKey */
 	id: string;
 	service_id?: Service | string | null;
-	item?: BlockHero | BlockRichtext | BlockForm | BlockPost | BlockGallery | BlockPricing | BlockTextImage | BlockButtonGroup | BlockGalleryItem | BlockButton | BlockRelatedService | BlockBackToService | string | null;
+	item?: BlockHero | BlockRichtext | BlockForm | BlockPost | BlockGallery | BlockPricing | BlockTextImage | BlockButtonGroup | BlockGalleryItem | BlockButton | BlockRelatedService | string | null;
 	collection?: string | null;
 	sort?: number | null;
 }
@@ -1067,7 +1062,6 @@ export interface DirectusSyncIdMap {
 
 export interface Schema {
 	ai_prompts: AiPrompt[];
-	block_back_to_services: BlockBackToService[];
 	block_button: BlockButton[];
 	block_button_group: BlockButtonGroup[];
 	block_form: BlockForm[];
@@ -1131,7 +1125,6 @@ export interface Schema {
 
 export enum CollectionNames {
 	ai_prompts = 'ai_prompts',
-	block_back_to_services = 'block_back_to_services',
 	block_button = 'block_button',
 	block_button_group = 'block_button_group',
 	block_form = 'block_form',
