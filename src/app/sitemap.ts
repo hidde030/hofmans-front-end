@@ -1,10 +1,12 @@
 import { useDirectus } from '@/lib/directus/directus';
 import type { MetadataRoute } from 'next';
 
+type SitemapEntry = MetadataRoute.Sitemap[number];
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 	if (!siteUrl) {
-		throw new Error('Environment variable NEXT_PUBLIC_SITE_URL is not set');
+		console.warn('Environment variable NEXT_PUBLIC_SITE_URL is not set, sitemap might have invalid URLs');
 	}
 
 	const { directus, readItems } = useDirectus();
@@ -13,38 +15,42 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		const pagesPromise = directus.request(
 			readItems('pages', {
 				filter: { status: { _eq: 'published' } },
-				fields: ['permalink', 'published_at'],
+				fields: ['permalink', 'published_at', 'date_updated', 'seo'],
 				limit: -1,
 			}),
 		);
 
-		const postsPromise = directus.request(
-			readItems('posts', {
+		const servicesPromise = directus.request(
+			readItems('services', {
 				filter: { status: { _eq: 'published' } },
-				fields: ['slug', 'published_at'],
+				fields: ['slug', 'date_updated', 'seo'],
 				limit: -1,
 			}),
 		);
 
-		const [pages, posts] = await Promise.all([pagesPromise, postsPromise]);
+		const [pages, services] = await Promise.all([pagesPromise, servicesPromise]);
 
-		const pageUrls = pages
-			.filter((page: { permalink: string; published_at: string | null | undefined }) => page.permalink)
-			.map((page: { permalink: string; published_at: string | null | undefined }) => ({
-				url: `${process.env.NEXT_PUBLIC_SITE_URL}${page.permalink}`,
-				lastModified: page.published_at || new Date().toISOString(),
+		const pageEntries: SitemapEntry[] = pages
+			.filter((page: any) => page.permalink && !page.seo?.no_index)
+			.map((page: any) => ({
+				url: `${siteUrl}${page.permalink}`,
+				lastModified: page.published_at || page.date_updated ? new Date(page.published_at || page.date_updated) : new Date(),
+				changeFrequency: page.seo?.sitemap?.change_frequency,
+				priority: page.seo?.sitemap?.priority ? parseFloat(page.seo.sitemap.priority) : undefined,
 			}));
 
-		const postUrls = posts
-			.filter((post: { slug: string | null | undefined; published_at: string | null | undefined }) => post.slug)
-			.map((post: { slug: string | null | undefined; published_at: string | null | undefined }) => ({
-				url: `${process.env.NEXT_PUBLIC_SITE_URL}/blog/${post.slug}`,
-				lastModified: post.published_at || new Date().toISOString(),
+		const serviceEntries: SitemapEntry[] = services
+			.filter((service: any) => service.slug && !service.seo?.no_index)
+			.map((service: any) => ({
+				url: `${siteUrl}/diensten/${service.slug}`,
+				lastModified: service.date_updated ? new Date(service.date_updated) : new Date(),
+				changeFrequency: service.seo?.sitemap?.change_frequency,
+				priority: service.seo?.sitemap?.priority ? parseFloat(service.seo.sitemap.priority) : undefined,
 			}));
 
-		return [...pageUrls, ...postUrls];
+		return [...pageEntries, ...serviceEntries];
 	} catch (error) {
 		console.error('Error generating sitemap:', error);
-		throw new Error('Failed to generate sitemap');
+		return [];
 	}
 }
