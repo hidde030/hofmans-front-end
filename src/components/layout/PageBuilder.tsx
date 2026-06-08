@@ -19,6 +19,7 @@ const PageBuilder = ({ sections }: PageBuilderProps) => {
 		<div>
 			{validBlocks.map((block) => {
 				const isHero = block.collection === 'block_hero';
+				const isBackButton = block.collection === 'block_back_to_services';
 				const isFullWidth = isHero && (block.item as any).layout === 'image_cover';
 				const Wrapper = isFullWidth ? React.Fragment : Container;
 
@@ -29,7 +30,7 @@ const PageBuilder = ({ sections }: PageBuilderProps) => {
 						key={block.id}
 						data-background={block.background}
 						className={cn(
-							isFullWidth ? undefined : 'py-16',
+							!isFullWidth && !isBackButton && 'py-16',
 							borderPosition === 'top' && 'border-t-2 border-black',
 							borderPosition === 'bottom' && 'border-b-2 border-black',
 							borderPosition === 'both' && 'border-b-2 border-t-2 border-black',
