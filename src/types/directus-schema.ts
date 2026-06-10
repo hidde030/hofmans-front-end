@@ -381,6 +381,7 @@ export interface Globals {
 	phone?: string | null;
 	email?: string | null;
 	country?: string | null;
+	subtitle?: string | null;
 }
 
 export interface Navigation {
