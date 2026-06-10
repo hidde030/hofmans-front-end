@@ -380,6 +380,7 @@ export interface Globals {
 	city?: string | null;
 	phone?: string | null;
 	email?: string | null;
+	country?: string | null;
 }
 
 export interface Navigation {

@@ -505,6 +505,7 @@ export const fetchSiteData = async () => {
 						'address',
 						'zip_code',
 						'city',
+						'country',
 						'phone',
 						'email',
 					],
