@@ -57,6 +57,7 @@ const Button = ({
 		className,
 		disabled && 'opacity-50 cursor-not-allowed',
 		block && 'w-full',
+		'hover:scale-[1.02] active:scale-[0.98] transition-all duration-300',
 	);
 
 	const content = (

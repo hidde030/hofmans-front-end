@@ -27,7 +27,7 @@ export default function RelatedServices({ data }: RelatedServicesProps) {
 						<Link
 							key={service.id || index}
 							href={`/diensten/${service.slug}`}
-							className="group relative flex aspect-square transform-gpu cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-gray-400 shadow-lg transition-transform duration-300 hover:shadow-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-white/20"
+							className="group relative flex aspect-square transform-gpu cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-gray-400 shadow-lg transition-all duration-300 hover:shadow-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-white/20"
 						>
 							{service.image && (
 								<DirectusImage

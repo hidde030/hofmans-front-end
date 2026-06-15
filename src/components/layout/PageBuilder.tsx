@@ -15,6 +15,8 @@ const PageBuilder = ({ sections }: PageBuilderProps) => {
 			typeof block.collection === 'string' && !!block.item && typeof block.item === 'object',
 	);
 
+	let blockIndex = 0;
+
 	return (
 		<div>
 			{validBlocks.map((block) => {
@@ -25,12 +27,28 @@ const PageBuilder = ({ sections }: PageBuilderProps) => {
 
 				const borderPosition = block.collection === 'block_text_image' ? (block.item as any).border : undefined;
 
+				const background = block.background;
+				const bgClass =
+					background === 'dark'
+						? 'bg-background-variant text-white'
+						: background === 'light'
+							? 'bg-background text-foreground'
+							: blockIndex % 2 === 0
+								? 'bg-background text-foreground'
+								: 'bg-gray text-foreground';
+
+				if (!isHero && !isBackButton) blockIndex++;
+
+				const isFirstBlock = !isHero && !isBackButton && blockIndex === 1;
+
 				return (
 					<div
 						key={block.id}
-						data-background={block.background}
+						data-background={background}
 						className={cn(
-							!isFullWidth && !isBackButton && 'py-16',
+							bgClass,
+							!isFullWidth && !isBackButton && 'py-12 lg:py-20',
+							isFirstBlock && 'pt-8 lg:pt-12',
 							borderPosition === 'top' && 'border-t-2 border-black',
 							borderPosition === 'bottom' && 'border-b-2 border-black',
 							borderPosition === 'both' && 'border-b-2 border-t-2 border-black',

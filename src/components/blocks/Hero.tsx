@@ -64,7 +64,7 @@ export default function Hero({ data }: HeroProps) {
 	return (
 		<section
 			className={cn(
-				'relative mx-auto flex w-full flex-col gap-8 px-8 md:gap-12',
+				'relative mx-auto flex w-full flex-col gap-12 px-8 md:gap-16',
 				layout === 'image_center' || layout === 'no_image'
 					? cn('items-center', alignmentClasses[currentAlignment])
 					: layout === 'image_cover'
@@ -234,7 +234,7 @@ export default function Hero({ data }: HeroProps) {
 						sizes={layout === 'image_center' || layout === 'image_cover' ? '100vw' : '(max-width: 768px) 100vw, 50vw'}
 						className={cn('rounded-2xl', layout === 'image_cover' ? 'rounded-none object-cover' : 'object-cover')}
 					/>
-					{layout === 'image_cover' && <div className="absolute inset-0 bg-black/50" />}
+					{layout === 'image_cover' && <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20" />}
 				</div>
 			)}
 		</section>
