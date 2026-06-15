@@ -24,6 +24,7 @@ interface FooterProps {
 	globals: {
 		id: string;
 		logo?: string | null;
+		logo_dark_mode?: string | null;
 		social_links?: { service: string; url: string }[];
 		address?: string | null;
 		zip_code?: string | null;
@@ -35,7 +36,9 @@ interface FooterProps {
 
 const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, ref) => {
 	const directusURL = process.env.NEXT_PUBLIC_DIRECTUS_URL;
-	const logoUrl = globals?.logo ? `${directusURL}/assets/${globals.logo}` : '/images/logo-white.svg';
+	const logoUrl = globals?.logo_dark_mode
+		? `${directusURL}/assets/${globals.logo_dark_mode}`
+		: '/images/logo-white.svg';
 
 	return (
 		<footer
@@ -86,13 +89,7 @@ const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, re
 									mode: 'modal',
 								})}
 							>
-								<Image
-									src={logoUrl}
-									alt="Hofmans"
-									width={150}
-									height={42}
-									className="h-10 w-auto opacity-70 transition-opacity hover:opacity-100"
-								/>
+								<Image src={logoUrl} alt="Hofmans" width={150} height={42} className="h-10 w-auto transition-opacity" />
 							</Link>
 						</div>
 					</div>

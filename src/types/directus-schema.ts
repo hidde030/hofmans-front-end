@@ -263,6 +263,74 @@ export interface BlockTextImage {
 	button_group?: BlockButtonGroup | string | null;
 }
 
+export interface DirectusOauthClient {
+	/** @primaryKey */
+	client_id: string;
+	client_name?: string;
+	redirect_uris?: 'json';
+	grant_types?: 'json';
+	token_endpoint_auth_method?: string;
+	client_secret_hash?: string | null;
+	registration_type?: string;
+	client_uri?: string | null;
+	logo_uri?: string | null;
+	tos_uri?: string | null;
+	policy_uri?: string | null;
+	metadata_fetched_at?: string | null;
+	metadata_expires_at?: string | null;
+	metadata_etag?: string | null;
+	date_created?: string;
+}
+
+export interface DirectusOauthCode {
+	/** @primaryKey */
+	id: string;
+	code_hash?: string;
+	client?: string;
+	user?: string;
+	redirect_uri?: string;
+	resource?: string;
+	code_challenge?: string;
+	code_challenge_method?: string;
+	scope?: string | null;
+	expires_at?: string;
+	used_at?: string | null;
+}
+
+export interface DirectusOauthConsent {
+	/** @primaryKey */
+	id: string;
+	user?: string;
+	client?: string;
+	redirect_uri?: string;
+	scope?: string | null;
+	date_created?: string;
+	date_updated?: string;
+}
+
+export interface DirectusOauthToken {
+	/** @primaryKey */
+	id: string;
+	client?: string;
+	user?: string;
+	session?: string;
+	previous_session?: string | null;
+	resource?: string;
+	code_hash?: string;
+	scope?: string | null;
+	expires_at?: string;
+	date_created?: string;
+}
+
+export interface DirectusSyncIdMap {
+	/** @primaryKey */
+	id: number;
+	table?: string;
+	sync_id?: string;
+	local_id?: string;
+	created_at?: string | null;
+}
+
 export interface FormField {
 	/** @primaryKey */
 	id: string;
@@ -380,6 +448,8 @@ export interface Globals {
 	city?: string | null;
 	phone?: string | null;
 	email?: string | null;
+	country?: string | null;
+	subtitle?: string | null;
 }
 
 export interface Navigation {
@@ -609,6 +679,8 @@ export interface DirectusCollection {
 	collapse?: string;
 	preview_url?: string | null;
 	versioning?: boolean;
+	status?: string;
+	autosave_revision_interval?: number | null;
 }
 
 export interface DirectusComment {
@@ -785,6 +857,7 @@ export interface DirectusSession {
 	share?: DirectusShare | string | null;
 	origin?: string | null;
 	next_token?: string | null;
+	oauth_client?: string | null;
 }
 
 export interface DirectusSettings {
@@ -850,6 +923,14 @@ export interface DirectusSettings {
 	ai_google_allowed_models?: Array<`gemini-3-pro-preview` | `gemini-3-flash-preview` | `gemini-2.5-pro` | `gemini-2.5-flash` | `gemini-3.1-pro-preview` | `gemini-3.1-flash-lite-preview` | `gemini-2.5-flash-lite`> | null;
 	collaborative_editing_enabled?: boolean;
 	collaborative_editing_settings?: Record<string, any> | null;
+	ai_translation_default_model?: string | null;
+	ai_translation_glossary?: 'json' | null;
+	ai_translation_style_guide?: string | null;
+	license_key?: string | null;
+	license_token?: string | null;
+	mcp_oauth_enabled?: boolean;
+	mcp_oauth_dcr_enabled?: boolean;
+	mcp_oauth_cimd_enabled?: boolean;
 }
 
 export interface DirectusUser {
@@ -996,7 +1077,7 @@ export interface DirectusVersion {
 	key?: string;
 	name?: string | null;
 	collection?: DirectusCollection | string;
-	item?: string;
+	item?: string | null;
 	hash?: string | null;
 	date_created?: string | null;
 	date_updated?: string | null;
@@ -1056,15 +1137,6 @@ export interface DirectusDeploymentRun {
 	completed_at?: string | null;
 }
 
-export interface DirectusSyncIdMap {
-	/** @primaryKey */
-	id: number;
-	table?: string;
-	sync_id?: string;
-	local_id?: string;
-	created_at?: string | null;
-}
-
 export interface Schema {
 	ai_prompts: AiPrompt[];
 	block_back_to_services: BlockBackToService[];
@@ -1082,6 +1154,11 @@ export interface Schema {
 	block_richtext: BlockRichtext[];
 	block_services_grid: BlockServicesGrid[];
 	block_text_image: BlockTextImage[];
+	directus_oauth_clients: DirectusOauthClient[];
+	directus_oauth_codes: DirectusOauthCode[];
+	directus_oauth_consents: DirectusOauthConsent[];
+	directus_oauth_tokens: DirectusOauthToken[];
+	directus_sync_id_map: DirectusSyncIdMap[];
 	form_fields: FormField[];
 	forms: Form[];
 	form_submissions: FormSubmission[];
@@ -1126,7 +1203,6 @@ export interface Schema {
 	directus_deployments: DirectusDeployment[];
 	directus_deployment_projects: DirectusDeploymentProject[];
 	directus_deployment_runs: DirectusDeploymentRun[];
-	directus_sync_id_map: DirectusSyncIdMap[];
 }
 
 export enum CollectionNames {
@@ -1146,6 +1222,11 @@ export enum CollectionNames {
 	block_richtext = 'block_richtext',
 	block_services_grid = 'block_services_grid',
 	block_text_image = 'block_text_image',
+	directus_oauth_clients = 'directus_oauth_clients',
+	directus_oauth_codes = 'directus_oauth_codes',
+	directus_oauth_consents = 'directus_oauth_consents',
+	directus_oauth_tokens = 'directus_oauth_tokens',
+	directus_sync_id_map = 'directus_sync_id_map',
 	form_fields = 'form_fields',
 	forms = 'forms',
 	form_submissions = 'form_submissions',
@@ -1189,6 +1270,5 @@ export enum CollectionNames {
 	directus_extensions = 'directus_extensions',
 	directus_deployments = 'directus_deployments',
 	directus_deployment_projects = 'directus_deployment_projects',
-	directus_deployment_runs = 'directus_deployment_runs',
-	directus_sync_id_map = 'directus_sync_id_map'
+	directus_deployment_runs = 'directus_deployment_runs'
 }
