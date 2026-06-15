@@ -89,13 +89,7 @@ const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, re
 									mode: 'modal',
 								})}
 							>
-								<Image
-									src={logoUrl}
-									alt="Hofmans"
-									width={150}
-									height={42}
-									className="h-10 w-auto opacity-70 transition-opacity hover:opacity-100"
-								/>
+								<Image src={logoUrl} alt="Hofmans" width={150} height={42} className="h-10 w-auto transition-opacity" />
 							</Link>
 						</div>
 					</div>
