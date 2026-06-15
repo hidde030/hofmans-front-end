@@ -56,7 +56,7 @@ const RichText = ({ data, className }: RichTextProps) => {
 	return (
 		<div
 			className={cn(
-				'w-full space-y-6 px-8 [&_.prose]:text-inherit',
+				'w-full space-y-6 [&_.prose]:text-inherit',
 				alignment === 'center'
 					? 'flex flex-col items-center text-center'
 					: alignment === 'right'

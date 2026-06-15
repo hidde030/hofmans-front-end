@@ -3,6 +3,7 @@
 import { useState, forwardRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui/collapsible';
 import { ChevronDown, ChevronRight, Menu, X } from 'lucide-react';
 import { setAttr } from '@directus/visual-editing';
@@ -29,6 +30,7 @@ interface NavigationBarProps {
 const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 	({ navigation, globals, customBackgroundColor, customLogo, hideHomeLink, pageId }, ref) => {
 		const [menuOpen, setMenuOpen] = useState(false);
+		const pathname = usePathname();
 
 		useEffect(() => {
 			if (menuOpen) {
@@ -136,7 +138,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 				{/* Witte navigatiebalk - Verborgen op mobile als dropdown dicht is */}
 				<nav
 					className={cn(
-						'border-b-2 border-t-2 border-black bg-white/95 backdrop-blur-md transition-all duration-300 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]',
+						'border-b-2 border-t-2 border-black bg-white/80 backdrop-blur-xl transition-all duration-300 [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]',
 						'md:visible md:static md:h-auto md:w-auto md:translate-y-0 md:scale-100 md:overflow-visible md:bg-white md:opacity-100 md:backdrop-blur-none',
 						'absolute left-0 top-full h-[calc(100dvh-4rem)] w-full overflow-y-auto',
 						menuOpen
@@ -162,10 +164,20 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 								<li key={item.id}>
 									<Link
 										href={item.page?.permalink || item.url || '#'}
-										className="group relative py-1 text-[15px] font-semibold text-[#42566E] transition-all hover:text-[#f0972a]"
+										className={cn(
+											'group relative py-1 text-[15px] font-semibold transition-all',
+											pathname === (item.page?.permalink || item.url)
+												? 'text-[#f0972a]'
+												: 'text-[#42566E] hover:text-[#f0972a]',
+										)}
 									>
 										{item.title}
-										<span className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#f0972a] transition-all group-hover:w-full" />
+										<span
+											className={cn(
+												'absolute bottom-0 left-0 h-0.5 bg-[#f0972a] transition-all',
+												pathname === (item.page?.permalink || item.url) ? 'w-full' : 'w-0 group-hover:w-full',
+											)}
+										/>
 									</Link>
 								</li>
 							))}
@@ -177,10 +189,20 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 								<li key={item.id}>
 									<Link
 										href={item.page?.permalink || item.url || '#'}
-										className="group relative py-1 text-[15px] font-semibold text-[#42566E] transition-all hover:text-[#f0972a]"
+										className={cn(
+											'group relative py-1 text-[15px] font-semibold transition-all',
+											pathname === (item.page?.permalink || item.url)
+												? 'text-[#f0972a]'
+												: 'text-[#42566E] hover:text-[#f0972a]',
+										)}
 									>
 										{item.title}
-										<span className="absolute bottom-0 left-0 h-0.5 w-0 bg-[#f0972a] transition-all group-hover:w-full" />
+										<span
+											className={cn(
+												'absolute bottom-0 left-0 h-0.5 bg-[#f0972a] transition-all',
+												pathname === (item.page?.permalink || item.url) ? 'w-full' : 'w-0 group-hover:w-full',
+											)}
+										/>
 									</Link>
 								</li>
 							))}

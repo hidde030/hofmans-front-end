@@ -241,7 +241,7 @@ const Gallery = ({ data }: GalleryProps) => {
 						fields: 'items',
 						mode: 'modal',
 					})}
-					className="mt-8 px-16 lg:px-24"
+					className="mt-8"
 				>
 					{display_type === 'carousel' ? (
 						<Carousel
@@ -276,7 +276,7 @@ const Gallery = ({ data }: GalleryProps) => {
 			{button_group && button_group.buttons?.length > 0 && (
 				<div
 					className={cn(
-						'mt-12 px-16 lg:px-24',
+						'mt-12',
 						alignment === 'center' && 'flex justify-center',
 						alignment === 'right' && 'flex justify-end',
 					)}

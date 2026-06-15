@@ -31,7 +31,7 @@ const TextWithImage = ({ data, className }: TextWithImageProps) => {
 
 	return (
 		<div
-			className={cn('mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-8 md:grid-cols-2 md:gap-16', className)}
+			className={cn('mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-16', className)}
 		>
 			<div
 				className={cn('space-y-6 text-center md:text-left', image_position === 'left' ? 'md:order-2' : 'md:order-1')}

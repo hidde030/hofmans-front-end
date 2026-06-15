@@ -100,7 +100,7 @@ const Posts = ({ data }: PostsProps) => {
 	const paginationLinks = generatePagination();
 
 	return (
-		<div className="px-8">
+		<div>
 			{tagline && (
 				<Tagline
 					tagline={tagline}
@@ -135,7 +135,7 @@ const Posts = ({ data }: PostsProps) => {
 			>
 				{paginatedPosts.length > 0 ? (
 					paginatedPosts.map((post) => (
-						<Link key={post.id} href={`/blog/${post.slug}`} className="group block overflow-hidden rounded-lg">
+						<Link key={post.id} href={`/blog/${post.slug}`} className="group block overflow-hidden rounded-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
 							<div className="relative h-64 w-full overflow-hidden rounded-lg">
 								{post.image && (
 									<DirectusImage
