@@ -60,7 +60,7 @@ export default function ServicesGrid({ data }: ServicesGridProps) {
 					return (
 						<Link
 							key={service.id}
-							href={`/diensten/${service.slug}`}
+							href={service.slug === 'copy-service' ? '/copyrette' : `/diensten/${service.slug}`}
 							aria-label={`Bekijk ${service.title}`}
 							className="group relative flex aspect-square transform-gpu cursor-pointer items-center justify-center overflow-hidden rounded-xl bg-gray-400 shadow-lg transition-transform duration-300 hover:shadow-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-white/20"
 						>
