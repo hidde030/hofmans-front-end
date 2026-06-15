@@ -1,0 +1,13 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "directus": {
+      "type": "remote",
+      "url": "https://directus-production-a62b.up.railway.app/mcp",
+      "enabled": true,
+      "headers": {
+        "Authorization": "Bearer p6dTTSkrm1-iSqoG301lQUtOldDLu9Ii"
+      }
+    }
+  }
+}
