@@ -46,7 +46,9 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 
 		const hasCustomHeaderSettings = Boolean(customBackgroundColor || customLogo || hideHomeLink);
 		const logoToUse = customLogo || globals?.logo;
+
 		const logoUrl = logoToUse ? getDirectusAssetURL(logoToUse) : '/images/Logo.png';
+		console.log('Using logo URL:', logoUrl);
 		const handleLinkClick = () => {
 			setMenuOpen(false);
 		};
@@ -94,7 +96,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 									alt={globals?.title || 'Hofmans'}
 									width={180}
 									height={50}
-									className="h-8 w-auto transition-all md:h-12"
+									className="h-14 w-auto transition-all md:h-20"
 									priority
 								/>
 							</Link>
@@ -113,14 +115,14 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 								<X
 									size={28}
 									className={cn(
-										'absolute inset-0 transform transition-all duration-300 ease-in-out',
+										'absolute inset-0 transform text-white transition-all duration-300 ease-in-out',
 										menuOpen ? 'rotate-0 scale-100 opacity-100' : '-rotate-45 scale-90 opacity-0',
 									)}
 								/>
 								<Menu
 									size={28}
 									className={cn(
-										'absolute inset-0 transform transition-all duration-300 ease-in-out',
+										'absolute inset-0 transform text-white transition-all duration-300 ease-in-out',
 										menuOpen ? 'rotate-45 scale-90 opacity-0' : 'rotate-0 scale-100 opacity-100',
 									)}
 								/>
