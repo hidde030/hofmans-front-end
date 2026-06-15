@@ -29,6 +29,7 @@ interface FooterProps {
 		address?: string | null;
 		zip_code?: string | null;
 		city?: string | null;
+		country?: string | null;
 		phone?: string | null;
 		email?: string | null;
 	};
@@ -70,9 +71,9 @@ const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, re
 						>
 							<p className="font-semibold md:font-normal">{globals.address || 'Lage dijk - noord 10'}</p>
 							<p>
-								{globals.zip_code && globals.city
-									? `${globals.zip_code} ${globals.city}`
-									: '3401 VA IJsselstein, Utrecht'}
+								{globals.zip_code && globals.city && globals.country
+									? `${globals.zip_code} ${globals.city} ${globals.country}`
+									: '3401 VA IJsselstein, Utrecht, Nederland'}
 							</p>
 							<p className="mt-2 font-bold text-accent md:mt-0">{globals.phone || '030 - 6880970'}</p>
 							<p>{globals.email || 'info@deallesdrukker.nl'}</p>
