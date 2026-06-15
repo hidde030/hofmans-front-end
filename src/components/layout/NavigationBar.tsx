@@ -48,7 +48,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 		const logoToUse = customLogo || globals?.logo;
 
 		const logoUrl = logoToUse ? getDirectusAssetURL(logoToUse) : '/images/Logo.png';
-		console.log('Using logo URL:', logoUrl);
+
 		const handleLinkClick = () => {
 			setMenuOpen(false);
 		};
@@ -83,9 +83,9 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 								<Image
 									src={logoUrl}
 									alt={globals?.title || 'Hofmans'}
-									width={180}
-									height={50}
-									className="h-8 w-auto transition-all md:h-12"
+									width={600}
+									height={200}
+									className="h-14 w-auto transition-all md:h-20"
 									priority
 								/>
 							</div>
@@ -94,8 +94,8 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 								<Image
 									src={logoUrl}
 									alt={globals?.title || 'Hofmans'}
-									width={180}
-									height={50}
+									width={600}
+									height={200}
 									className="h-14 w-auto transition-all md:h-20"
 									priority
 								/>
@@ -117,6 +117,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 									className={cn(
 										'absolute inset-0 transform text-white transition-all duration-300 ease-in-out',
 										menuOpen ? 'rotate-0 scale-100 opacity-100' : '-rotate-45 scale-90 opacity-0',
+										hasCustomHeaderSettings ? 'text-orange-300' : 'text-white',
 									)}
 								/>
 								<Menu
@@ -124,6 +125,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 									className={cn(
 										'absolute inset-0 transform text-white transition-all duration-300 ease-in-out',
 										menuOpen ? 'rotate-45 scale-90 opacity-0' : 'rotate-0 scale-100 opacity-100',
+										hasCustomHeaderSettings ? 'text-orange-300' : 'text-white',
 									)}
 								/>
 							</div>
