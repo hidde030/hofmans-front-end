@@ -86,9 +86,6 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 									className="h-8 w-auto transition-all md:h-12"
 									priority
 								/>
-								<p className="text-sm font-medium text-muted-foreground">
-									{globals?.subtitle || 'De alles drukker'}
-								</p>
 							</div>
 						) : (
 							<Link href="/" className="flex-shrink-0" onClick={handleLinkClick}>
@@ -100,9 +97,6 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 									className="h-8 w-auto transition-all md:h-12"
 									priority
 								/>
-								<p className="text-sm font-[futura] text-white text-right">
-									{globals?.subtitle || 'De alles drukker'}
-								</p>
 							</Link>
 						)}
 
