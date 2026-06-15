@@ -3,6 +3,7 @@ import { PageBlock } from '@/types/directus-schema';
 import { notFound } from 'next/navigation';
 import PageBuilder from '@/components/layout/PageBuilder';
 import NavigationBar from '@/components/layout/NavigationBar';
+import { serviceSchema, breadcrumbSchema, serializeJsonLd } from '@/lib/seo/json-ld';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
 	const { slug } = await params;
@@ -44,8 +45,20 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 			(block: any): block is PageBlock => typeof block === 'object' && block.collection,
 		);
 
+		const serviceJsonLd = serviceSchema(service);
+		const serviceJsonLdString = serializeJsonLd(serviceJsonLd);
+
+		const breadcrumbJsonLd = breadcrumbSchema([
+			{ name: 'Home', url: `${process.env.NEXT_PUBLIC_SITE_URL}/` },
+			{ name: 'Diensten', url: `${process.env.NEXT_PUBLIC_SITE_URL}/diensten` },
+			{ name: service.title },
+		]);
+		const breadcrumbJsonLdString = serializeJsonLd(breadcrumbJsonLd);
+
 		return (
 			<>
+				<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serviceJsonLdString }} />
+				<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbJsonLdString }} />
 				<NavigationBar navigation={headerNavigation as any} globals={globals} />
 				<main className="flex-grow">
 					<PageBuilder sections={blocks} />

@@ -2,6 +2,7 @@ import { draftMode } from 'next/headers';
 import { fetchPostBySlug, fetchSiteData } from '@/lib/directus/fetchers';
 import BlogPostClient from './BlogPostClient';
 import type { DirectusUser } from '@/types/directus-schema';
+import { articleSchema, breadcrumbSchema, serializeJsonLd } from '@/lib/seo/json-ld';
 
 export default async function BlogPostPage({
 	params,
@@ -32,17 +33,31 @@ export default async function BlogPostPage({
 		const authorName = author ? [author.first_name, author.last_name].filter(Boolean).join(' ') : '';
 		const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/blog/${slug}`;
 
+		const articleJsonLd = articleSchema(post, author);
+		const articleJsonLdString = serializeJsonLd(articleJsonLd);
+
+		const breadcrumbJsonLd = breadcrumbSchema([
+			{ name: 'Home', url: `${process.env.NEXT_PUBLIC_SITE_URL}/` },
+			{ name: 'Blog', url: `${process.env.NEXT_PUBLIC_SITE_URL}/blog` },
+			{ name: post.title },
+		]);
+		const breadcrumbJsonLdString = serializeJsonLd(breadcrumbJsonLd);
+
 		return (
-			<BlogPostClient
-				post={post}
-				relatedPosts={relatedPosts}
-				author={author}
-				authorName={authorName}
-				postUrl={postUrl}
-				isDraft={isDraft}
-				headerNavigation={headerNavigation}
-				globals={globals}
-			/>
+			<>
+				<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: articleJsonLdString }} />
+				<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbJsonLdString }} />
+				<BlogPostClient
+					post={post}
+					relatedPosts={relatedPosts}
+					author={author}
+					authorName={authorName}
+					postUrl={postUrl}
+					isDraft={isDraft}
+					headerNavigation={headerNavigation}
+					globals={globals}
+				/>
+			</>
 		);
 	} catch (error) {
 		console.error('Error loading blog post:', error);
