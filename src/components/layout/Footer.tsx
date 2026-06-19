@@ -117,7 +117,7 @@ const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, re
 											<li key={item.id}>
 												<Link
 													href={item.page?.permalink || item.url || '#'}
-													className="text-base text-[#42566E] transition-colors hover:text-[#f0972a]"
+													className="text-base text-[#42566E] transition-colors hover:text-accent"
 												>
 													{item.title}
 												</Link>
