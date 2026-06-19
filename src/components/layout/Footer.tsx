@@ -69,12 +69,13 @@ const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, re
 								mode: 'modal',
 							})}
 						>
-							<p className="font-semibold md:font-normal">{globals.address || 'Lage dijk - noord 10'}</p>
+							<p className="font-semibold md:font-normal">{globals.address || 'Lage Dijk Noord 10'}</p>
 							<p>
-								{globals.zip_code && globals.city && globals.country
-									? `${globals.zip_code} ${globals.city} ${globals.country}`
-									: '3401 VA IJsselstein, Utrecht, Nederland'}
+								{globals.zip_code && globals.city
+									? `${globals.zip_code} ${globals.city}`
+									: '3401 VA. IJsselstein'}
 							</p>
+							<p>{globals.country || 'Nederland'}</p>
 							<p className="mt-2 font-bold text-accent md:mt-0">{globals.phone || '030 - 6880970'}</p>
 							<p>{globals.email || 'info@deallesdrukker.nl'}</p>
 						</div>
