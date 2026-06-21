@@ -44,7 +44,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 			};
 		}, [menuOpen]);
 
-		const headerBgColor = customBackgroundColor || globals?.accent_color || '#f0972a';
+		const headerBgColor = customBackgroundColor || globals?.accent_color || '#f39200';
 
 		const hasCustomHeaderSettings = Boolean(customBackgroundColor || customLogo || hideHomeLink);
 		const logoToUse = customLogo || globals?.logo;
@@ -110,7 +110,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 							aria-label={menuOpen ? 'Sluit menu' : 'Open menu'}
 							className={cn(
 								'relative flex size-10 items-center justify-center p-2 transition-all duration-300 md:hidden',
-								hasCustomHeaderSettings ? 'text-orange-300' : 'text-white',
+								hasCustomHeaderSettings ? 'text-accent' : 'text-white',
 							)}
 						>
 							<div className="relative size-6">
@@ -119,7 +119,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 									className={cn(
 										'absolute inset-0 transform text-white transition-all duration-300 ease-in-out',
 										menuOpen ? 'rotate-0 scale-100 opacity-100' : '-rotate-45 scale-90 opacity-0',
-										hasCustomHeaderSettings ? 'text-orange-300' : 'text-white',
+										hasCustomHeaderSettings ? 'text-accent' : 'text-white',
 									)}
 								/>
 								<Menu
@@ -127,7 +127,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 									className={cn(
 										'absolute inset-0 transform text-white transition-all duration-300 ease-in-out',
 										menuOpen ? 'rotate-45 scale-90 opacity-0' : 'rotate-0 scale-100 opacity-100',
-										hasCustomHeaderSettings ? 'text-orange-300' : 'text-white',
+										hasCustomHeaderSettings ? 'text-accent' : 'text-white',
 									)}
 								/>
 							</div>
@@ -167,14 +167,14 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 										className={cn(
 											'group relative py-1 text-[15px] font-semibold transition-all',
 											pathname === (item.page?.permalink || item.url)
-												? 'text-[#f0972a]'
-												: 'text-[#42566E] hover:text-[#f0972a]',
+												? 'text-accent'
+												: 'text-[#42566E] hover:text-accent',
 										)}
 									>
 										{item.title}
 										<span
 											className={cn(
-												'absolute bottom-0 left-0 h-0.5 bg-[#f0972a] transition-all',
+												'absolute bottom-0 left-0 h-0.5 bg-accent transition-all',
 												pathname === (item.page?.permalink || item.url) ? 'w-full' : 'w-0 group-hover:w-full',
 											)}
 										/>
@@ -192,14 +192,14 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 										className={cn(
 											'group relative py-1 text-[15px] font-semibold transition-all',
 											pathname === (item.page?.permalink || item.url)
-												? 'text-[#f0972a]'
-												: 'text-[#42566E] hover:text-[#f0972a]',
+												? 'text-accent'
+												: 'text-[#42566E] hover:text-accent',
 										)}
 									>
 										{item.title}
 										<span
 											className={cn(
-												'absolute bottom-0 left-0 h-0.5 bg-[#f0972a] transition-all',
+												'absolute bottom-0 left-0 h-0.5 bg-accent transition-all',
 												pathname === (item.page?.permalink || item.url) ? 'w-full' : 'w-0 group-hover:w-full',
 											)}
 										/>
@@ -222,16 +222,16 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 							>
 								{item.children && item.children.length > 0 ? (
 									<Collapsible>
-										<CollapsibleTrigger className="flex w-full items-center justify-between rounded-xl p-4 text-left text-2xl font-bold text-[#42566E] transition-all hover:bg-orange-50/50 hover:text-[#f0972a]">
+										<CollapsibleTrigger className="flex w-full items-center justify-between rounded-xl p-4 text-left text-2xl font-bold text-[#42566E] transition-all hover:bg-accent/5 hover:text-accent">
 											<span>{item.title}</span>
 											<ChevronDown size={24} className="text-gray-400" />
 										</CollapsibleTrigger>
-										<CollapsibleContent className="ml-6 mt-1 flex flex-col gap-4 border-l-4 border-[#f0972a]/20 px-6 py-2">
+										<CollapsibleContent className="ml-6 mt-1 flex flex-col gap-4 border-l-4 border-accent/20 px-6 py-2">
 											{item.children.map((child) => (
 												<Link
 													key={child.id}
 													href={child.page?.permalink || child.url || '#'}
-													className="py-1 text-lg font-medium text-[#42566E] transition-colors hover:text-[#f0972a]"
+													className="py-1 text-lg font-medium text-[#42566E] transition-colors hover:text-accent"
 													onClick={handleLinkClick}
 												>
 													{child.title}
@@ -242,7 +242,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 								) : (
 									<Link
 										href={item.page?.permalink || item.url || '#'}
-										className="flex items-center justify-between rounded-xl p-4 text-2xl font-bold text-[#42566E] transition-all hover:bg-orange-50/50 hover:text-[#f0972a]"
+										className="flex items-center justify-between rounded-xl p-4 text-2xl font-bold text-[#42566E] transition-all hover:bg-accent/5 hover:text-accent"
 										onClick={handleLinkClick}
 									>
 										<span>{item.title}</span>

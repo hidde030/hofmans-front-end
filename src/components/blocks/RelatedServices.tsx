@@ -40,7 +40,7 @@ export default function RelatedServices({ data }: RelatedServicesProps) {
 							)}
 							<h3 className="relative z-10 text-2xl font-bold text-white md:text-3xl">{service.title}</h3>
 							<div className="absolute bottom-4 z-20 flex translate-y-2 items-center gap-3 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-								<span className="rounded-full bg-white/10 px-3 py-1 text-sm font-medium text-orange-400 backdrop-blur-sm">
+								<span className="rounded-full bg-white/10 px-3 py-1 text-sm font-medium text-accent backdrop-blur-sm">
 									Lees meer
 								</span>
 								<svg
@@ -48,7 +48,7 @@ export default function RelatedServices({ data }: RelatedServicesProps) {
 									viewBox="0 0 24 24"
 									fill="none"
 									stroke="currentColor"
-									className="h-5 w-5 text-orange-400 transition-transform duration-300 group-hover:translate-x-1"
+									className="h-5 w-5 text-accent transition-transform duration-300 group-hover:translate-x-1"
 									aria-hidden
 								>
 									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h14M13 5l7 7-7 7" />

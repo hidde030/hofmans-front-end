@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
 	const { globals, footerNavigation } = await fetchSiteData();
-	const accentColor = globals?.accent_color || '#6644ff';
+	const accentColor = globals?.accent_color || '#f39200';
 
 	const orgJsonLd = organizationSchema(globals);
 	const orgJsonLdString = serializeJsonLd(orgJsonLd);
