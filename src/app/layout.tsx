@@ -4,6 +4,7 @@ import '@/styles/globals.css';
 import '@/styles/fonts.css';
 import { ReactNode } from 'react';
 import { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 
 import VisualEditingLayout from '@/components/layout/VisualEditingLayout';
 import { ThemeProvider } from '@/components/ui/ThemeProvider';
@@ -49,6 +50,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 						{children}
 					</VisualEditingLayout>
 				</ThemeProvider>
+				<Analytics />
 			</body>
 		</html>
 	);
