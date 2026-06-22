@@ -5,6 +5,7 @@ import '@/styles/fonts.css';
 import { ReactNode } from 'react';
 import { Metadata } from 'next';
 
+import PlausibleTracker from '@/components/PlausibleTracker';
 import VisualEditingLayout from '@/components/layout/VisualEditingLayout';
 import { ThemeProvider } from '@/components/ui/ThemeProvider';
 import { fetchSiteData } from '@/lib/directus/fetchers';
@@ -40,6 +41,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 	return (
 		<html lang="en" style={{ '--accent-color': accentColor } as React.CSSProperties} suppressHydrationWarning>
 			<body className="flex min-h-screen flex-col font-sans antialiased">
+				<PlausibleTracker />
 				<script
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{ __html: orgJsonLdString }}
