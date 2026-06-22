@@ -28,7 +28,6 @@ export function useVisualEditing() {
 			if (param === 'true') {
 				console.warn('Visual editing is not enabled in this environment.');
 			}
-
 			return;
 		}
 
