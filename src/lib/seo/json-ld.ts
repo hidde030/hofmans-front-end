@@ -8,10 +8,7 @@ export function organizationSchema(globals: {
 	country?: string | null;
 	phone?: string | null;
 	email?: string | null;
-	social_links?: Array<{ service: string; url: string }> | null;
-}) {
-	const sameAs = globals.social_links?.map((l) => l.url).filter(Boolean) || [];
-
+	}) {
 	const json: Record<string, any> = {
 		'@context': 'https://schema.org',
 		'@type': ['Organization', 'LocalBusiness'],
@@ -35,7 +32,6 @@ export function organizationSchema(globals: {
 
 	if (globals.phone) json.telephone = globals.phone;
 	if (globals.email) json.email = globals.email;
-	if (sameAs.length > 0) json.sameAs = sameAs;
 
 	return json;
 }
