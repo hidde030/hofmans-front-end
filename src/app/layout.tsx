@@ -1,11 +1,7 @@
-// @ts-ignore - CSS imports are valid in Next.js
 import '@/styles/globals.css';
-// @ts-ignore - CSS imports are valid in Next.js
 import '@/styles/fonts.css';
 import { ReactNode } from 'react';
 import { Metadata } from 'next';
-
-import Script from 'next/script';
 
 import PlausibleTracker from '@/components/PlausibleTracker';
 import VisualEditingLayout from '@/components/layout/VisualEditingLayout';
