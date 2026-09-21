@@ -8,7 +8,7 @@ const withBundleAnalyzer = initializeBundleAnalyzer({
 
 const ContentSecurityPolicy = `
     default-src 'self';
-    script-src 'self' 'unsafe-eval' 'unsafe-inline' https://plausible.io;
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' https://plausible.io https://popup.print.com;
     frame-src *;
     style-src 'self' 'unsafe-inline';
     img-src * blob: data:;
