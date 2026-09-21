@@ -42,17 +42,10 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 
 	return (
 		<html lang="en" style={{ '--accent-color': accentColor } as React.CSSProperties} suppressHydrationWarning>
-			<head>
-				{/* Print Solutions Widget Embed Code */}
-				<Script src="https://popup.print.com/widget.js?id=bf9e1e41-a5ed-4782-9e9e-bf0fee0fec7d" strategy="afterInteractive" />
-			</head>
 			<body className="flex min-h-screen flex-col font-sans antialiased">
 				<div id="print-widget-target" data-print-id="bf9e1e41-a5ed-4782-9e9e-bf0fee0fec7d"></div>
 				<PlausibleTracker />
-				<script
-					type="application/ld+json"
-					dangerouslySetInnerHTML={{ __html: orgJsonLdString }}
-				/>
+				<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: orgJsonLdString }} />
 				<ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
 					<VisualEditingLayout footerNavigation={footerNavigation} globals={globals} showHeader={false}>
 						{children}
