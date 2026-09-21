@@ -80,7 +80,30 @@ const Footer = forwardRef<HTMLElement, FooterProps>(({ navigation, globals }, re
 							<p>{globals.email || 'info@deallesdrukker.nl'}</p>
 						</div>
 
-						<div className="flex">
+						{/* Social links boven het logo */}
+					{globals.social_links && globals.social_links.length > 0 && (
+						<div className="flex items-center gap-4">
+							{globals.social_links.map((link) => (
+								<a
+									key={link.service}
+									href={link.url}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="inline-flex items-center justify-center rounded transition-opacity hover:opacity-70"
+								>
+									<img
+										src={`/icons/social/${link.service}.svg`}
+										alt={link.service}
+										width={28}
+										height={28}
+										className="size-7"
+									/>
+								</a>
+							))}
+						</div>
+					)}
+
+					<div className="flex">
 							<Link
 								href="/"
 								className="inline-block"
