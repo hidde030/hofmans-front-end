@@ -5,6 +5,8 @@ import '@/styles/fonts.css';
 import { ReactNode } from 'react';
 import { Metadata } from 'next';
 
+import Script from 'next/script';
+
 import PlausibleTracker from '@/components/PlausibleTracker';
 import VisualEditingLayout from '@/components/layout/VisualEditingLayout';
 import { ThemeProvider } from '@/components/ui/ThemeProvider';
@@ -40,7 +42,12 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 
 	return (
 		<html lang="en" style={{ '--accent-color': accentColor } as React.CSSProperties} suppressHydrationWarning>
+			<head>
+				{/* Print Solutions Widget Embed Code */}
+				<Script src="https://popup.print.com/widget.js?id=bf9e1e41-a5ed-4782-9e9e-bf0fee0fec7d" strategy="afterInteractive" />
+			</head>
 			<body className="flex min-h-screen flex-col font-sans antialiased">
+				<div id="print-widget-target" data-print-id="bf9e1e41-a5ed-4782-9e9e-bf0fee0fec7d"></div>
 				<PlausibleTracker />
 				<script
 					type="application/ld+json"
