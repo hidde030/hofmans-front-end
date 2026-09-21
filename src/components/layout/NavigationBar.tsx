@@ -160,7 +160,7 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 					<div className="mx-auto hidden max-w-7xl items-center justify-between px-6 py-3 md:flex">
 						{/* Links (links uitgelijnd) */}
 						<ul className="flex items-center gap-8">
-							{navigation?.items?.slice(0, Math.ceil((navigation?.items?.length || 0) - 1)).map((item) => (
+							{navigation?.items?.slice(0, Math.max(0, (navigation?.items?.length || 0) - 2)).map((item) => (
 								<li key={item.id}>
 									<Link
 										href={item.page?.permalink || item.url || '#'}
@@ -183,9 +183,9 @@ const NavigationBar = forwardRef<HTMLElement, NavigationBarProps>(
 							))}
 						</ul>
 
-						{/* Rechts uitgelijnd item (Over ons) */}
-						<ul className="flex items-center">
-							{navigation?.items?.slice(-1).map((item) => (
+						{/* Rechts uitgelijnde items (Contact + Over ons) */}
+											<ul className="flex items-center gap-8">
+												{navigation?.items?.slice(-2).map((item) => (
 								<li key={item.id}>
 									<Link
 										href={item.page?.permalink || item.url || '#'}
