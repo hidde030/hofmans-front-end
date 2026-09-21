@@ -40,12 +40,14 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 
 	return (
 		<html lang="en" style={{ '--accent-color': accentColor } as React.CSSProperties} suppressHydrationWarning>
-			<body className="flex min-h-screen flex-col font-sans antialiased">
-				<PlausibleTracker />
+			<head>
 				<script
 					type="application/ld+json"
 					dangerouslySetInnerHTML={{ __html: orgJsonLdString }}
 				/>
+			</head>
+			<body className="flex min-h-screen flex-col font-sans antialiased">
+				<PlausibleTracker />
 				<ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
 					<VisualEditingLayout footerNavigation={footerNavigation} globals={globals} showHeader={false}>
 						{children}
