@@ -1,54 +1,38 @@
-import { useDirectus } from './directus';
-import type { FormSubmission, FormSubmissionValue } from '@/types/directus-schema';
+/**
+ * Client-side form submission. Instead of talking to Directus directly (which
+ * would require exposing a token in the browser), it POSTs to our own
+ * server-side API route that performs validation and writes to Directus.
+ */
+export const submitForm = async (formId: string, data: Record<string, any>, token: string, honeypot: string) => {
+	const formData = new FormData();
+	formData.append('formId', formId);
+	formData.append('_token', token);
+	formData.append('website', honeypot);
 
-export const submitForm = async (
-	formId: string,
-	fields: { id: string; name: string; type: string }[],
-	data: Record<string, any>,
-) => {
-	const { directus, uploadFiles, createItem, withToken } = useDirectus();
-	const TOKEN = process.env.DIRECTUS_FORM_TOKEN;
+	for (const [name, value] of Object.entries(data)) {
+		if (value === undefined || value === null) continue;
 
-	if (!TOKEN) {
-		throw new Error('DIRECTUS_FORM_TOKEN is not defined. Check your .env file.');
-	}
-
-	try {
-		const submissionValues: Omit<FormSubmissionValue, 'id'>[] = [];
-
-		for (const field of fields) {
-			const value = data[field.name];
-
-			if (value === undefined || value === null) continue;
-
-			if (field.type === 'file' && value instanceof File) {
-				const formData = new FormData();
-				formData.append('file', value);
-
-				const uploadedFile = await directus.request(withToken(TOKEN, uploadFiles(formData)));
-
-				if (uploadedFile && 'id' in uploadedFile) {
-					submissionValues.push({
-						field: field.id,
-						file: uploadedFile.id,
-					});
-				}
-			} else {
-				submissionValues.push({
-					field: field.id,
-					value: value.toString(),
-				});
+		if (value instanceof File) {
+			formData.append(name, value);
+		} else if (Array.isArray(value)) {
+			for (const item of value) {
+				formData.append(name, String(item));
 			}
+		} else {
+			formData.append(name, String(value));
 		}
-
-		const payload = {
-			form: formId,
-			values: submissionValues,
-		};
-
-		await directus.request(withToken(TOKEN, createItem('form_submissions', payload as Omit<FormSubmission, 'id'>)));
-	} catch (error) {
-		console.error('Error submitting form:', error);
-		throw new Error('Failed to submit form');
 	}
+
+	const response = await fetch('/api/form-submit', {
+		method: 'POST',
+		body: formData,
+	});
+
+	const result = await response.json().catch(() => ({}));
+
+	if (!response.ok) {
+		throw new Error((result as { error?: string }).error || 'Failed to submit form');
+	}
+
+	return result;
 };

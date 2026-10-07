@@ -58,6 +58,19 @@ const DynamicForm = ({ fields, onSubmit, submitLabel, id }: DynamicFormProps) =>
 				{sortedFields.map((field) => (
 					<Field key={field.id} field={field} form={form} />
 				))}
+
+				{/* Honeypot field: invisible to humans, but bots autofill every text input. */}
+				<div className="pointer-events-none absolute left-[-9999px] top-auto size-px overflow-hidden" aria-hidden="true">
+					<label htmlFor={`website-${id}`}>Website</label>
+					<input
+						id={`website-${id}`}
+						name="website"
+						type="text"
+						tabIndex={-1}
+						autoComplete="off"
+					/>
+				</div>
+
 				<div className="w-full">
 					<div
 						data-directus={setAttr({
