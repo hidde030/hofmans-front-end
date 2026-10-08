@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { MAX_UPLOAD_BYTES, isAllowedFileSize, isAllowedFileType } from '@/lib/security/file-upload';
 import type { FormField } from '@/types/directus-schema';
 
 export const buildZodSchema = (fields: FormField[]) => {
@@ -20,19 +21,23 @@ export const buildZodSchema = (fields: FormField[]) => {
 				fieldSchema = z.string();
 				break;
 
-			case 'file':
-				if (field.required) {
-					fieldSchema = z.instanceof(File, {
-						message: `${field.label || field.name} is required`,
+			case 'file': {
+				const fileSchema = z
+					.instanceof(File, {
+						message: field.required
+							? `${field.label || field.name} is required`
+							: `${field.label || field.name} must be a valid file if provided`,
+					})
+					.refine(isAllowedFileType, {
+						message: `${field.label || field.name} must be a PDF, Word document or image (JPG, PNG, WebP)`,
+					})
+					.refine(isAllowedFileSize, {
+						message: `${field.label || field.name} must be smaller than ${MAX_UPLOAD_BYTES / 1024 / 1024} MB`,
 					});
-				} else {
-					fieldSchema = z
-						.instanceof(File, {
-							message: `${field.label || field.name} must be a valid file if provided`,
-						})
-						.or(z.undefined());
-				}
+
+				fieldSchema = field.required ? fileSchema : fileSchema.or(z.undefined());
 				break;
+			}
 
 			default:
 				fieldSchema = z.string();
