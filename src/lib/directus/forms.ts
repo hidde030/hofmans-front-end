@@ -1,5 +1,37 @@
 import { useDirectus } from './directus';
-import type { FormSubmission, FormSubmissionValue } from '@/types/directus-schema';
+import type { FormField, FormSubmission, FormSubmissionValue } from '@/types/directus-schema';
+
+// Server-only: uses DIRECTUS_FORM_TOKEN. Called from /api/forms/submit, never from client components.
+
+/**
+ * Fetches the fields of an active form so submissions can be validated against the CMS definition
+ * instead of trusting whatever the browser sends.
+ */
+export const fetchFormDefinition = async (formId: string) => {
+	const { directus, readItems } = useDirectus();
+
+	try {
+		const forms = await directus.request(
+			readItems('forms', {
+				filter: { id: { _eq: formId }, is_active: { _eq: true } },
+				limit: 1,
+				fields: ['id', { fields: ['id', 'name', 'type', 'label', 'validation', 'required'] }],
+			}),
+		);
+
+		if (!forms.length) return null;
+
+		const fields = ((forms[0].fields ?? []) as (FormField | string)[]).filter(
+			(field): field is FormField => typeof field === 'object' && field !== null && !!field.name,
+		);
+
+		return { id: forms[0].id, fields };
+	} catch (error) {
+		console.error(`Error fetching form definition ${formId}:`, error);
+
+		return null;
+	}
+};
 
 export const submitForm = async (
 	formId: string,

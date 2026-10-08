@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { FormField } from '@/types/directus-schema';
+import { ALLOWED_UPLOAD_EXTENSIONS, MAX_UPLOAD_SIZE, MAX_UPLOAD_SIZE_MB, isAllowedUpload } from '@/lib/formSecurity';
 
 export const buildZodSchema = (fields: FormField[]) => {
 	const schema: Record<string, z.ZodTypeAny> = {};
@@ -20,19 +21,23 @@ export const buildZodSchema = (fields: FormField[]) => {
 				fieldSchema = z.string();
 				break;
 
-			case 'file':
-				if (field.required) {
-					fieldSchema = z.instanceof(File, {
-						message: `${field.label || field.name} is required`,
+			case 'file': {
+				const fileSchema = z
+					.instanceof(File, {
+						message: field.required
+							? `${field.label || field.name} is required`
+							: `${field.label || field.name} must be a valid file if provided`,
+					})
+					.refine((file) => file.size <= MAX_UPLOAD_SIZE, {
+						message: `${field.label || field.name} must be smaller than ${MAX_UPLOAD_SIZE_MB} MB`,
+					})
+					.refine(isAllowedUpload, {
+						message: `${field.label || field.name} must be one of: ${ALLOWED_UPLOAD_EXTENSIONS.join(', ')}`,
 					});
-				} else {
-					fieldSchema = z
-						.instanceof(File, {
-							message: `${field.label || field.name} must be a valid file if provided`,
-						})
-						.or(z.undefined());
-				}
+
+				fieldSchema = field.required ? fileSchema : fileSchema.or(z.undefined());
 				break;
+			}
 
 			default:
 				fieldSchema = z.string();
@@ -42,7 +47,7 @@ export const buildZodSchema = (fields: FormField[]) => {
 		if (field.validation) {
 			const rules = field.validation.split('|');
 			rules.forEach((rule) => {
-				const [ruleName, ruleValue] = rule.split(':');
+				const [ruleName, ruleValue] = rule.trim().split(':');
 				const normalizedRule = ruleName.toLowerCase();
 
 				if (fieldSchema instanceof z.ZodString) {

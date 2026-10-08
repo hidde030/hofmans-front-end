@@ -37,7 +37,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 	const orgJsonLdString = serializeJsonLd(orgJsonLd);
 
 	return (
-		<html lang="en" style={{ '--accent-color': accentColor } as React.CSSProperties} suppressHydrationWarning>
+		<html lang="nl" style={{ '--accent-color': accentColor } as React.CSSProperties} suppressHydrationWarning>
 			<body className="flex min-h-screen flex-col font-sans antialiased">
 				<div id="print-widget-target" data-print-id="bf9e1e41-a5ed-4782-9e9e-bf0fee0fec7d"></div>
 				<PlausibleTracker />

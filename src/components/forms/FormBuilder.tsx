@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 import DynamicForm from './DynamicForm';
-import { submitForm } from '@/lib/directus/forms';
+import { HONEYPOT_FIELD } from '@/lib/formSecurity';
 import { FormField } from '@/types/directus-schema';
 import { cn } from '@/lib/utils';
+
+const SUBMIT_ERROR = 'Het versturen is mislukt. Probeer het later opnieuw.';
 
 interface FormBuilderProps {
 	className?: string;
@@ -29,16 +31,36 @@ const FormBuilder = ({ form, className }: FormBuilderProps) => {
 
 	if (!form.is_active) return null;
 
-	const handleSubmit = async (data: Record<string, any>) => {
+	const handleSubmit = async (data: Record<string, any>, honeypot: string) => {
 		setError(null);
-		try {
-			const fieldsWithNames = form.fields.map((field) => ({
-				id: field.id,
-				name: field.name || '',
-				type: field.type || '',
-			}));
 
-			await submitForm(form.id, fieldsWithNames, data);
+		const body = new FormData();
+		body.append('formId', form.id);
+		body.append(HONEYPOT_FIELD, honeypot);
+
+		for (const field of form.fields) {
+			const value = field.name ? data[field.name] : undefined;
+
+			if (!field.name || value === undefined || value === null) continue;
+
+			if (Array.isArray(value)) {
+				value.forEach((item) => body.append(field.name!, String(item)));
+			} else if (value instanceof File) {
+				body.append(field.name, value);
+			} else {
+				body.append(field.name, String(value));
+			}
+		}
+
+		try {
+			const response = await fetch('/api/forms/submit', { method: 'POST', body });
+
+			if (!response.ok) {
+				const payload = await response.json().catch(() => null);
+				setError(payload?.error || SUBMIT_ERROR);
+
+				return;
+			}
 
 			if (form.on_success === 'redirect' && form.success_redirect_url) {
 				window.location.href = form.success_redirect_url;
@@ -47,7 +69,7 @@ const FormBuilder = ({ form, className }: FormBuilderProps) => {
 			}
 		} catch (err) {
 			console.error('Error submitting form:', err);
-			setError('Failed to submit the form. Please try again later.');
+			setError(SUBMIT_ERROR);
 		}
 	};
 
@@ -55,7 +77,7 @@ const FormBuilder = ({ form, className }: FormBuilderProps) => {
 		return (
 			<div className="flex flex-col items-center justify-center space-y-4 p-6 text-center">
 				<CheckCircle className="size-12 text-green-500" />
-				<p className="text-gray-600">{form.success_message || 'Your form has been submitted successfully.'}</p>
+				<p className="text-gray-600">{form.success_message || 'Bedankt! Je formulier is verstuurd.'}</p>
 			</div>
 		);
 	}
@@ -66,14 +88,14 @@ const FormBuilder = ({ form, className }: FormBuilderProps) => {
 
 			{error && (
 				<div className="rounded-md bg-red-100 p-4 text-red-500">
-					<strong>Error:</strong> {error}
+					<strong>Fout:</strong> {error}
 				</div>
 			)}
 
 			<DynamicForm
 				fields={form.fields}
 				onSubmit={handleSubmit}
-				submitLabel={form.submit_label || 'Submit'}
+				submitLabel={form.submit_label || 'Versturen'}
 				id={form.id}
 			/>
 		</div>

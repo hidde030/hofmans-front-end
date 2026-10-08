@@ -16,7 +16,10 @@ export async function GET(request: Request) {
 			directus.request(
 				readItems('pages', {
 					filter: {
-						_or: [{ title: { _contains: search } }, { permalink: { _contains: search } }],
+						_and: [
+							{ status: { _eq: 'published' } },
+							{ _or: [{ title: { _icontains: search } }, { permalink: { _icontains: search } }] },
+						],
 					},
 					fields: ['id', 'title', 'permalink', 'seo'],
 				}),
@@ -29,10 +32,10 @@ export async function GET(request: Request) {
 							{ status: { _eq: 'published' } },
 							{
 								_or: [
-									{ title: { _contains: search } },
-									{ description: { _contains: search } },
-									{ slug: { _contains: search } },
-									{ content: { _contains: search } },
+									{ title: { _icontains: search } },
+									{ description: { _icontains: search } },
+									{ slug: { _icontains: search } },
+									{ content: { _icontains: search } },
 								],
 							},
 						],
@@ -46,7 +49,7 @@ export async function GET(request: Request) {
 			...pages.map((page: any) => ({
 				id: page.id,
 				title: page.title,
-				description: page.seo.meta_description,
+				description: page.seo?.meta_description ?? '',
 				type: 'Page',
 				link: `/${page.permalink.replace(/^\/+/, '')}`,
 			})),
